@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>Contact</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,21 +24,21 @@
         .title-highlight {
             color: #ffa31a;
         }
-        nav {
+        nav.main-nav {
             background-color: #333;
             text-align: center;
             padding: 10px;
         }
-        nav ul {
+        nav.main-nav ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
         }
-        nav ul li {
+        nav.main-nav ul li {
             display: inline-block;
             margin: 0 10px;
         }
-        nav ul li a {
+        nav.main-nav ul li a {
             color: white;
             text-decoration: none;
             padding: 10px 20px;
@@ -76,7 +76,7 @@
 
         /* Responsive Styles */
         @media (max-width: 600px) {
-            nav ul li {
+            nav.main-nav ul li {
                 display: block;
                 margin: 5px 0;
             }
@@ -85,20 +85,20 @@
 </head>
 <body>
     <header>
-        <h1><span class="title-highlight">About</span> Me</h1>
+        <h1><span class="title-highlight">Contact</span> 📞</h1>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
     <main>
         <section>
-            <h2>Who Am I?</h2>
-            <p>This is me Himal ;).</p>
+            <h2>Contact Me</h2>
+            <p>You can reach me on Instagram: <a href="https://www.instagram.com/its_wanted8849/" target="_blank" class="highlight">its_wanted8849</a></p>
         </section>
     </main>
     <footer>
