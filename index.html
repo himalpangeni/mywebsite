@@ -102,6 +102,22 @@
             }
         }
     </style>
+    <script>
+        // Disable right-click and show alert
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("Right-click is disabled. Don't try to copy!");
+            return false;
+        });
+
+        // Disable copy shortcut and show alert
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+                alert("Copying is disabled. Don't try to copy!");
+                e.preventDefault();
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
