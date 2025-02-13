@@ -69,7 +69,6 @@ footer {
     bottom: 0;
 }
 
-/* Centered Welcome Text Styles */
 .centered-text {
     display: flex;
     justify-content: space-between;
@@ -78,7 +77,6 @@ footer {
     margin: 0;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
     .container {
         width: 90%;
