@@ -17,8 +17,26 @@ header {
     padding: 1em 0;
 }
 body {
-    background-color: green;
+    background-color: black;
 
+}
+body h1,td{
+    display: inline-block;
+    background: linear-gradient(to right, #ffa31a 50%, #fff 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    margin: 0;
+    color: transparent ;
+    background-color: #ffa31a;
+}
+form td{
+ display: inline-block;
+    background: linear-gradient(to right, #ffa31a 50%, #fff 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    margin: 0;
+    color: transparent ;
+    background-color: #ffa31a;
 }
 header h1 {
     display: inline-block;
