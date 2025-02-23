@@ -6,146 +6,120 @@
     <title>My Personal Blog</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert("Right-click is disabled. Don't try to copy!");
-            return false;
-        });
+        function showPopup(type) {
+            let popup = document.getElementById('popup');
+            let content = document.getElementById('popup-content');
+            if (type === 'login') {
+                content.innerHTML = `
+                    <h2>Sign In</h2>
+                    <input type="text" placeholder="Email" required><br>
+                    <input type="password" placeholder="Password" required><br>
+                    <button onclick="closePopup()">Login</button>
+                `;
+            } else {
+                content.innerHTML = `
+    <table border="0">
+        <tr>
+            <td>Please Enter Your First Name:</td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="First Name" required></td>
+        </tr>
+        <tr>
+            <td>Please Enter Your Last Name:</td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="Last Name" required></td>
+        </tr>
+        <tr>
+            <td>Please Enter Your Password:</td>
+        </tr>
+        <tr>
+            <td><input type="password" placeholder="Password" required></td>
+        </tr>
+                       <tr>
+            <td>Please Re-Enter Your Password:</td>
+        </tr>
+        <tr>
+            <td><input type="password" placeholder="Password" required></td>
+        </tr>
 
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
-                alert("Copying is disabled. Don't try to copy!");
-                e.preventDefault();
+        <tr>
+            <td>What is your Gender?</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" name="Gender" value="Male"> Male
+                <input type="radio" name="Gender" value="Female"> Female
+                <input type="radio" name="Gender" value="Others"> Others
+            </td>
+        </tr>
+        <tr>
+            <td>Please Enter Your Email:</td>
+        </tr>
+        <tr>
+            <td><input type="email" placeholder="example:himal12@gmail.com" required></td>
+        </tr>
+        <tr>
+            <td>Please Enter Your Phone Number:</td>
+        </tr>
+        <tr>
+            <td>
+                <select>
+                    <option>+977</option>
+                    <option>+912</option>
+                    <option>+978</option>
+                    <option>+979</option>
+                    <option>+971</option>
+                    <option>+972</option>
+                    <option>+973</option>
+                    <option>+974</option>
+                    <option>+122</option>
+                    <option>+123</option>
+                    <option>+976</option>
+                    <option>+97</option>
+                    <option>+917</option>
+                </select>
+                <input type="text" placeholder="example 9812****" required>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"></td>
+        </tr>
+    </table>
+`;
+
             }
-        });
+            popup.style.display = 'block';
+        }
 
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 50,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
     </script>
 </head>
 <body>
     <center>
-        <h1>Is this Your First Time at this Website ?</h1><br><br><br><br>
-        <tr><td>Account Created Before?</td></tr>
-            <td><input type="radio" placeholder="Yes" name="Yes">YES
-                <input type="radio" placeholder="No" name="NO">No
-            </td><br><br>
-        <h1>Do you have An Account?</h1><br><br>
-        if yes
-        <h1>Please Create The Acoount first.</h1>
-<form>
-    <table>
-        <tr>
-            <td>Please Enter Your First Name:</td>
-        </tr>
-        <td>
-            <input type="text" placeholder="First Name" name="">
-        </td>
-        <tr>
-            <td>Please Enter Your Last Name:</td>
-        </tr>
-        <td>
-            <input type="text" placeholder="Last Name" name="">
-        </td>
+        <h1>Do You Have an Account?</h1>
+        <button onclick="showPopup('login')">Yes</button>
+        <button onclick="showPopup('signup')">No</button>
+    </center>
 
-        <tr>
-            <td>Please Enter Your Password:</td>
-        </tr>
-        <td> <input type="password" placeholder="Password" name="">
-            <tr><td>What is your Gender?</td></tr>
-            <td><input type="radio" placeholder="Gender" name="Gender">Male
-                <input type="radio" placeholder="Gender" name="Gender">Female
-                <input type="radio" placeholder="Gender" name="Gender">Others
-            </td>
-            <tr>
-            <td>Please Enter Your Email:</td>
-        </tr>
-        <td>
-            <input type="mail" placeholder="example:himal12@gmail.com" name="">
-        </td>
-        <tr>
-            <td>Please Enter Your Phone Number:</td></tr>
-            <tr>
-            <td>
-                <select>
-                    <option>977</option>
-                    <option>912</option>
-                    <option>978</option>
-                    <option>979</option>
-                    <option>971</option>
-                    <option>972</option>
-                    <option>973</option>
-                    <option>974</option>
-                    <option>+122</option>
-                    <option>+123</option>
-                    <option>976</option>
-                    <option>97</option>
-                    <option>917</option>
-                </select>
-                <input type="text" placeholder="example 9812****" name="">
-            </td>
-        </tr>
-        <tr>
-            <td>
-               <tr>
-                <td class="submit-container">
-                    <input type="submit" value="Submit">
-                </td>
-            </tr>
-    </table>
-</form>
-</center>
-    <header>
-       <center><h1>Welcome</h1></center> 
-    </header>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    
-    <section id="home" class="container">
-        <div class="post centered-text">
-            <h2>Welcome To My Personal Blog</h2>
-        </div>
-    </section>
-    
-    <section id="about" class="container">
-        <h2>About Me</h2>
-        <p>Hello! I'm a passionate learner and blogger. Thanks for visiting my site.</p><hr>
-    </section>
-    
-    <section id="blog" class="container">
-        <h2>Blog Posts</h2>
-        <div class="post">
-            <h2>First Blog Post</h2>
-            <p>So Hello and Namaste everyone! Welcome To my Personal Blog Site. Thanks for visiting.</p><hr>
-        </div>
-        <div class="post">
-            <h2>Second Blog Post</h2>
-            <p>Thank you for being here with me ... I am a learner. Keep supporting.</p><hr>
-        </div>
-    </section>
-    
-    <section id="contact" class="container">
-        <h2>Contact</h2>
-        <p>Feel free to reach out to me via email or social media.</p>
-    </section>
-    
-    <footer>
-        <p>&copy; 2024 My Personal Blog</p>
-    </footer>
+    <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #222; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        <div id="popup-content" style="text-align: center; color: #fff;  display: inline-block;
+    background: linear-gradient(to right, #ffa31a 50%, #fff 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    margin: 0;
+    color: transparent ;
+    background-color: #ffa31a;"></div>
+        <button onclick="closePopup()" style="margin-top: 10px;  display: inline-block;
+    background: linear-gradient(to right, #ffa31a 50%, #fff 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    margin: 0;
+    color: transparent ;
+    background-color: #ffa31a;">Close</button>
+    </div>
 </body>
 </html>
