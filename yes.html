@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Please Sign-Up</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("Right-click is disabled. Don't try to copy!");
+            return false;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+                alert("Copying is disabled. Don't try to copy!");
+                e.preventDefault();
+            }
+        });
+        
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <center>
+        <h1>Please Create The Account first.</h1><br><br><br>
+        <form>
+            <table>
+                <tr>
+                    <td>Please Enter Your First Name:</td><br>
+                </tr>
+                <td>
+                    <input type="text" placeholder="First Name" name="">
+                </td>
+                <tr>
+                    <td>Please Enter Your Last Name:</td>
+                </tr>
+                <td>
+                    <input type="text" placeholder="Last Name" name="">
+                </td>
+
+                <tr>
+                    <td>Please Enter Your Password:</td>
+                </tr>
+                <td> 
+                    <input type="password" placeholder="Password" name="">
+                    <tr><td>What is your Gender?</td></tr>
+                    <td>
+                        <input type="radio" name="Gender">Male
+                        <input type="radio" name="Gender">Female
+                        <input type="radio" name="Gender">Others<br><br><br>
+                    </td>
+                    <tr>
+                        <td>Please Enter Your Email:</td>
+                    </tr>
+                    <td>
+                        <input type="email" placeholder="example:himal12@gmail.com" name="">
+                    </td>
+                    <tr>
+                        <td>Please Enter Your Phone Number:</td></tr>
+                        <tr>
+                        <td>
+                            <select>
+                                <option>977</option>
+                                <option>912</option>
+                                <option>978</option>
+                                <option>979</option>
+                                <option>971</option>
+                                <option>972</option>
+                                <option>973</option>
+                                <option>974</option>
+                                <option>+122</option>
+                                <option>+123</option>
+                                <option>976</option>
+                                <option>97</option>
+                                <option>917</option>
+                            </select>
+                            <input type="text" placeholder="example 9812****" name="">
+                            <br><br><br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <tr>
+                                <td class="submit-container">
+                                    <input type="submit" value="Submit">
+                                </td>
+                            </tr>
+                            <h1>Already Created Account?</h1>   
+                            <a href="no.html">
+                                <button style="padding: 12px 24px; font-size: 18px; background-color: #ffa31a; color: black; border: none; border-radius: 6px; cursor: pointer;">
+                                    YES
+                                </button>
+                            </a>
+                             <a href="yes.html">
+                                <button style="padding: 12px 24px; font-size: 18px; background-color: #ffa31a; color: black; border: none; border-radius: 6px; cursor: pointer;">
+                                    No
+                                </button>
+                            </a>
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+    </center>
+</body>
+</html>
