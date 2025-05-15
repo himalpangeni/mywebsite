@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yeah Time Pass</title>
+  <style>
+    /* General Styles */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000; /* Black background */
+      color: #333; /* fallback */
+    }
+
+    /* Gradient Text */
+    h1, h2, h3, p, a, label, td, footer p {
+      background: linear-gradient(to right, #ffa31a 50%, #fff 50%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Header */
+    header {
+      background-color: #111;
+      text-align: center;
+      padding: 1.5em 0;
+    }
+
+    header h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      animation: bounceIn 5s ease-in-out;
+    }
+
+    /* CTA Button */
+    .cta-button {
+      background-color: #ff9800;
+      color:  #ffa31a 50%, #fff 50%;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      margin-top: 30px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.1);
+      background-color: #ffa31a;
+    }
+
+    /* Portfolio Section */
+    .portfolio-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 60px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .portfolio-card {
+      background-color: #1a1a1a; /* dark gray card to contrast text */
+      width: 250px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .portfolio-card:hover {
+      transform: scale(1.05);
+    }
+
+    .portfolio-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Project1 Button */
+    .project1-btn {
+      background-color: #fff;
+      color: #ffa31a 50%, #fff 50%;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      text-decoration: none;
+      margin-top: 15px;
+      display: inline-block;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .project1-btn:hover {
+      background-color: #ffa31a;
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Interactive Button */
+    .interactive-btn {
+      background-color: #ff9800;
+      color: #000;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .interactive-btn:hover {
+      background-color: #ffa31a;
+      transform: scale(1.1);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #111;
+      font-size: 1rem;
+    }
+
+    /* Bubbles (optional) */
+    .bubble {
+      position: absolute;
+      background-color: rgba(255, 163, 26, 0.2);
+      border-radius: 50%;
+      animation: floatBubble 5s infinite ease-in-out;
+    }
+
+    .bubble-large { width: 100px; height: 100px; animation-duration: 7s; }
+    .bubble-medium { width: 70px; height: 70px; animation-duration: 6s; }
+    .bubble-small { width: 50px; height: 50px; animation-duration: 4s; }
+
+    @keyframes floatBubble {
+      0% { transform: translateY(0); opacity: 0.8; }
+      100% { transform: translateY(-500px); opacity: 0; }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Hey, I'm Himal Pangeni!</h1>
+    <a href="index.html" class="cta-button">Check out my work!</a>
+  </header>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio-section">
+    <div class="portfolio-card">
+      <img src="project1.jpg" alt="Project 1">
+      <h3>Project One</h3>
+      <p>This is a brief description of my first project.<br>
+        <a href="your-link-to-project1.html" class="project1-btn">Check out my work!</a>
+      </p>
+    </div>
+    <div class="portfolio-card">
+      <img src="project2.jpg" alt="Project 2">
+      <h3>Project Two</h3>
+      <p>Here's a look at my second project. A detailed overview is available here!</p>
+    </div>
+    <div class="portfolio-card">
+      <img src="project3.jpg" alt="Project 3">
+      <h3>Project Three</h3>
+      <p>This project showcases some of my best work. Take a look at the details!</p>
+    </div>
+  </section>
+
+  <!-- Interactive Button -->
+  <center><a href="clickme.html" class="cta-button">Click ME</a></center>
+  <br><br><center><a href="click1.html" button class="interactive-btn">Click Me!</button></center><br><br><br>
+
+  <!-- Bubbles -->
+  <div class="bubble bubble-large" style="top: 20%; left: 10%;"></div>
+  <div class="bubble bubble-medium" style="top: 30%; left: 50%;"></div>
+  <div class="bubble bubble-small" style="top: 60%; left: 80%;"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Let's create something amazing together!</p>
+  </footer>
+
+</body>
+</html>

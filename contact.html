@@ -3,122 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #222;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-        header h1 {
-            display: inline;
-        }
-        .title-highlight {
-            color: #ffa31a;
-        }
-        nav.main-nav {
-            background-color: #333;
-            text-align: center;
-            padding: 10px;
-        }
-        nav.main-nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        nav.main-nav ul li {
-            display: inline-block;
-            margin: 0 10px;
-        }
-        nav.main-nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            display: block;
-            font-weight: bold;
-        }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        section {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #222;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        section h2 {
-            color: #ffa31a;
-        }
-        .highlight {
-            background-color: #ffa31a;
-            color: #000;
-            padding: 0 5px;
-        }
-        footer {
-            background-color: #222;
-            color: #fff;
-            text-align: center;
-            padding: 1em 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 600px) {
-            nav.main-nav ul li {
-                display: block;
-                margin: 5px 0;
-            }
-        }
-    </style>
-    <script>
-        // Disable right-click and show alert
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert("Right-click is disabled. Don't try to copy!");
-            return false;
-        });
-
-        // Disable copy shortcut and show alert
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
-                alert("Copying is disabled. Don't try to copy!");
-                e.preventDefault();
-            }
-        });
-    </script>
+    <title>Contact - Himal Pangeni</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- Header Section -->
     <header>
-        <h1><span class="title-highlight">Contact</span> 📞</h1>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+        <h1>Contact Me</h1>
+        <p>I'd love to hear from you! Please reach out via the form below.</p>
     </header>
-    <main>
-        <section>
-            <h2>Contact Me</h2>
-            <p>You can reach me on Instagram: <a href="https://www.instagram.com/its_wanted8849/" target="_blank" class="highlight">its_wanted8849</a></p>
-        </section>
-    </main>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="contact-form">
+        <div class="container">
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 My Personal Blog</p>
+        <p>&copy; 2025 Himal Pangeni | All Rights Reserved</p>
     </footer>
+
 </body>
 </html>

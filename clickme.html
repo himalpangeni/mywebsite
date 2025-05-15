@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hacked Prank</title>
+<style>
+  body {
+    background-color: black;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  #mainText {
+    font-size: 6rem;
+    font-weight: bold;
+    animation: flicker 1.5s infinite alternate;
+    margin: 0;
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  #terminal {
+    width: 80vw;
+    max-width: 800px;
+    background-color: #111;
+    padding: 15px 25px;
+    margin: 30px auto 0 auto;
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #00ff00;
+    font-size: 1.2rem;
+    display: none;
+    white-space: pre-wrap;
+  }
+
+  #progressBarContainer {
+    width: 80vw;
+    max-width: 800px;
+    height: 30px;
+    border: 1px solid #00ff00;
+    margin: 30px auto;
+    display: none;
+  }
+
+  #progressBar {
+    height: 100%;
+    background: linear-gradient(to right, #00ff00, #006600);
+    width: 0%;
+  }
+
+  #finalText {
+    font-size: 2.5rem;
+    color: red;
+    margin-top: 20px;
+    display: none;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  #webcamBox {
+    display: none;
+    margin-top: 30px;
+    border: 3px solid red;
+    width: 640px;
+    height: 480px;
+    background: black;
+    position: relative;
+    box-shadow: 0 0 15px 5px red;
+  }
+
+  #webcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+</head>
+<body>
+
+  <h1 id="mainText">YOU ARE HACKED</h1>
+
+  <div id="terminal"></div>
+
+  <div id="webcamBox">
+    <video id="webcam" autoplay playsinline></video>
+  </div>
+
+  <div id="progressBarContainer">
+    <div id="progressBar"></div>
+  </div>
+
+  <div id="finalText">Your files downloaded successfully.</div>
+
+<script>
+  const mainText = document.getElementById('mainText');
+  const terminal = document.getElementById('terminal');
+  const webcamBox = document.getElementById('webcamBox');
+  const video = document.getElementById('webcam');
+  const progressBar = document.getElementById('progressBar');
+  const progressContainer = document.getElementById('progressBarContainer');
+  const finalText = document.getElementById('finalText');
+
+  const commands = [
+    "Connecting to secure server...",
+    "Bypassing firewall...",
+    "Accessing system32...",
+    "Extracting passwords...",
+    "Uploading files to dark web...",
+    "Injecting ransomware...",
+    "Initiating webcam feed...",
+    "Downloading your files..."
+  ];
+
+    
+
+  // Step 1: Show flickering "YOU ARE HACKED" for 3 sec
+  setTimeout(() => {
+    mainText.style.display = 'none';
+    terminal.style.display = 'block';
+
+    let idx = 0;
+    const cmdInterval = setInterval(() => {
+      if (idx < commands.length) {
+        terminal.innerHTML += "> " + commands[idx] + "\n";
+        terminal.scrollTop = terminal.scrollHeight;
+        idx++;
+      } else {
+        clearInterval(cmdInterval);
+        startWebcam();
+      }
+    }, 1200);
+  }, 3000);
+
+  // Step 2: Start webcam big and centered
+  function startWebcam() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+        webcamBox.style.display = 'block';
+
+        setTimeout(() => {
+          startProgressBar();
+        }, 4000); // wait 4 seconds before starting progress bar
+      })
+      .catch(() => {
+        terminal.innerHTML += "\n[!] Webcam access denied or unavailable.\n";
+        setTimeout(startProgressBar, 2000);
+      });
+  }
+
+  // Step 3: Start fake download progress
+  function startProgressBar() {
+    progressContainer.style.display = 'block';
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress++;
+      progressBar.style.width = progress + '%';
+      if (progress >= 100) {
+        clearInterval(interval);
+        finalText.style.display = 'block';
+      }
+    }, 50);
+  }
+</script>
+
+</body>
+</html>

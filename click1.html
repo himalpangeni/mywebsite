@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>YOU ARE HACKED - Prank</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: black;
+    overflow: hidden;
+    font-family: 'Share Tech Mono', monospace;
+    color: #ffa31a;
+    user-select: none;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Flickering glitch text */
+  #hacked-text {
+    font-size: 7vw;
+    font-weight: 900;
+    position: relative;
+    text-transform: uppercase;
+    color: #ffa31a;
+    animation: flicker 2s infinite;
+    mix-blend-mode: screen;
+    user-select: none;
+    margin: 0;
+  }
+  #hacked-text::before,
+  #hacked-text::after {
+    content: 'YOU ARE HACKED';
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  #hacked-text::before {
+    animation: glitch-anim 2s infinite;
+    color: #fff;
+    clip-path: polygon(0 2%, 100% 2%, 100% 15%, 0 15%);
+    opacity: 0.8;
+  }
+  #hacked-text::after {
+    animation: glitch-anim2 1.5s infinite;
+    color: #ff3c3c;
+    clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%);
+    opacity: 0.6;
+  }
+
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+      text-shadow:
+        0 0 10px #ffa31a,
+        0 0 20px #ffa31a,
+        0 0 30px #ffa31a,
+        0 0 40px #ffa31a,
+        0 0 50px #ffa31a,
+        0 0 60px #ffa31a;
+    }
+    20%, 22%, 24%, 55% {
+      opacity: 0.4;
+      text-shadow: none;
+    }
+  }
+  @keyframes glitch-anim {
+    0% {
+      clip-path: polygon(0 2%, 100% 2%, 100% 15%, 0 15%);
+      transform: translate(0);
+    }
+    20% {
+      clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%);
+      transform: translate(-3px, -2px);
+    }
+    40% {
+      clip-path: polygon(0 3%, 100% 3%, 100% 18%, 0 18%);
+      transform: translate(3px, 2px);
+    }
+    60% {
+      clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%);
+      transform: translate(-3px, 0);
+    }
+    80%, 100% {
+      clip-path: polygon(0 2%, 100% 2%, 100% 15%, 0 15%);
+      transform: translate(0);
+    }
+  }
+  @keyframes glitch-anim2 {
+    0% {
+      clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%);
+      transform: translate(0);
+    }
+    20% {
+      clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%);
+      transform: translate(3px, 2px);
+    }
+    40% {
+      clip-path: polygon(0 83%, 100% 83%, 100% 95%, 0 95%);
+      transform: translate(-3px, -2px);
+    }
+    60% {
+      clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%);
+      transform: translate(3px, 0);
+    }
+    80%, 100% {
+      clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%);
+      transform: translate(0);
+    }
+  }
+
+  /* Terminal container */
+  #terminal {
+    width: 90vw;
+    max-width: 800px;
+    height: 250px;
+    background: #111;
+    border: 2px solid #ffa31a;
+    box-shadow: 0 0 15px #ffa31a;
+    margin: 40px 0;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+
+  /* Progress bar container */
+  #progress-container {
+    width: 90vw;
+    max-width: 800px;
+    height: 40px;
+    background: #222;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 2px solid #ffa31a;
+    box-shadow: 0 0 15px #ffa31a inset;
+    overflow: hidden;
+  }
+  #progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ffa31a 50%, #fff 50%);
+    transition: width 0.1s ease;
+  }
+
+  /* Webcam container */
+  #webcam-container {
+    position: relative;
+    width: 320px;
+    height: 240px;
+    margin: 30px auto;
+    border: 5px solid #ffa31a;
+    box-shadow: 0 0 30px #ffa31a;
+    filter: grayscale(50%) contrast(150%) brightness(120%);
+    image-rendering: pixelated;
+    overflow: hidden;
+    border-radius: 8px;
+    background: black;
+  }
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    filter: grayscale(70%) contrast(140%) brightness(110%);
+    image-rendering: pixelated;
+  }
+
+  /* Flicker effect */
+  @keyframes flicker-screen {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0.85;}
+  }
+  #webcam-container {
+    animation: flicker-screen 0.15s infinite alternate;
+  }
+
+  /* Screen shake */
+  .shake {
+    animation: shake-anim 0.5s infinite;
+  }
+  @keyframes shake-anim {
+    0%, 100% {transform: translate(0,0);}
+    20% {transform: translate(-5px,5px);}
+    40% {transform: translate(5px,-5px);}
+    60% {transform: translate(-5px,-5px);}
+    80% {transform: translate(5px,5px);}
+  }
+
+  /* Hide scrollbar for terminal */
+  #terminal::-webkit-scrollbar {
+    display: none;
+  }
+  #terminal {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  /* Overlay glitch effect */
+  #glitch-overlay {
+    pointer-events: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(255, 163, 26, 0.1),
+      rgba(255, 163, 26, 0.1) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+    mix-blend-mode: screen;
+    animation: glitch-flicker 0.15s infinite;
+  }
+  @keyframes glitch-flicker {
+    0%, 100% {opacity: 0.2;}
+    50% {opacity: 0.5;}
+  }
+
+</style>
+</head>
+<body>
+
+  <h1 id="hacked-text">YOU ARE HACKED</h1>
+
+  <div id="terminal" class="shake"></div>
+
+  <div id="progress-container" aria-label="Progress bar">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div id="webcam-container">
+    <video id="webcam" autoplay muted></video>
+  </div>
+
+  <div id="glitch-overlay"></div>
+
+<script>
+  const terminal = document.getElementById('terminal');
+  const progressBar = document.getElementById('progress-bar');
+  const hackedText = document.getElementById('hacked-text');
+  const webcam = document.getElementById('webcam');
+
+  // Fake terminal lines to display randomly
+  const terminalLines = [
+    "Accessing system files...",
+    "Bypassing firewall...",
+    "Extracting credentials...",
+    "Dumping RAM contents...",
+    "Injecting malware...",
+    "Elevating privileges...",
+    "Downloading your data...",
+    "Connecting to C&C server...",
+    "Encrypting backups...",
+    "Erasing logs...",
+    "Disabling antivirus...",
+    "Tracing IP address...",
+    "Uploading keylogger...",
+    "Spawning root shell...",
+    "Deploying ransomware...",
+    "Covering tracks...",
+    "Access granted.",
+    "Access denied.",
+    "System breach detected!",
+    "Error: Unauthorized access!",
+  ];
+
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function typeLine(line, delay = 30) {
+    return new Promise((resolve) => {
+      let i = 0;
+      const interval = setInterval(() => {
+        terminal.textContent += line.charAt(i);
+        i++;
+        if (i >= line.length) {
+          clearInterval(interval);
+          terminal.textContent += "\n";
+          terminal.scrollTop = terminal.scrollHeight;
+          resolve();
+        }
+      }, delay);
+    });
+  }
+
+  // Show multiple terminal lines randomly
+  async function showTerminalLines(count = 10) {
+    for (let i = 0; i < count; i++) {
+      const line = terminalLines[randomInt(0, terminalLines.length - 1)];
+      await typeLine(line, randomInt(10, 40));
+      // Random delay between lines
+      await new Promise(r => setTimeout(r, randomInt(200, 700)));
+    }
+  }
+
+  // Progress bar animation from 0 to 100%
+  function animateProgressBar() {
+    return new Promise((resolve) => {
+      let width = 0;
+      const interval = setInterval(() => {
+        width++;
+        progressBar.style.width = width + '%';
+        if (width >= 100) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 50);
+    });
+  }
+
+  // Start webcam stream
+  async function startWebcam() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      webcam.srcObject = stream;
+    } catch (e) {
+      terminal.textContent += "\nError: Cannot access webcam.\n";
+    }
+  }
+
+  // Run the sequence of events
+  async function runPrank() {
+    hackedText.style.opacity = "1";
+    await showTerminalLines(15);
+    await animateProgressBar();
+    terminal.textContent += "\nYour files downloaded successfully.\n";
+    terminal.scrollTop = terminal.scrollHeight;
+    await startWebcam();
+    hackedText.classList.remove('shake'); // stop shaking text after terminal work
+  }
+
+  runPrank();
+
+  // Optional: Add some beep sounds and keyboard typing sound effects for immersion
+  // but to keep this simple, skipping audio for now.
+
+</script>
+
+</body>
+</html>
