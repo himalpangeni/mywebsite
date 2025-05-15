@@ -1,38 +1,69 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Himal Pangeni - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>My Personal Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("Right-click is disabled. Don't try to copy!");
+            return false;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+                alert("Copying is disabled. Don't try to copy!");
+                e.preventDefault();
+            }
+        });
+        
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </head>
 <body>
+    <center>
+    <h1>Is this Your First Time at this Website?</h1><br><br><br><br>
 
-    <!-- Header Section -->
-    <header>
-        <div class="container">
-            <h1 class="title">Himal Pangeni</h1>
-            <p class="tagline">Creative Web Developer & Designer</p>
-            <div class="cta-buttons">
-                <a href="#about" class="btn">About Me</a>
-                <a href="#contact" class="btn">Contact</a>
-            </div>
-        </div>
-    </header>
+    <h1>Account Created Before?</h1>
+    <input type="radio" id="yes" name="account" value="yes">
+    <label for="yes">YES</label>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>Passionate about coding, web development, and creating user-friendly, interactive web experiences.</p>
-            <a href="skills.html" class="btn">My Skills</a>
-        </div>
-    </section>
+    <input type="radio" id="no" name="account" value="no">
+    <label for="no">No</label>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Himal Pangeni | All Rights Reserved</p>
-    </footer>
+    <br><br>
 
+    <h1>Do you have An Account?</h1><br><br>
+
+    <a href="no.html">
+        <button style="padding: 12px 24px; font-size: 18px; background-color: #ffa31a; color: black; border: none; border-radius: 6px; cursor: pointer;">
+            YES
+        </button>
+    </a>
+     <a href="yes.html">
+        <button style="padding: 12px 24px; font-size: 18px; background-color: #ffa31a; color: black; border: none; border-radius: 6px; cursor: pointer;">
+            NO
+            </button>
+    </a>
+
+</center>
+
+        
 </body>
 </html>
