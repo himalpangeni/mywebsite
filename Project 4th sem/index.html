@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Lost & Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0"
+  }
+}
+</script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="container header-content">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" class="logo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 10l-2.5 2.5M10 10l2.5-2.5" />
+                </svg>
+                <h1>Campus Lost & Found</h1>
+            </div>
+            <div class="header-actions">
+                <div class="view-switcher">
+                    <label for="role-select">View As:</label>
+                    <select id="role-select">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button id="report-item-btn" class="button-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="button-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Report an Item
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Admin Panel -->
+        <div id="admin-panel" class="admin-panel hidden">
+            <h2>Pending Approvals</h2>
+            <div id="pending-item-grid" class="pending-item-grid"></div>
+             <div id="no-pending-items-message" class="no-items-container hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="no-items-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3>All Clear!</h3>
+                <p>There are no items waiting for approval.</p>
+            </div>
+        </div>
+        
+        <!-- Main Listings -->
+        <div class="controls-bar">
+            <h2>Campus Listings</h2>
+            <div id="filter-buttons" class="filter-group">
+                <button class="filter-btn active" data-filter="All">All</button>
+                <button class="filter-btn" data-filter="Found">Found</button>
+                <button class="filter-btn" data-filter="Lost">Lost</button>
+            </div>
+        </div>
+        
+        <div id="loader" class="loader-container">
+            <div class="spinner"></div>
+            <p>Summoning items from the ether...</p>
+        </div>
+
+        <div id="error-message" class="error-box hidden"></div>
+
+        <div id="item-grid" class="item-grid"></div>
+
+        <div id="no-items-message" class="no-items-container hidden">
+             <svg xmlns="http://www.w3.org/2000/svg" class="no-items-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <h3>No items found</h3>
+            <p>There are no items matching the current filter.</p>
+        </div>
+
+    </main>
+
+    <!-- Report Item Modal -->
+    <div id="form-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Report an Item</h2>
+                <button id="modal-close-btn" class="close-button">&times;</button>
+            </div>
+            <form id="item-form">
+                <div class="form-group">
+                    <label for="title">Item Title</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="status" value="Found" checked> I Found an Item</label>
+                        <label><input type="radio" name="status" value="Lost"> I Lost an Item</label>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" required placeholder="e.g., Library Cafe">
+                </div>
+                 <div class="form-group">
+                    <label for="contact">Contact Email</label>
+                    <input type="email" id="contact" name="contact" required placeholder="your-email@university.edu">
+                </div>
+                <div class="form-group">
+                    <label for="file-upload" class="file-upload-label">Upload Image</label>
+                    <div id="drop-zone" class="drop-zone">
+                        <div id="image-preview-container" class="image-preview-container hidden">
+                            <img id="image-preview" src="#" alt="Image preview" />
+                        </div>
+                        <div id="upload-placeholder" class="upload-placeholder">
+                             <svg class="upload-icon" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            <p><span>Upload a file</span> or drag and drop</p>
+                            <p class="upload-hint">PNG, JPG, GIF up to 10MB</p>
+                        </div>
+                         <input type="file" id="file-upload" name="file-upload" accept="image/*" class="sr-only">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="form-cancel-btn" class="button-secondary">Cancel</button>
+                    <button type="submit" class="button-primary">Submit for Approval</button>
+                </div>
+                 <div id="form-success-message" class="form-success-message hidden">
+                    Your item has been submitted for admin approval.
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Messaging Modal -->
+    <div id="messaging-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h2 id="messaging-modal-title">Contact Poster</h2>
+                <button id="messaging-modal-close-btn" class="close-button">&times;</button>
+            </div>
+            <div id="message-history" class="message-history">
+                <!-- Messages will be injected here -->
+            </div>
+            <form id="message-form" class="message-form">
+                <input type="text" id="message-input" placeholder="Type your message..." required>
+                <button type="submit" class="button-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="button-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>

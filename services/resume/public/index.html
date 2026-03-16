@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resume Analyzer Demo</title>
+<style>
+  body{font-family:Arial;background:#071227;color:#e6eef6;margin:0;padding:1rem}
+  .container{max-width:760px;margin:0 auto}
+  textarea{width:100%;height:240px;padding:.5rem}
+  button{padding:.5rem 1rem}
+  .card{background:#081020;padding:1rem;border-radius:8px;border:1px solid #0b1320}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>AI Resume Analyzer (Demo)</h1>
+  <div class="card">
+    <p>Paste your resume text below and click Analyze. This demo runs a simple local analyzer. To use AI models, connect the server to an API (see README).</p>
+    <textarea id="text"></textarea>
+    <p><button id="analyze">Analyze</button></p>
+    <div id="result"></div>
+  </div>
+  <p class="small">Run the server: node services/resume/server.js</p>
+  <p><a href="../../index.html">Back to Home</a></p>
+</div>
+<script>
+const analyzeBtn = document.getElementById('analyze');
+const textEl = document.getElementById('text');
+const result = document.getElementById('result');
+
+analyzeBtn.addEventListener('click', async ()=>{
+  const text = textEl.value.trim();
+  if(!text){ alert('Paste resume text first'); return; }
+  result.innerText='Analyzing...';
+  try{
+    const r = await fetch('/analyze', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
+    const json = await r.json();
+    result.innerHTML = `<h3>Score: ${json.score}/100</h3><p>Words: ${json.wordCount}</p><p>Skills found: ${json.skillsFound.join(', ')}</p><h4>Suggestions</h4><ul>${json.suggestions.map(s=>'<li>'+s+'</li>').join('')}</ul><h4>Summary</h4><p>${json.summary}</p>`;
+  }catch(err){ result.innerText='Error: '+err.message }
+});
+</script>
+</body>
+</html>

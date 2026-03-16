@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ludo — Play</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Ludo Game</h1>
+      <div>
+        <label>Room: <input id="room" value="room1"></label>
+        <button id="join">Join Room</button>
+      </div>
+    </header>
+
+    <div class="game-area">
+      <canvas id="board" width="600" height="600"></canvas>
+      <aside class="panel">
+        <div>
+          <button id="roll">Roll Dice</button>
+          <h2 id="dice">-</h2>
+        </div>
+        <div id="players" class="players small"></div>
+        <div class="controls">
+          <label><input type="checkbox" id="addBots"> Add 3 bots to fill</label>
+        </div>
+      </aside>
+    </div>
+
+    <p class="small">Notes: This client supports local play and online play via the included Node server (socket.io). To enable online play run ludo-game/server/server.js with Node.</p>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

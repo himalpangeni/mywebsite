@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Snake Demo</title>
+<link rel="stylesheet" href="../../global.css">
+<style>
+  canvas{background:#000;display:block;margin:1rem auto;border:4px solid #071227}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Snake (Demo)</h1>
+  <canvas id="c" width="400" height="400"></canvas>
+  <p class="small">Use arrow keys to move. This is a lightweight, single‑player demo. Multiplayer version available in projects folder when server is enabled.</p>
+  <p><a href="../index.html" class="btn">Back to Projects</a></p>
+</div>
+<script>
+const canvas = document.getElementById('c');const ctx = canvas.getContext('2d');
+let grid=20,px=200,py=200,dx=0,dy=0,trail=[],tail=5,ax=60,ay=60;
+function game(){px+=dx;py+=dy;if(px<0)px=400-grid;if(px>400-grid)px=0;if(py<0)py=400-grid;if(py>400-grid)py=0;ctx.fillStyle='#000';ctx.fillRect(0,0,400,400);ctx.fillStyle='#0f0';for(let i=0;i<trail.length;i++){ctx.fillRect(trail[i].x,trail[i].y,grid-2,grid-2)}trail.push({x:px,y:py});while(trail.length>tail)trail.shift();if(px==ax && py==ay){tail++;ax=Math.floor(Math.random()*20)*20;ay=Math.floor(Math.random()*20)*20;}ctx.fillStyle='#f00';ctx.fillRect(ax,ay,grid-2,grid-2);}setInterval(game,100);window.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){dx=-20;dy=0}if(e.key==='ArrowRight'){dx=20;dy=0}if(e.key==='ArrowUp'){dx=0;dy=-20}if(e.key==='ArrowDown'){dx=0;dy=20}});
+</script>
+</body>
+</html>

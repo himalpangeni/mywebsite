@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1'>
+<title>Ludo Service</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Classic Ludo (Service)</h1>
+  <div class="controls">
+    <input id="room" placeholder="room1" value="room1">
+    <input id="name" placeholder="Your name">
+    <button id="join">Join</button>
+    <button id="start">Start</button>
+    <button id="addBot">Add Bot</button>
+  </div>
+  <div id="players"></div>
+  <canvas id="board" width="600" height="600"></canvas>
+  <div class="panel">
+    <button id="roll">Roll Dice</button>
+    <button id="moveBtn" disabled>Move Selected Token</button>
+    <span id="dice">-</span>
+    <div id="selected" class="small">Selected: none</div>
+  </div>
+  <p class="small">Run: node services/ludo/server.js</p>
+  <p><a href="../../index.html">Back to Home</a></p>
+</div>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

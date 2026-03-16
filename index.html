@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Himal Pangeni — Portfolio</title>
+  <meta name="description" content="Himal Pangeni — Full‑Stack Developer. Portfolio, projects and contact.">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header container">
+    <h1>Himal Pangeni</h1>
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="skills.html">Skills</a> |
+      <a href="about.html">About</a> |
+      <a href="projects/index.html">Projects</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about" class="about container">
+      <h2>About Me</h2>
+      <p>Passionate about coding, web development, and creating user-friendly, interactive web experiences.</p>
+      <p>
+        <a class="btn" href="skills.html">My Skills</a>
+        <a class="btn" href="Project%204th%20sem/index.html">Project 4th Sem</a>
+        <a class="btn" href="ludo-game/client/index.html">Ludo Game (old)</a>
+        <a class="btn" href="services/ludo/public/index.html">Ludo (Service)</a>
+        <a class="btn" href="services/snake/public/index.html">Multiplayer Snake (Service)</a>
+      </p>
+    </section>
+
+    <section id="projects" class="projects container">
+      <h2>My Projects</h2>
+      <div class="project-links">
+        <ul>
+          <li><a href="Web/mywebsite-main/index.html" target="_blank">Portfolio Website (mywebsite-main)</a></li>
+          <li><a href="projects/snake/index.html" target="_blank">Snake (single-player)</a></li>
+          <li><a href="projects/puzzle/index.html" target="_blank">Sliding Puzzle</a></li>
+          <li><a href="projects/art/index.html" target="_blank">Generative Art</a></li>
+          <li><a href="projects/ideas/index.html" target="_blank">Project Ideas</a></li>
+          <li><a href="services/chat/public/index.html" target="_blank">Anonymous Chat (Service)</a></li>
+          <li><a href="services/resume/public/index.html" target="_blank">Resume Analyzer (Service)</a></li>
+          <li><a href="projects/index.html" target="_blank">Projects Index</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <p>&copy; 2026 Himal Pangeni — All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('click', function(e){
+      const a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      try{
+        if(a.href && a.getAttribute('href') && a.getAttribute('href').includes(' ')){
+          a.href = a.getAttribute('href').split(' ').map(encodeURIComponent).join('%20');
+        }
+      }catch(err){}
+    });
+  </script>
+</body>
+</html>

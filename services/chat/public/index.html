@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anonymous Chat Demo</title>
+<style>
+  body{font-family:Arial;background:#071227;color:#e6eef6;margin:0;padding:1rem}
+  .container{max-width:720px;margin:0 auto}
+  .chat{border:1px solid #0b1320;padding:1rem;background:#081020;border-radius:8px}
+  .messages{height:300px;overflow:auto;border:1px solid #0b1320;padding:6px;background:#061018}
+  .msg{padding:.25rem}
+  input,textarea{width:100%;padding:.5rem;margin-top:.5rem}
+  button{padding:.5rem 1rem;margin-top:.5rem}
+  .small{color:#9aa4b2}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Anonymous Chat (Omegle-style)</h1>
+  <div class="chat">
+    <div id="status" class="small">Not connected</div>
+    <div id="controls">
+      <button id="find">Find a partner</button>
+      <button id="leave" disabled>Leave</button>
+    </div>
+    <div id="room" class="small"></div>
+    <div id="messages" class="messages"></div>
+    <input id="input" placeholder="Type a message..." disabled>
+    <button id="send" disabled>Send</button>
+  </div>
+  <p class="small">Run the chat server: node services/chat/server.js</p>
+</div>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+const socket = io();
+const findBtn = document.getElementById('find');
+const leaveBtn = document.getElementById('leave');
+const input = document.getElementById('input');
+const send = document.getElementById('send');
+const messages = document.getElementById('messages');
+const status = document.getElementById('status');
+const roomEl = document.getElementById('room');
+let currentRoom = null;
+
+function addMsg(text){const d=document.createElement('div');d.className='msg';d.innerText=text;messages.appendChild(d);messages.scrollTop=messages.scrollHeight}
+
+findBtn.addEventListener('click', ()=>{socket.emit('findPartner');status.innerText='Searching...';});
+leaveBtn.addEventListener('click', ()=>{if(currentRoom){socket.emit('leave',{room:currentRoom});cleanup();}});
+send.addEventListener('click', ()=>{const txt=input.value.trim();if(!txt) return;socket.emit('message',{room:currentRoom,text:txt});addMsg('You: '+txt);input.value='';});
+
+socket.on('waiting', ()=>{status.innerText='Waiting for partner...';});
+socket.on('partnerFound', data=>{currentRoom=data.room;roomEl.innerText='Room: '+currentRoom;status.innerText='Partner found!';input.disabled=false;send.disabled=false;leaveBtn.disabled=false;findBtn.disabled=true;addMsg('System: Partner found. Say hi!');});
+socket.on('partnerNotFound', ()=>{status.innerText='No partner found';});
+socket.on('message', d=>{addMsg('Partner: '+d.text)});
+socket.on('partnerLeft', ()=>{addMsg('System: Partner left');cleanup();});
+
+function cleanup(){currentRoom=null;input.disabled=true;send.disabled=true;leaveBtn.disabled=true;findBtn.disabled=false;roomEl.innerText='';status.innerText='Not connected';}
+
+</script>
+</body>
+</html>

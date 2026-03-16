@@ -1,0 +1,12 @@
+@import url('../global.css');
+
+/* Ludo client-specific styles */
+.game-area{display:flex;gap:1rem;align-items:flex-start}
+canvas{background:#f8fafc;border-radius:6px;border:6px solid #0b1220}
+.panel{min-width:220px;padding:1rem}
+.players{margin-top:1rem}
+.player-item{padding:.4rem;border-radius:6px;background:rgba(6,11,19,0.7);margin-bottom:.4rem}
+#roll{padding:.5rem 1rem}
+.small{font-size:.9rem;color:var(--muted)}
+.header{display:flex;justify-content:space-between;align-items:center}
+.container{padding:1rem}
