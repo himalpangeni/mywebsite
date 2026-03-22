@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1'>
+<title>Generative Art</title>
+<link rel="stylesheet" href="../../global.css">
+<style>
+  canvas{display:block;margin:1rem auto;border:4px solid #071227}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Generative Art Gallery</h1>
+  <canvas id="art" width="600" height="400"></canvas>
+  <p class="small">Random generative pattern. Refresh to get new art.</p>
+  <p><a href="../index.html" class="btn">Back to Projects</a></p>
+</div>
+<script>
+const c=document.getElementById('art');const ctx=c.getContext('2d');function draw(){ctx.fillStyle='#021';ctx.fillRect(0,0,c.width,c.height);for(let i=0;i<200;i++){ctx.fillStyle=`hsl(${Math.random()*360} 60% 60%)`;ctx.beginPath();ctx.arc(Math.random()*c.width,Math.random()*c.height,Math.random()*40,0,Math.PI*2);ctx.fill();}}draw();
+</script>
+</body>
+</html>

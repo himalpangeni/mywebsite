@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacked!</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional CSS for Animation */
+        #hacked-text {
+            font-size: 3rem;
+            text-align: center;
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px #ff0000; }
+            50% { text-shadow: -2px -2px #00ff00; }
+            100% { text-shadow: 2px 2px #0000ff; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="new.html">Projects</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1 id="hacked-text">ACCESS DENIED!</h1>
+        <button onclick="window.location.href='new.html'" class="btn">Go Back</button>
+    </main>
+</body>
+</html>

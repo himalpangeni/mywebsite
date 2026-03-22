@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lost & Found Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Campus Lost & Found</h1>
+      </div>
+      <div class="header-actions">
+        <a href="report.html" class="button-primary">Report an Item</a>
+        <a href="login.html" class="button-primary">Login</a>
+        <a href="signup.html" class="button-secondary">Signup</a>
+      </div>
+    </div>
+  </header>
+  <main class="container">
+    <div class="controls-bar">
+      <h2>Campus Listings</h2>
+      <div id="filter-buttons" class="filter-group">
+        <button class="filter-btn active" data-filter="All">All</button>
+        <button class="filter-btn" data-filter="Found">Found</button>
+        <button class="filter-btn" data-filter="Lost">Lost</button>
+      </div>
+    </div>
+
+    <div id="loader" class="loader-container"><div class="spinner"></div><p>Loading items...</p></div>
+    <div id="error-message" class="error-box hidden"></div>
+    <div id="item-grid" class="item-grid"></div>
+    <div id="no-items-message" class="no-items-container hidden">
+      <h3>No items found</h3><p>There are no items matching the current filter.</p>
+    </div>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
