@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+  <style>
+    body { margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(135deg, #111, #333); font-family: sans-serif; color: white; }
+    .glass-card { background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); }
+    h1 { margin-top: 0; font-weight: 300; }
+    #time { font-size: 5rem; font-weight: 800; margin: 20px 0; }
+    button { background: #ff007f; color: white; border: none; padding: 10px 20px; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; margin: 5px; }
+    button:hover { background: #d00068; }
+    a.back { color: #aaa; text-decoration: none; display: inline-block; margin-top: 20px; font-size: 0.9rem; }
+    a.back:hover { color: white; }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <h1>Focus Time</h1>
+    <div id="time">25:00</div>
+    <div>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="pauseTimer()">Pause</button>
+      <button onclick="resetTimer()">Reset</button>
+    </div>
+    <a href="../index.html" class="back">&larr; Back to Hub</a>
+  </div>
+  <script>
+    let timeLeft = 25 * 60;
+    let timer = null;
+    const timeDisplay = document.getElementById("time");
+
+    function updateDisplay() {
+      const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const s = (timeLeft % 60).toString().padStart(2, '0');
+      timeDisplay.textContent = `${m}:${s}`;
+    }
+
+    function startTimer() {
+      if(timer) return;
+      timer = setInterval(() => {
+        if(timeLeft > 0) timeLeft--;
+        else resetTimer();
+        updateDisplay();
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      timeLeft = 25 * 60;
+      updateDisplay();
+    }
+  </script>
+</body>
+</html>

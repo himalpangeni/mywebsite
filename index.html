@@ -1,68 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Himal Pangeni — Portfolio</title>
-  <meta name="description" content="Himal Pangeni — Full‑Stack Developer. Portfolio, projects and contact.">
-  <link rel="stylesheet" href="global.css">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Himal Pangeni — Central Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* Sleek Hub Styles */
+    :root { font-family: 'Inter', sans-serif; background: #050505; color: #fff; margin:0; padding:0; }
+    body { min-height: 100vh; overflow-x: hidden; }
+    header { text-align: center; padding: 60px 20px 40px; background: linear-gradient(180deg, rgba(255,0,127,0.1), transparent); }
+    h1 { font-size: 3rem; font-weight: 800; margin: 0; background: linear-gradient(90deg, #ff007f, #7000ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+    p.lead { color: #aaa; max-width: 600px; margin: 10px auto; line-height: 1.6; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+    
+    .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; transition: transform 0.3s, background 0.3s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+    .card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+    
+    .tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #00d2ff; font-weight: 800; margin-bottom: 10px; }
+    .card h2 { margin: 0 0 15px; font-size: 1.4rem; }
+    .card p { color: #888; font-size: 0.95rem; line-height: 1.5; margin: 0; flex-grow: 1; }
+    
+    .star-card { background: linear-gradient(135deg, rgba(255,0,127,0.1), rgba(112,0,255,0.1)); border-color: rgba(255,0,127,0.3); }
+    .star-card:hover { background: linear-gradient(135deg, rgba(255,0,127,0.2), rgba(112,0,255,0.2)); }
+    .star-card .tag { color: #ff007f; }
+
+    footer { text-align: center; padding: 40px; color: #555; font-size: 0.9rem; }
+  </style>
 </head>
 <body>
-  <header class="header container">
-    <h1>Himal Pangeni</h1>
-    <nav>
-      <a href="index.html">Home</a> |
-      <a href="skills.html">Skills</a> |
-      <a href="about.html">About</a> |
-      <a href="projects/index.html">Projects</a>
-    </nav>
+
+  <header>
+    <h1>Himal Pangeni Project Hub</h1>
+    <p class="lead">Welcome to my central portfolio. Here you will find my finest interactive web experiences, services, ideas, and complete full-stack demonstrations.</p>
   </header>
 
-  <main>
-    <section id="about" class="about container">
-      <h2>About Me</h2>
-      <p>Passionate about coding, web development, and creating user-friendly, interactive web experiences.</p>
-      <p>
-        <a class="btn" href="skills.html">My Skills</a>
-        <a class="btn" href="Project%204th%20sem/index.html">Project 4th Sem</a>
-        <a class="btn" href="ludo-game/client/index.html">Ludo Game (old)</a>
-        <a class="btn" href="services/ludo/public/index.html">Ludo (Service)</a>
-        <a class="btn" href="services/snake/public/index.html">Multiplayer Snake (Service)</a>
-      </p>
-    </section>
+  <main class="container">
+    <div class="grid">
+      <!-- Star Project -->
+      <a href="NEW FOLDER/dist/index.html" class="card star-card">
+        <span class="tag">✦ Masterpiece Portfolio</span>
+        <h2>The 3D Web Experience</h2>
+        <p>A stunning interactive 3D site built with React, Three.js, and framer-motion featuring all 24 SaaS, Business, and Node.js concepts.</p>
+      </a>
 
-    <section id="projects" class="projects container">
-      <h2>My Projects</h2>
-      <div class="project-links">
-        <ul>
-          <li><a href="Web/mywebsite-main/index.html" target="_blank">Portfolio Website (mywebsite-main)</a></li>
-          <li><a href="projects/snake/index.html" target="_blank">Snake (single-player)</a></li>
-          <li><a href="projects/puzzle/index.html" target="_blank">Sliding Puzzle</a></li>
-          <li><a href="projects/art/index.html" target="_blank">Generative Art</a></li>
-          <li><a href="projects/ideas/index.html" target="_blank">Project Ideas</a></li>
-          <li><a href="services/chat/public/index.html" target="_blank">Anonymous Chat (Service)</a></li>
-          <li><a href="services/resume/public/index.html" target="_blank">Resume Analyzer (Service)</a></li>
-          <li><a href="projects/index.html" target="_blank">Projects Index</a></li>
-        </ul>
-      </div>
-    </section>
+      <!-- Original Existing Links -->
+      <a href="ludo-game/index.html" class="card">
+        <span class="tag">Static Game / Service</span>
+        <h2>Classic Ludo Game UI</h2>
+        <p>A multiplayer ludo game client side template mapping out the board, tokens, and logic.</p>
+      </a>
+
+      <a href="services/chat/index.html" class="card">
+        <span class="tag">Service</span>
+        <h2>Real-Time Chat</h2>
+        <p>An omegle-styled anonymous chat service utilizing Socket.io and Node.js.</p>
+      </a>
+
+      <a href="strangify/public/index.html" class="card">
+        <span class="tag">Service</span>
+        <h2>Strangify Meet-Up</h2>
+        <p>A full-stack Omegle clone where users pair with strangers instantly and chat via WebSockets.</p>
+      </a>
+
+      <a href="register.html" class="card">
+        <span class="tag">Form & Auth</span>
+        <h2>Fixed Registration UI</h2>
+        <p>Standard static registration forms including comprehensive form styling.</p>
+      </a>
+
+      <a href="loginsignup.html" class="card">
+        <span class="tag">Form & Auth</span>
+        <h2>Login / Signup Template</h2>
+        <p>A dual-purpose authentication UI screen capturing modern table-based login layouts.</p>
+      </a>
+      
+      <!-- New Ideas -->
+      <a href="idea-pomodoro-timer/index.html" class="card">
+        <span class="tag">My Idea</span>
+        <h2>Pomodoro Glass Timer</h2>
+        <p>A sleek, interactive glassmorphism pomodoro focus timer for productivity tracking.</p>
+      </a>
+
+      <a href="idea-calculator/index.html" class="card">
+        <span class="tag">My Idea</span>
+        <h2>React-style Vanilla Calculator</h2>
+        <p>A beautiful grid-based calculator built natively into an immersive glass UI environment.</p>
+      </a>
+
+      <a href="idea-weather/index.html" class="card">
+        <span class="tag">My Idea</span>
+        <h2>Weather Dashboard Concept</h2>
+        <p>A conceptual mockup for a dynamic weather dashboard with varying background states.</p>
+      </a>
+
+      <a href="about.html" class="card">
+        <span class="tag">Static Page</span>
+        <h2>About Me</h2>
+        <p>Learn more about Himal Pangeni, full-stack web developer and UI creator.</p>
+      </a>
+      
+    </div>
   </main>
 
-  <footer class="site-footer container">
-    <p>&copy; 2026 Himal Pangeni — All rights reserved.</p>
+  <section class="container" style="margin-top: 50px; margin-bottom: 50px;">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 30px; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">Games Collection</h2>
+    <div class="grid">
+      <a href="game/neon-dodge/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Neon Dodge</h2>
+        <p>You control a glowing cube. Avoid incoming obstacles. Speed increases over time.</p>
+      </a>
+      <a href="game/gravity-flip-runner/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Gravity Flip Runner</h2>
+        <p>Auto-running character. Tap to flip gravity (floor ↔ ceiling).</p>
+      </a>
+      <a href="game/perfect-shot/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Perfect Shot</h2>
+        <p>Moving target. Tap at the perfect moment to hit center.</p>
+      </a>
+      <a href="game/color-match-breaker/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Color Match Breaker</h2>
+        <p>Balls hit blocks — but only same color breaks.</p>
+      </a>
+      <a href="game/spiral-fall/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Spiral Fall</h2>
+        <p>Ball falls through rotating spiral platforms.</p>
+      </a>
+      <a href="game/memory-flash-grid/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Memory Flash Grid</h2>
+        <p>Tiles flash briefly — repeat the pattern.</p>
+      </a>
+      <a href="game/one-tap-sword-duel/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>One-Tap Sword Duel</h2>
+        <p>Enemy attacks → tap at correct time to block/strike.</p>
+      </a>
+      <a href="game/ice-slide-puzzle/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Ice Slide Puzzle</h2>
+        <p>Slide until hitting walls (like Pokémon ice puzzles).</p>
+      </a>
+      <a href="game/wind-archer/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Wind Archer</h2>
+        <p>Shoot arrows affected by wind physics.</p>
+      </a>
+      <a href="game/shape-shift-escape/index.html" class="card" style="border-color: rgba(0,210,255,0.3);">
+        <span class="tag" style="color: #00d2ff;">🎮 Game Concept</span>
+        <h2>Shape Shift Escape</h2>
+        <p>Character changes shape (circle/square/triangle) to pass obstacles.</p>
+      </a>
+    </div>
+  </section>
+
+
+  <section class="container" id="backends" style="margin-top: 50px; margin-bottom: 50px;">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px; background: linear-gradient(90deg, #ff007f, #00d2ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">Backend Architectures</h2>
+    
+  <style>
+    .tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+    .tab-btn { background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+    .tab-btn:hover, .tab-btn.active { background: #fff; color: #000; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+  </style>
+  <script>
+    function showTab(lang) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-'+lang).classList.add('active');
+      document.querySelectorAll('.backend-card').forEach(card => card.style.display = 'none');
+      document.querySelectorAll('.'+lang+'-card').forEach(card => card.style.display = 'flex');
+    }
+    window.addEventListener('DOMContentLoaded', () => { showTab('python'); });
+  </script>
+
+    <div class="tabs">
+      <button id="btn-python" class="tab-btn active" onclick="showTab('python')">Python</button>
+      <button id="btn-java" class="tab-btn" onclick="showTab('java')">Java</button>
+      <button id="btn-c" class="tab-btn" onclick="showTab('c')">C / C++</button>
+      <button id="btn-dotnet" class="tab-btn" onclick="showTab('dotnet')">.NET (C#)</button>
+    </div>
+    <div class="grid">
+
+      <a href="python/ai-chat-web-app" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">AI Chat Web App</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/personal-finance-tracker" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">Personal Finance Tracker</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/file-organizer-bot" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">File Organizer Bot</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/web-scraper-dashboard" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">Web Scraper Dashboard</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/multiplayer-tic-tac-toe" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">Multiplayer Tic Tac Toe</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/password-manager" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">Password Manager</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/url-shortener" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">URL Shortener</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/ai-image-caption-generator" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">AI Image Caption</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/markdown-blog-engine" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">Markdown Blog Engine</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="python/automation-toolkit" class="card backend-card python-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">PYTHON Backend</span>
+        <h2 style="text-transform: capitalize;">Automation Toolkit</h2>
+        <p>A PYTHON backend architecture stub.</p>
+      </a>
+
+      <a href="java/ecommerce-rest-api" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Ecommerce REST API</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/chat-application" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Chat Application</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/task-manager-app" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Task Manager App</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/url-shortener-backend" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">URL Shortener Backend</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/banking-system-simulator" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Banking Simulator</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/multiplayer-game-server" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Multiplayer Game Server</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/online-quiz-platform" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Online Quiz Platform</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/file-upload-sharing-system" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">File Sharing System</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/hotel-booking-system" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Hotel Booking System</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="java/distributed-log-system" class="card backend-card java-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">JAVA Backend</span>
+        <h2 style="text-transform: capitalize;">Distributed Log System</h2>
+        <p>A JAVA backend architecture stub.</p>
+      </a>
+
+      <a href="c/mini-os-shell" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">mini os shell</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/file-compression" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">file compression</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/memory-allocator" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">memory allocator</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/cli-text-editor" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">cli text editor</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/snake-game" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">snake game</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/http-server" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">http server</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/process-scheduler" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">process scheduler</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/chat-app-sockets" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">chat app sockets</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/database-engine" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">database engine</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="c/encryption-tool" class="card backend-card c-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">C Backend</span>
+        <h2 style="text-transform: capitalize;">encryption tool</h2>
+        <p>A C backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/blog-platform" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">blog platform</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/real-time-chat" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">real time chat</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/inventory-management" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">inventory management</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/job-portal" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">job portal</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/e-learning-platform" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">e learning platform</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/expense-tracker" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">expense tracker</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/online-voting-system" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">online voting system</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/notes-app-sync" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">notes app sync</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/authentication-system" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">authentication system</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+
+      <a href="dotnet/multiplayer-game-backend" class="card backend-card dotnet-card" style="display: none; border-color: rgba(255,255,255,0.2);">
+        <span class="tag" style="color: #bbb;">DOTNET Backend</span>
+        <h2 style="text-transform: capitalize;">multiplayer game backend</h2>
+        <p>A DOTNET backend architecture stub.</p>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Himal Pangeni. Launched for GitHub Pages.</p>
   </footer>
 
-  <script>
-    document.addEventListener('click', function(e){
-      const a = e.target.closest && e.target.closest('a');
-      if(!a) return;
-      try{
-        if(a.href && a.getAttribute('href') && a.getAttribute('href').includes(' ')){
-          a.href = a.getAttribute('href').split(' ').map(encodeURIComponent).join('%20');
-        }
-      }catch(err){}
-    });
-  </script>
 </body>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Dashboard Idea</title>
+  <style>
+    body { background: url('https://source.unsplash.com/random/1920x1080/?clouds') no-repeat center center/cover; margin:0; font-family: sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center;}
+    .card { background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; color: white; text-align: center; max-width: 400px; width: 100%; border: 1px solid rgba(255,255,255,0.1);}
+    h1 { margin: 0 0 10px; font-weight: 300; }
+    .temp { font-size: 4rem; font-weight: bold; margin: 10px 0; }
+    .desc { font-size: 1.2rem; margin-bottom: 20px; color: #ccc;}
+    .input-grp { display: flex; gap: 10px; margin-bottom: 20px;}
+    input { flex: 1; padding: 10px; border-radius: 5px; border: none; outline: none; background: rgba(255,255,255,0.9);}
+    button { padding: 10px 20px; background: #00d2ff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;}
+    a.back { color: #00d2ff; text-decoration: none; display: block; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Weather Dashboard</h1>
+    <div class="input-grp">
+      <input type="text" placeholder="Enter city (Mock idea)..." id="cityInput">
+      <button onclick="mockWeather()">Search</button>
+    </div>
+    <div id="weatherData">
+      <div class="temp">24°C</div>
+      <div class="desc">Partly Cloudy</div>
+    </div>
+    <a href="../index.html" class="back">&larr; Back to Hub</a>
+  </div>
+  <script>
+    function mockWeather() {
+      const city = document.getElementById("cityInput").value || "Unknown";
+      const temps = [12, 18, 24, 30, -5];
+      const descs = ["Sunny", "Rainy", "Snowing", "Clear Sky", "Stormy"];
+      const t = temps[Math.floor(Math.random() * temps.length)];
+      const d = descs[Math.floor(Math.random() * descs.length)];
+      document.getElementById("weatherData").innerHTML = `<div class="temp">${t}°C</div><div class="desc">${d} in ${city} (Mocked Data)</div>`;
+    }
+  </script>
+</body>
+</html>

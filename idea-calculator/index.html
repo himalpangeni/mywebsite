@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glass Calculator</title>
+  <style>
+    body { background: #0f2027; background: linear-gradient(to right, #2c5364, #203a43, #0f2027); display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; margin:0; font-family: monospace;}
+    .calc { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); width: 260px;}
+    .display { background: rgba(0,0,0,0.3); color: white; font-size: 2rem; padding: 15px; text-align: right; border-radius: 8px; margin-bottom: 20px; overflow: hidden; height: 40px;}
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    button { padding: 15px; font-size: 1.2rem; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer; transition: 0.2s; }
+    button:hover { background: rgba(255,255,255,0.2); }
+    .btn-eq { grid-column: span 2; background: #00d2ff; color: #000; }
+    a.back { color: #fff; text-decoration: none; display: block; text-align: center; margin-top: 20px; opacity: 0.7;}
+  </style>
+</head>
+<body>
+  <div>
+    <div class="calc">
+      <div class="display" id="res">0</div>
+      <div class="grid">
+        <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button onclick="add('/')">/</button>
+        <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button onclick="add('*')">*</button>
+        <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button onclick="add('-')">-</button>
+        <button onclick="clearRes()">C</button><button onclick="add('0')">0</button><button onclick="eq()" class="btn-eq">=</button><button onclick="add('+')">+</button>
+      </div>
+    </div>
+    <a href="../index.html" class="back">&larr; Back to Hub</a>
+  </div>
+  <script>
+    let d = document.getElementById("res");
+    let exp = "";
+    function add(v) { exp += v; d.innerText = exp; }
+    function clearRes() { exp = ""; d.innerText = "0"; }
+    function eq() { try { exp = eval(exp).toString(); d.innerText = exp; } catch(e) { d.innerText = "Error"; exp=""; } }
+  </script>
+</body>
+</html>
