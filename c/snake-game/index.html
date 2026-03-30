@@ -17,6 +17,72 @@
     #msg { color: #ff007f; font-weight: bold; min-height: 24px; }
     button { padding: 12px 30px; background: #22c55e; color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; }
     button:hover { background: #16a34a; }
+  
+    /* ===== MOBILE TOUCH CONTROLS ===== */
+    #touch-dpad {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+    @media (max-width: 900px), (pointer: coarse) {
+      #touch-dpad { display: grid; }
+    }
+    #touch-dpad.lr { grid-template-columns: 1fr 1fr; gap: 20px; }
+    #touch-dpad.udlr { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; width: 180px; }
+    #touch-dpad.tap { grid-template-columns: 1fr; }
+    .dpad-btn {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.35);
+      color: white;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transition: background 0.1s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dpad-btn:active, .dpad-btn.pressed {
+      background: rgba(0,210,255,0.4);
+      border-color: #00d2ff;
+      transform: scale(0.9);
+    }
+    .dpad-btn.tap-btn {
+      width: 120px;
+      height: 120px;
+      font-size: 40px;
+      background: rgba(0,210,255,0.15);
+      border-color: #00d2ff;
+    }
+    #touch-hint {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      pointer-events: none;
+      z-index: 9998;
+      display: none;
+    }
+    @media (max-width: 900px), (pointer: coarse) {
+      #touch-hint { display: block; }
+      canvas { touch-action: none; }
+    }
+    /* ===== END MOBILE TOUCH CONTROLS ===== */
+
   </style>
 </head>
 <body>
@@ -86,6 +152,33 @@
     });
 
     draw();
+  
+    // ===== MOBILE: dispatch keyboard events from touch buttons =====
+    function touchKey(k, down) {
+      window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { key: k, code: k, bubbles: true }));
+    }
+    // Prevent default touch scroll on game canvas
+    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    // ===== END MOBILE =====
+
   </script>
+
+  <div id="touch-dpad" class="udlr">
+    <div></div>
+    <div class="dpad-btn" id="btn-up"
+         ontouchstart="touchKey('ArrowUp',true)" ontouchend="touchKey('ArrowUp',false)"
+         onmousedown="touchKey('ArrowUp',true)" onmouseup="touchKey('ArrowUp',false)">▲</div>
+    <div></div>
+    <div class="dpad-btn" id="btn-left"
+         ontouchstart="touchKey('ArrowLeft',true)" ontouchend="touchKey('ArrowLeft',false)"
+         onmousedown="touchKey('ArrowLeft',true)" onmouseup="touchKey('ArrowLeft',false)">◀</div>
+    <div class="dpad-btn" id="btn-down"
+         ontouchstart="touchKey('ArrowDown',true)" ontouchend="touchKey('ArrowDown',false)"
+         onmousedown="touchKey('ArrowDown',true)" onmouseup="touchKey('ArrowDown',false)">▼</div>
+    <div class="dpad-btn" id="btn-right"
+         ontouchstart="touchKey('ArrowRight',true)" ontouchend="touchKey('ArrowRight',false)"
+         onmousedown="touchKey('ArrowRight',true)" onmouseup="touchKey('ArrowRight',false)">▶</div>
+  </div>
+  <div id="touch-hint">Use the D-pad to move</div>
 </body>
 </html>

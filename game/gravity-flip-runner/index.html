@@ -14,6 +14,72 @@
     .nav { position: absolute; bottom: 20px; display: flex; gap: 20px; z-index: 30; }
     .btn { padding: 10px 20px; background: rgba(0, 210, 255, 0.1); border: 2px solid #00d2ff; color: #00d2ff; text-decoration: none; border-radius: 30px; cursor: pointer; font-weight: bold; }
     .btn:hover { background: #00d2ff; color: #000; }
+  
+    /* ===== MOBILE TOUCH CONTROLS ===== */
+    #touch-dpad {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+    @media (max-width: 900px), (pointer: coarse) {
+      #touch-dpad { display: grid; }
+    }
+    #touch-dpad.lr { grid-template-columns: 1fr 1fr; gap: 20px; }
+    #touch-dpad.udlr { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; width: 180px; }
+    #touch-dpad.tap { grid-template-columns: 1fr; }
+    .dpad-btn {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.35);
+      color: white;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transition: background 0.1s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dpad-btn:active, .dpad-btn.pressed {
+      background: rgba(0,210,255,0.4);
+      border-color: #00d2ff;
+      transform: scale(0.9);
+    }
+    .dpad-btn.tap-btn {
+      width: 120px;
+      height: 120px;
+      font-size: 40px;
+      background: rgba(0,210,255,0.15);
+      border-color: #00d2ff;
+    }
+    #touch-hint {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      pointer-events: none;
+      z-index: 9998;
+      display: none;
+    }
+    @media (max-width: 900px), (pointer: coarse) {
+      #touch-hint { display: block; }
+      canvas { touch-action: none; }
+    }
+    /* ===== END MOBILE TOUCH CONTROLS ===== */
+
   </style>
 </head>
 <body>
@@ -172,6 +238,20 @@
     }
     
     initGame();
+  
+    // ===== MOBILE: tap button dispatches Space =====
+    function touchTap() {
+      window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space', key: ' ', bubbles: true }));
+    }
+    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    // ===== END MOBILE =====
+
   </script>
+
+  <div id="touch-dpad" class="tap">
+    <div class="dpad-btn tap-btn"
+         ontouchstart="touchTap()" onmousedown="touchTap()">TAP</div>
+  </div>
+  <div id="touch-hint">Tap to play</div>
 </body>
 </html>
