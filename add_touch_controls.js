@@ -9,7 +9,7 @@ const mobileCSS = `
     #touch-dpad {
       display: none;
       position: fixed;
-      bottom: 30px;
+      bottom: 25px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 9999;
@@ -19,55 +19,40 @@ const mobileCSS = `
     }
     @media (max-width: 900px), (pointer: coarse) {
       #touch-dpad { display: grid; }
+      /* Scope room for dpad at bottom of various game layouts */
+      .card, .container, #ui-card, .game-area, .board-container { margin-bottom: 220px !important; }
+      .nav, .controls { bottom: 130px !important; position: fixed !important; left: 50% !important; transform: translateX(-50%) !important; width: 100% !important; justify-content: center !important; }
+      /* Ensure game buttons are above dpad if necessary */
+      #startBtn, .btn, button, .roll-btn { position: relative; z-index: 10000; touch-action: manipulation; }
     }
-    #touch-dpad.lr { grid-template-columns: 1fr 1fr; gap: 20px; }
-    #touch-dpad.udlr { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; width: 180px; }
+    #touch-dpad.lr { grid-template-columns: 1fr 1fr; gap: 40px; }
+    #touch-dpad.udlr { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; width: 220px; }
     #touch-dpad.tap { grid-template-columns: 1fr; }
     .dpad-btn {
-      width: 75px;
-      height: 75px;
+      width: 85px;
+      height: 85px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.12);
-      border: 2px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.3);
       color: white;
-      font-size: 28px;
+      font-size: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      transition: background 0.1s, transform 0.1s;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: background 0.1s;
       -webkit-tap-highlight-color: transparent;
     }
-    .dpad-btn:active, .dpad-btn.pressed {
+    .dpad-btn:active {
       background: rgba(0,210,255,0.4);
       border-color: #00d2ff;
-      transform: scale(0.9);
     }
-    .dpad-btn.tap-btn {
-      width: 120px;
-      height: 120px;
-      font-size: 40px;
-      background: rgba(0,210,255,0.15);
-      border-color: #00d2ff;
-    }
-    #touch-hint {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.4);
-      font-size: 0.75rem;
-      pointer-events: none;
-      z-index: 9998;
-      display: none;
-    }
-    @media (max-width: 900px), (pointer: coarse) {
-      #touch-hint { display: block; }
-      canvas { touch-action: none; }
-    }
+    .dpad-btn.tap-btn { width: 140px; height: 140px; font-size: 40px; background: rgba(0,210,255,0.1); border-color: #00d2ff; }
+    #touch-hint { position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.4); font-size: 0.7rem; pointer-events: none; z-index: 9998; display: none; text-transform: uppercase; letter-spacing: 1px; }
+    @media (max-width: 900px), (pointer: coarse) { #touch-hint { display: block; } canvas { touch-action: none; } }
     /* ===== END MOBILE TOUCH CONTROLS ===== */
 `;
 
@@ -118,12 +103,26 @@ function tapBtn() {
 // ── touch JS injected before </script> ────────────────────────────────────────
 function lrTouchJS() {
   return `
-    // ===== MOBILE: dispatch keyboard events from touch buttons =====
+    // ===== MOBILE: robust touch handling =====
     function touchKey(k, down) {
+      // 1. Dispatch event for games using addEventListener
       window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { key: k, code: k, bubbles: true }));
+      
+      // 2. Direct update for games using a 'keys' object (like Neon Dodge)
+      if (typeof keys !== 'undefined') {
+        if (keys.hasOwnProperty(k)) keys[k] = down;
+      }
+
+      // 3. Special case for Snake (direct direction update)
+      if (down && typeof dir !== 'undefined' && typeof running !== 'undefined' && running) {
+        if (k === 'ArrowUp' && dir.y === 0) dir = { x: 0, y: -1 };
+        else if (k === 'ArrowDown' && dir.y === 0) dir = { x: 0, y: 1 };
+        else if (k === 'ArrowLeft' && dir.x === 0) dir = { x: -1, y: 0 };
+        else if (k === 'ArrowRight' && dir.x === 0) dir = { x: 1, y: 0 };
+      }
     }
-    // Prevent default touch scroll on game canvas
-    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    const canv = document.querySelector('canvas');
+    if (canv) canv.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
     // ===== END MOBILE =====
 `;
 }
@@ -132,11 +131,16 @@ function udlrTouchJS() { return lrTouchJS(); }
 
 function tapTouchJS() {
   return `
-    // ===== MOBILE: tap button dispatches Space =====
+    // ===== MOBILE: tap handling =====
     function touchTap() {
       window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space', key: ' ', bubbles: true }));
+      // Direct jump for runner games
+      if (typeof isGameOver !== 'undefined' && isGameOver) {
+         if (typeof initGame === 'function') initGame();
+      }
     }
-    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    const canv = document.querySelector('canvas');
+    if (canv) canv.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
     // ===== END MOBILE =====
 `;
 }
@@ -166,15 +170,18 @@ for (const [rel, cfg] of Object.entries(gameConfig)) {
 
   let content = fs.readFileSync(full, 'utf8');
 
-  // Skip if already has our marker
-  if (content.includes('MOBILE TOUCH CONTROLS')) {
-    console.log(`ALREADY DONE: ${rel}`);
-    skipped++;
-    continue;
-  }
+  // Strip previous mobile-controls if they exist to allow clean re-injection
+  content = content.replace(/\/\* ===== MOBILE TOUCH CONTROLS ===== \*\/[\s\S]*?\/\* ===== END MOBILE TOUCH CONTROLS ===== \*\//g, '');
+  content = content.replace(/<div id="touch-dpad"[\s\S]*?<div id="touch-hint">.*?<\/div>/g, '');
+  content = content.replace(/\/\/ ===== MOBILE: dispatch[\s\S]*?\/\/ ===== END MOBILE =====/g, '');
+  content = content.replace(/\/\/ ===== MOBILE: tap[\s\S]*?\/\/ ===== END MOBILE =====/g, '');
 
   // 1. Inject CSS into <style> block (before </style>)
-  content = content.replace('</style>', mobileCSS + '\n  </style>');
+  if (content.includes('</style>')) {
+    content = content.replace('</style>', mobileCSS + '\n  </style>');
+  } else {
+    content = content.replace('</head>', '<style>' + mobileCSS + '</style>\n</head>');
+  }
 
   // 2. Inject HTML before </body>
   let html = '';
@@ -188,10 +195,12 @@ for (const [rel, cfg] of Object.entries(gameConfig)) {
   if (cfg.type === 'lr') js = lrTouchJS();
   else if (cfg.type === 'udlr') js = udlrTouchJS();
   else js = tapTouchJS();
-  // Inject before the last </script>
+  
   const lastScriptClose = content.lastIndexOf('</script>');
   if (lastScriptClose >= 0) {
     content = content.slice(0, lastScriptClose) + js + '\n  </script>' + content.slice(lastScriptClose + 9);
+  } else {
+    content = content.replace('</body>', '<script>' + js + '</script>\n</body>');
   }
 
   fs.writeFileSync(full, content, 'utf8');
