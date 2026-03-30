@@ -3,23 +3,135 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Database Engine - C Backend API</title>
+  <title>Database Engine - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; min-height: 100vh; }
+    .nav-btn { position: fixed; top: 20px; left: 20px; padding: 10px 18px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; transition: 0.2s; }
+    .nav-btn:hover { background: #f59e0b; color: #000; }
+    header { background: #1e293b; padding: 20px 30px; border-bottom: 1px solid #334155; display: flex; align-items: center; gap: 15px; }
+    h1 { margin: 0; font-size: 1.5rem; background: linear-gradient(90deg, #f59e0b, #ef4444); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .tag { background: rgba(245,158,11,0.2); color: #f59e0b; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; border: 1px solid rgba(245,158,11,0.3); }
+    .layout { display: flex; height: calc(100vh - 70px); }
+    .sidebar { width: 220px; background: #1e293b; border-right: 1px solid #334155; padding: 20px; }
+    .sidebar h3 { margin: 0 0 15px; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    .table-item { padding: 10px 12px; border-radius: 8px; cursor: pointer; color: #e2e8f0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+    .table-item:hover, .table-item.active { background: #334155; }
+    .main { flex: 1; display: flex; flex-direction: column; }
+    .query-area { background: #0f172a; padding: 20px; border-bottom: 1px solid #334155; }
+    .query-area label { display: block; color: #94a3b8; font-size: 0.8rem; margin-bottom: 8px; }
+    textarea { width: 100%; background: #1e293b; border: 1px solid #334155; color: #e2e8f0; padding: 14px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9rem; resize: none; outline: none; }
+    textarea:focus { border-color: #f59e0b; }
+    .actions { display: flex; gap: 10px; margin-top: 10px; }
+    button { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+    .btn-run { background: #f59e0b; color: #000; }
+    .btn-run:hover { background: #d97706; }
+    .btn-clr { background: #334155; color: #e2e8f0; }
+    .results { flex: 1; overflow: auto; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th { background: #334155; padding: 12px 16px; text-align: left; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    td { padding: 12px 16px; border-bottom: 1px solid #1e293b; }
+    tr:hover td { background: #1e293b; }
+    .status-bar { padding: 8px 20px; background: #1e293b; border-top: 1px solid #334155; font-size: 0.8rem; color: #94a3b8; }
+    .err { color: #ef4444; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>Database Engine</h1>
-    <p>This is a dedicated backend architecture stub for <strong>Database Engine</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <header>
+    <h1>🗄️ Database Engine</h1>
+    <span class="tag">C Simulation</span>
+  </header>
+  <div class="layout">
+    <div class="sidebar">
+      <h3>Tables</h3>
+      <div class="table-item active" onclick="clickTable('users')">📋 users</div>
+      <div class="table-item" onclick="clickTable('products')">📋 products</div>
+      <div class="table-item" onclick="clickTable('orders')">📋 orders</div>
+    </div>
+    <div class="main">
+      <div class="query-area">
+        <label>SQL Query Editor</label>
+        <textarea id="query" rows="3">SELECT * FROM users;</textarea>
+        <div class="actions">
+          <button class="btn-run" onclick="runQuery()">▶ Execute</button>
+          <button class="btn-clr" onclick="document.getElementById('query').value=''">Clear</button>
+        </div>
+      </div>
+      <div class="results" id="results"></div>
+      <div class="status-bar" id="status">Ready.</div>
+    </div>
   </div>
+  <script>
+    const DB = {
+      users: { cols:['id','name','email','role','created_at'], rows:[
+        [1,'Himal Pangeni','himal@example.com','admin','2024-01-15'],
+        [2,'Jane Smith','jane@example.com','user','2024-02-20'],
+        [3,'Bob Dev','bob@example.com','developer','2024-03-05'],
+        [4,'Alice Q','alice@example.com','user','2024-04-10'],
+      ]},
+      products: { cols:['id','name','price','stock','category'], rows:[
+        [1,'Laptop Pro','1299.99',45,'Electronics'],
+        [2,'Wireless Mouse','29.99',200,'Accessories'],
+        [3,'Dev Keyboard','149.00',80,'Accessories'],
+        [4,'4K Monitor','599.00',30,'Electronics'],
+      ]},
+      orders: { cols:['id','user_id','product_id','qty','total','status'], rows:[
+        [1,1,1,1,'1299.99','delivered'],
+        [2,2,3,2,'298.00','processing'],
+        [3,3,2,5,'149.95','shipped'],
+      ]},
+    };
+
+    function renderTable(data) {
+      if (!data || !data.rows) return '';
+      return `<table><thead><tr>${data.cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${data.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    }
+
+    function runQuery() {
+      const q = document.getElementById('query').value.trim().toUpperCase();
+      const results = document.getElementById('results');
+      const status = document.getElementById('status');
+      let match, tbl;
+
+      // SELECT *
+      if ((match = q.match(/SELECT \* FROM (\w+)/))) {
+        tbl = match[1].toLowerCase();
+        if (!DB[tbl]) { results.innerHTML = `<p class="err">ERROR 1146: Table '${tbl}' doesn't exist</p>`; status.textContent='Query failed.'; return; }
+        results.innerHTML = renderTable(DB[tbl]);
+        status.textContent = `${DB[tbl].rows.length} rows returned in 0.001s`;
+      }
+      // INSERT
+      else if ((match = q.match(/INSERT INTO (\w+)/))) {
+        tbl = match[1].toLowerCase();
+        if (!DB[tbl]) { results.innerHTML = `<p class="err">ERROR: Table '${tbl}' doesn't exist</p>`; return; }
+        results.innerHTML = `<p style="color:#22c55e;">✅ Query OK, 1 row affected (0.001s)</p>`;
+        status.textContent = '1 row inserted.';
+      }
+      // DELETE
+      else if ((match = q.match(/DELETE FROM (\w+)/))) {
+        results.innerHTML = `<p style="color:#f59e0b;">⚠️ Query OK, 1 row affected. (Simulated — data unchanged)</p>`;
+        status.textContent = 'Delete simulated.';
+      }
+      // SHOW TABLES
+      else if (q.includes('SHOW TABLES')) {
+        results.innerHTML = renderTable({ cols:['Tables_in_webdb'], rows:Object.keys(DB).map(t=>[t]) });
+        status.textContent = `${Object.keys(DB).length} rows returned.`;
+      }
+      else {
+        results.innerHTML = `<p class="err">ERROR 1064: Syntax error near your SQL statement. Supported: SELECT * FROM, INSERT INTO, DELETE FROM, SHOW TABLES</p>`;
+        status.textContent = 'Query error.';
+      }
+    }
+
+    function clickTable(t) {
+      document.querySelectorAll('.table-item').forEach(i=>i.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('query').value = `SELECT * FROM ${t};`;
+      runQuery();
+    }
+
+    runQuery();
+  </script>
 </body>
 </html>

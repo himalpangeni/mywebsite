@@ -3,23 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLI Text Editor - C Backend API</title>
+  <title>CLI Text Editor - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; min-height: 100vh; background: #0d1117; font-family: 'Courier New', monospace; color: #c9d1d9; display: flex; flex-direction: column; }
+    .nav-btn { position: fixed; top: 20px; left: 20px; padding: 8px 18px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; z-index: 100; }
+    .nav-btn:hover { background: #00d2ff; color: #000; }
+    .titlebar { background: #161b22; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; }
+    .titlebar span { color: #58a6ff; font-weight: bold; }
+    .status { color: #8b949e; font-size: 0.85rem; }
+    .editor-wrap { display: flex; flex: 1; height: calc(100vh - 80px); }
+    .line-nums { background: #0d1117; padding: 10px 14px; color: #6e7681; font-size: 0.95rem; line-height: 1.6; text-align: right; border-right: 1px solid #30363d; min-width: 50px; user-select: none; }
+    #editor { flex: 1; background: #0d1117; color: #c9d1d9; border: none; outline: none; resize: none; padding: 10px 16px; font-family: 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; }
+    .toolbar { background: #161b22; padding: 8px 20px; border-top: 1px solid #30363d; display: flex; gap: 10px; align-items: center; }
+    .toolbar button { padding: 6px 14px; background: #21262d; border: 1px solid #30363d; color: #c9d1d9; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
+    .toolbar button:hover { background: #58a6ff; color: #000; border-color: #58a6ff; }
+    .toolbar input { background: #0d1117; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 10px; border-radius: 6px; font-family: inherit; }
+    #wordcount { color: #8b949e; font-size: 0.82rem; margin-left: auto; }
+    #msg { color: #3fb950; font-size: 0.82rem; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>CLI Text Editor</h1>
-    <p>This is a dedicated backend architecture stub for <strong>CLI Text Editor</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <div class="titlebar">
+    <span>📝 nano-style — untitled.c</span>
+    <span class="status" id="modmod">-- INSERT --</span>
   </div>
+  <div class="editor-wrap">
+    <div class="line-nums" id="lineNums">1</div>
+    <textarea id="editor" spellcheck="false">#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+</textarea>
+  </div>
+  <div class="toolbar">
+    <button onclick="saveFile()">^S Save</button>
+    <button onclick="findReplace()">^F Find</button>
+    <button onclick="document.getElementById('editor').value=''; updateLines()">^X Clear</button>
+    <input id="findBox" placeholder="Find..." style="display:none; width:120px">
+    <span id="msg"></span>
+    <span id="wordcount">Words: 6 | Lines: 7</span>
+  </div>
+  <script>
+    const editor = document.getElementById('editor');
+    const lineNums = document.getElementById('lineNums');
+    const wordcount = document.getElementById('wordcount');
+
+    function updateLines() {
+      const lines = editor.value.split('\n');
+      lineNums.innerHTML = lines.map((_,i) => i+1).join('<br>');
+      const words = editor.value.trim().split(/\s+/).filter(Boolean).length;
+      wordcount.textContent = `Words: ${words} | Lines: ${lines.length}`;
+    }
+    editor.addEventListener('input', updateLines);
+    editor.addEventListener('keydown', e => {
+      if (e.key === 'Tab') { e.preventDefault(); const s=editor.selectionStart; editor.value=editor.value.substring(0,s)+'  '+editor.value.substring(editor.selectionEnd); editor.selectionStart=editor.selectionEnd=s+2; updateLines(); }
+    });
+
+    function saveFile() {
+      const blob = new Blob([editor.value], {type:'text/plain'});
+      const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='file.c'; a.click();
+      document.getElementById('msg').textContent = 'File saved!';
+      setTimeout(()=>document.getElementById('msg').textContent='', 2000);
+    }
+    function findReplace() {
+      const f = document.getElementById('findBox');
+      f.style.display = f.style.display==='none'?'inline-block':'none';
+      if (f.style.display!=='none') { f.focus(); f.oninput = () => { const t=f.value; if(!t) return; const idx=editor.value.toLowerCase().indexOf(t.toLowerCase()); if(idx>=0){editor.focus();editor.setSelectionRange(idx,idx+t.length);} }; }
+    }
+    updateLines();
+  </script>
 </body>
 </html>

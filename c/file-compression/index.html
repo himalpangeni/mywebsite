@@ -3,23 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Compression - C Backend API</title>
+  <title>File Compression - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    body { margin: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; min-height: 100vh; padding: 40px 20px; }
+    .nav-btn { position: fixed; top: 20px; left: 20px; padding: 10px 18px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; }
+    .nav-btn:hover { background: #f59e0b; color: #000; }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { text-align: center; font-size: 2.5rem; background: linear-gradient(90deg, #f59e0b, #ef4444); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sub { text-align: center; color: #94a3b8; margin-bottom: 30px; }
+    .panel { background: #1e293b; border-radius: 14px; padding: 25px; border: 1px solid #334155; margin-bottom: 20px; }
+    label { display: block; color: #94a3b8; font-size: 0.85rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    textarea { width: 100%; padding: 14px; background: #0f172a; border: 1px solid #334155; color: #e2e8f0; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9rem; resize: vertical; outline: none; box-sizing: border-box; min-height: 120px; }
+    textarea:focus { border-color: #f59e0b; }
+    .actions { display: flex; gap: 10px; margin-top: 10px; }
+    button { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
+    .btn-comp { background: #f59e0b; color: #000; }
+    .btn-decomp { background: #3b82f6; color: #fff; }
+    .btn-sample { background: #334155; color: #e2e8f0; }
+    .output-panel { background: #0f172a; border: 1px dashed #334155; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; word-break: break-all; min-height: 80px; font-size: 0.85rem; color: #94a3b8; margin-top: 15px; }
+    .stats-row { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+    .stat { flex: 1; min-width: 130px; background: #1e293b; padding: 18px; border-radius: 10px; text-align: center; border: 1px solid #334155; }
+    .stat .val { font-size: 1.8rem; font-weight: bold; color: #f59e0b; }
+    .stat .lbl { color: #94a3b8; font-size: 0.8rem; }
+    .algo-row { display: flex; gap: 10px; margin-bottom: 15px; }
+    .algo { padding: 8px 18px; border: 1px solid #334155; border-radius: 8px; cursor: pointer; color: #94a3b8; background: transparent; transition: 0.2s; }
+    .algo.active { background: #334155; color: #fff; border-color: #f59e0b; }
+    .bar-wrap { background: #0f172a; border-radius: 6px; overflow: hidden; height: 20px; margin-top: 8px; }
+    .bar-inner { height: 100%; background: linear-gradient(90deg, #f59e0b, #ef4444); transition: width 0.4s; border-radius: 6px; }
+    .huffman-table { width: 100%; font-size: 0.8rem; border-collapse: collapse; margin-top: 15px; }
+    .huffman-table th { background: #334155; padding: 8px 12px; text-align: left; color: #94a3b8; }
+    .huffman-table td { padding: 8px 12px; border-bottom: 1px solid #1e293b; font-family: monospace; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>File Compression</h1>
-    <p>This is a dedicated backend architecture stub for <strong>File Compression</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <div class="container">
+    <h1>📦 File Compression</h1>
+    <p class="sub">Simulate RLE and Huffman encoding algorithms — client-side only</p>
+
+    <div class="panel">
+      <label>Algorithm</label>
+      <div class="algo-row">
+        <button class="algo active" onclick="setAlgo('rle',this)">Run-Length Encoding (RLE)</button>
+        <button class="algo" onclick="setAlgo('huffman',this)">Huffman Encoding</button>
+      </div>
+      <div class="actions" style="margin-bottom:15px">
+        <button class="btn-sample" onclick="setSample(1)">Sample 1 (repetitive)</button>
+        <button class="btn-sample" onclick="setSample(2)">Sample 2 (text)</button>
+      </div>
+
+      <label>Input Text</label>
+      <textarea id="input" placeholder="Type or paste text to compress...">AAABBBCCCCDDDDDEEEEE</textarea>
+      <div class="actions">
+        <button class="btn-comp" onclick="compress()">🗜️ Compress</button>
+        <button class="btn-decomp" onclick="decompress()">📂 Decompress Output</button>
+      </div>
+      <label style="margin-top:20px;">Compressed Output</label>
+      <div class="output-panel" id="output">Click Compress to see the result...</div>
+      <div id="huffTable"></div>
+    </div>
+
+    <div class="stats-row" id="stats"></div>
   </div>
+  <script>
+    let algo = 'rle';
+    function setAlgo(a, el) { algo=a; document.querySelectorAll('.algo').forEach(b=>b.classList.remove('active')); el.classList.add('active'); document.getElementById('huffTable').innerHTML=''; document.getElementById('output').textContent='Click Compress to see the result...'; document.getElementById('stats').innerHTML=''; }
+    function setSample(n) {
+      if(n===1) document.getElementById('input').value = 'AAABBBCCCCDDDDDEEEEEFFFFFFGGGGGGGG';
+      else document.getElementById('input').value = 'the quick brown fox jumps over the lazy dog';
+    }
+
+    function rleEncode(s) {
+      let out='', i=0;
+      while(i<s.length) { let c=s[i], cnt=1; while(i+cnt<s.length&&s[i+cnt]===c) cnt++; out+=(cnt>1?cnt:'')+c; i+=cnt; }
+      return out;
+    }
+    function rleDecode(s) {
+      return s.replace(/(\d+)(.)/g,(_,n,c)=>c.repeat(parseInt(n)));
+    }
+
+    function buildHuffman(s) {
+      const freq={};
+      for(const c of s) freq[c]=(freq[c]||0)+1;
+      let nodes=Object.entries(freq).map(([c,f])=>({c,f,l:null,r:null}));
+      if(nodes.length===1) { const n=nodes[0]; return {tree:{c:null,f:n.f,l:n,r:null},freq}; }
+      while(nodes.length>1) {
+        nodes.sort((a,b)=>a.f-b.f);
+        const l=nodes.shift(), r=nodes.shift();
+        nodes.push({c:null,f:l.f+r.f,l,r});
+      }
+      return {tree:nodes[0],freq};
+    }
+    function getCodes(node, code='', map={}) {
+      if(!node) return map;
+      if(node.c!==null) { map[node.c]=code||'0'; return map; }
+      getCodes(node.l, code+'0', map);
+      getCodes(node.r, code+'1', map);
+      return map;
+    }
+    function huffmanEncode(s) {
+      const {tree,freq}=buildHuffman(s);
+      const codes=getCodes(tree);
+      const encoded=s.split('').map(c=>codes[c]).join('');
+      return {encoded, codes, freq};
+    }
+
+    function compress() {
+      const input = document.getElementById('input').value;
+      if (!input) return;
+      let result='', origBits=input.length*8, compBits=0;
+
+      if(algo==='rle') {
+        result = rleEncode(input);
+        compBits = result.length * 8;
+        document.getElementById('output').textContent = result;
+        document.getElementById('huffTable').innerHTML = '';
+      } else {
+        const {encoded, codes, freq} = huffmanEncode(input);
+        result = encoded;
+        compBits = encoded.length;
+        document.getElementById('output').textContent = encoded.substring(0,200)+(encoded.length>200?'... (truncated)':'');
+        const rows = Object.entries(codes).sort((a,b)=>freq[b[0]]-freq[a[0]]);
+        document.getElementById('huffTable').innerHTML = `<table class="huffman-table"><thead><tr><th>Char</th><th>Freq</th><th>Code</th><th>Bits</th></tr></thead><tbody>${rows.map(([c,code])=>`<tr><td>${c===' '?'SPACE':c}</td><td>${freq[c]}</td><td><code>${code}</code></td><td>${code.length}</td></tr>`).join('')}</tbody></table>`;
+      }
+
+      const ratio = ((1-compBits/origBits)*100).toFixed(1);
+      const pct = Math.max(5, 100-parseFloat(ratio));
+      document.getElementById('stats').innerHTML = `
+        <div class="stat"><div class="val">${origBits}</div><div class="lbl">Original Bits</div></div>
+        <div class="stat"><div class="val">${compBits}</div><div class="lbl">Compressed Bits</div></div>
+        <div class="stat" style="flex:2"><div class="val ${parseFloat(ratio)>0?'':''}"><span style="color:${parseFloat(ratio)>0?'#22c55e':'#ef4444'}">${ratio}%</span></div><div class="lbl">Space Savings</div><div class="bar-wrap"><div class="bar-inner" style="width:${Math.min(100,Math.abs(parseFloat(ratio)))}%"></div></div></div>
+      `;
+    }
+
+    function decompress() {
+      if(algo==='rle') {
+        const output = document.getElementById('output');
+        try { const decoded=rleDecode(output.textContent); output.textContent=decoded; } catch(e) { alert('Invalid RLE string'); }
+      } else {
+        alert('To decompress Huffman: store the Huffman tree and decode bits → original chars. (Shown in the table above)');
+      }
+    }
+
+    compress();
+  </script>
 </body>
 </html>

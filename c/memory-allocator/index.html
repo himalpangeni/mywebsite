@@ -3,23 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memory Allocator - C Backend API</title>
+  <title>Memory Allocator - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    body { margin: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; min-height: 100vh; padding: 40px 20px; }
+    .nav-btn { position: fixed; top: 20px; left: 20px; padding: 10px 18px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; transition: 0.2s; }
+    .nav-btn:hover { background: #14b8a6; color: #000; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { text-align: center; font-size: 2.5rem; background: linear-gradient(90deg, #14b8a6, #3b82f6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sub { text-align:center; color:#94a3b8; margin-bottom:30px; }
+    .controls { display:flex; gap:15px; flex-wrap:wrap; align-items:flex-end; background:#1e293b; padding:20px; border-radius:12px; border:1px solid #334155; margin-bottom:30px; }
+    label { display:block; color:#94a3b8; font-size:0.8rem; margin-bottom:5px; }
+    input, select { background:#0f172a; border:1px solid #334155; color:#e2e8f0; padding:8px 12px; border-radius:6px; font-size:0.9rem; outline:none; }
+    button { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+    .btn-alloc { background:#14b8a6; color:#000; }
+    .btn-free { background:#ef4444; color:#fff; }
+    .btn-gc { background:#6366f1; color:#fff; }
+    .mem-vis { background:#1e293b; border-radius:12px; padding:20px; border:1px solid #334155; margin-bottom:20px; }
+    .mem-vis h3 { margin-top:0; color:#94a3b8; font-size:0.85rem; text-transform:uppercase; }
+    .mem-bar { display:flex; gap:2px; height:50px; border-radius:8px; overflow:hidden; background:#0f172a; border:1px solid #334155; }
+    .mem-seg { display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:bold; transition:width 0.4s; overflow:hidden; white-space:nowrap; }
+    .alloc-list { margin-top:20px; }
+    .alloc-item { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:#0f172a; border-radius:8px; margin-bottom:8px; border-left:4px solid; }
+    .stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; }
+    .stat { background:#1e293b; padding:18px; border-radius:10px; text-align:center; border:1px solid #334155; }
+    .stat .val { font-size:1.8rem; font-weight:bold; color:#14b8a6; }
+    .stat .lbl { color:#94a3b8; font-size:0.8rem; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>Memory Allocator</h1>
-    <p>This is a dedicated backend architecture stub for <strong>Memory Allocator</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <div class="container">
+    <h1>🧠 Memory Allocator</h1>
+    <p class="sub">Simulate malloc / free with visual memory map. Total: 1024 KB</p>
+    <div class="controls">
+      <div><label>Process / Label</label><input id="pname" value="proc_1" style="width:100px"></div>
+      <div><label>Size (KB)</label><input type="number" id="psize" value="64" min="1" max="512" style="width:80px"></div>
+      <div><label>Strategy</label><select id="strat"><option>First Fit</option><option>Best Fit</option><option>Worst Fit</option></select></div>
+      <button class="btn-alloc" onclick="allocate()">malloc()</button>
+      <div><label>Free Block ID</label><input type="number" id="freeId" value="0" min="0" style="width:70px"></div>
+      <button class="btn-free" onclick="freeBlock()">free()</button>
+      <button class="btn-gc" onclick="compact()">Compact GC</button>
+    </div>
+    <div class="mem-vis">
+      <h3>Memory Map (1024 KB)</h3>
+      <div class="mem-bar" id="memBar"></div>
+      <div class="alloc-list" id="allocList"></div>
+    </div>
+    <div class="stats" id="stats"></div>
   </div>
+  <script>
+    const TOTAL = 1024;
+    let blocks = [{ id: -1, label: 'free', size: TOTAL, allocated: false }];
+    let nextId = 0;
+    const palette = ['#14b8a6','#3b82f6','#a855f7','#ec4899','#f59e0b','#22c55e','#ef4444','#00d2ff'];
+
+    function render() {
+      // Memory bar
+      const bar = document.getElementById('memBar');
+      bar.innerHTML = blocks.map(b => `<div class="mem-seg" style="width:${b.size/TOTAL*100}%; background:${b.allocated?palette[b.id%palette.length]:'#1e293b'}; color:${b.allocated?'#000':'#4a5568'}">${b.allocated?`${b.label}(${b.size}K)`:''}</div>`).join('');
+
+      // Alloc list
+      const list = document.getElementById('allocList');
+      list.innerHTML = blocks.filter(b=>b.allocated).map(b => `<div class="alloc-item" style="border-color:${palette[b.id%palette.length]}"><span>ID: ${b.id} | ${b.label}</span><span>${b.size} KB @ 0x${(blocks.slice(0,blocks.indexOf(b)).reduce((s,x)=>s+x.size,0)*1024).toString(16).padStart(8,'0')}</span><button class="btn-free" style="padding:5px 12px;font-size:0.8rem" onclick="freeById(${b.id})">free()</button></div>`).join('');
+      if (!blocks.some(b=>b.allocated)) list.innerHTML = '<p style="color:#4a5568;text-align:center">No allocations</p>';
+
+      // Stats
+      const used = blocks.filter(b=>b.allocated).reduce((s,b)=>s+b.size,0);
+      const freeKb = TOTAL - used;
+      const frags = blocks.filter(b=>!b.allocated).length;
+      document.getElementById('stats').innerHTML = `
+        <div class="stat"><div class="val">${used}</div><div class="lbl">Used (KB)</div></div>
+        <div class="stat"><div class="val">${freeKb}</div><div class="lbl">Free (KB)</div></div>
+        <div class="stat"><div class="val">${frags}</div><div class="lbl">Fragments</div></div>
+      `;
+    }
+
+    function allocate() {
+      const size = parseInt(document.getElementById('psize').value) || 64;
+      const label = document.getElementById('pname').value || 'proc';
+      const strat = document.getElementById('strat').value;
+      let freeBlocks = blocks.map((b,i)=>({...b,idx:i})).filter(b=>!b.allocated && b.size>=size);
+      if (!freeBlocks.length) { alert('Out of memory! Compact or free some blocks.'); return; }
+      let chosen;
+      if (strat==='Best Fit') chosen = freeBlocks.sort((a,b)=>a.size-b.size)[0];
+      else if (strat==='Worst Fit') chosen = freeBlocks.sort((a,b)=>b.size-a.size)[0];
+      else chosen = freeBlocks[0];
+
+      const rem = chosen.size - size;
+      const newBlocks = [{ id: nextId++, label, size, allocated: true }];
+      if (rem > 0) newBlocks.push({ id:-1, label:'free', size:rem, allocated:false });
+      blocks.splice(chosen.idx, 1, ...newBlocks);
+      document.getElementById('pname').value = `proc_${nextId}`;
+      render();
+    }
+
+    function freeById(id) {
+      const idx = blocks.findIndex(b=>b.id===id);
+      if (idx < 0) return;
+      blocks[idx] = { id:-1, label:'free', size:blocks[idx].size, allocated:false };
+      // Merge adjacent free blocks
+      let i = 0;
+      while (i < blocks.length-1) {
+        if (!blocks[i].allocated && !blocks[i+1].allocated) { blocks[i].size += blocks[i+1].size; blocks.splice(i+1,1); } else i++;
+      }
+      render();
+    }
+
+    function freeBlock() { freeById(parseInt(document.getElementById('freeId').value)||0); }
+
+    function compact() {
+      const allocated = blocks.filter(b=>b.allocated);
+      const totalFree = blocks.filter(b=>!b.allocated).reduce((s,b)=>s+b.size,0);
+      blocks = [...allocated, {id:-1, label:'free', size:totalFree, allocated:false}];
+      render();
+    }
+
+    render();
+  </script>
 </body>
 </html>

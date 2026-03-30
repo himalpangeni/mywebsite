@@ -3,23 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTTP Server - C Backend API</title>
+  <title>HTTP Server - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    body { margin: 0; background: #0d1117; color: #c9d1d9; font-family: 'Courier New', monospace; min-height: 100vh; display: flex; }
+    .nav-btn { position: fixed; top: 15px; right: 15px; padding: 8px 16px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; font-size: 0.8rem; transition: 0.2s; }
+    .nav-btn:hover { background: #3fb950; color: #000; }
+    .left { width: 400px; min-width: 400px; background: #161b22; border-right: 1px solid #21262d; display: flex; flex-direction: column; }
+    .panel-title { padding: 18px 20px; font-weight: bold; background: #21262d; border-bottom: 1px solid #30363d; color: #58a6ff; }
+    .routes-list { padding: 20px; overflow-y: auto; flex: 1; }
+    .route { padding: 14px; background: #0d1117; border-radius: 8px; margin-bottom: 10px; border: 1px solid #21262d; cursor: pointer; transition: 0.2s; }
+    .route:hover, .route.active { border-color: #388bfd; }
+    .route .method { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-right: 8px; }
+    .GET { background: #1a7f37; color: #fff; }
+    .POST { background: #9a6700; color: #fff; }
+    .DELETE { background: #b62324; color: #fff; }
+    .right { flex: 1; display: flex; flex-direction: column; }
+    .request-area { padding: 20px; border-bottom: 1px solid #21262d; background: #161b22; }
+    .request-area label { color: #8b949e; font-size: 0.8rem; display: block; margin-bottom: 8px; }
+    .url-bar { display: flex; gap: 10px; }
+    select.method-sel { background: #21262d; border: 1px solid #30363d; color: #e6edf3; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; outline: none; }
+    input.url-input { flex: 1; background: #21262d; border: 1px solid #30363d; color: #e6edf3; padding: 10px 14px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9rem; outline: none; }
+    button.send-btn { background: #238636; color: #fff; border: none; padding: 10px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    button.send-btn:hover { background: #2ea043; }
+    .response { flex: 1; padding: 20px; overflow-y: auto; }
+    .status-line { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; font-size: 0.9rem; }
+    .status-code { font-size: 1.4rem; font-weight: bold; }
+    .s200 { color: #3fb950; } .s404 { color: #f85149; } .s500 { color: #ff7b72; } .s201 { color: #58a6ff; }
+    .resp-headers { background: #161b22; border-radius: 8px; padding: 15px; font-size: 0.8rem; color: #8b949e; margin-bottom: 15px; border: 1px solid #21262d; }
+    .resp-body { background: #0d1117; border-radius: 8px; padding: 15px; font-size: 0.9rem; color: #c9d1d9; white-space: pre; border: 1px solid #21262d; overflow-x: auto; }
+    .log { background: #161b22; padding: 12px 20px; border-top: 1px solid #21262d; font-size: 0.78rem; color: #8b949e; max-height: 100px; overflow-y: auto; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>HTTP Server</h1>
-    <p>This is a dedicated backend architecture stub for <strong>HTTP Server</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <div class="left">
+    <div class="panel-title">📡 HTTP Server — C Simulation</div>
+    <div class="routes-list">
+      <div class="route" onclick="selectRoute('GET','/')"><span class="method GET">GET</span> /</div>
+      <div class="route" onclick="selectRoute('GET','/api/users')"><span class="method GET">GET</span> /api/users</div>
+      <div class="route" onclick="selectRoute('GET','/api/users/1')"><span class="method GET">GET</span> /api/users/:id</div>
+      <div class="route" onclick="selectRoute('POST','/api/users')"><span class="method POST">POST</span> /api/users</div>
+      <div class="route" onclick="selectRoute('DELETE','/api/users/1')"><span class="method DELETE">DELETE</span> /api/users/:id</div>
+      <div class="route" onclick="selectRoute('GET','/health')"><span class="method GET">GET</span> /health</div>
+      <div class="route" onclick="selectRoute('GET','/api/unknown')"><span class="method GET">GET</span> /unknown (404)</div>
+    </div>
   </div>
+  <div class="right">
+    <div class="request-area">
+      <label>Request</label>
+      <div class="url-bar">
+        <select class="method-sel" id="method"><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option></select>
+        <input class="url-input" id="url" value="http://localhost:8080/">
+        <button class="send-btn" onclick="send()">Send</button>
+      </div>
+    </div>
+    <div class="response">
+      <div class="status-line"><span class="status-code s200" id="statusCode">200</span><span id="statusText">OK</span><span style="color:#8b949e;margin-left:auto;font-size:0.8rem" id="timing">12ms</span></div>
+      <div class="resp-headers" id="headers">Content-Type: text/html<br>Server: C-HttpServer/1.0<br>Connection: keep-alive</div>
+      <div class="resp-body" id="body">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;C HTTP Server&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome to C HTTP Server&lt;/h1&gt;
+    &lt;p&gt;Server running on port 8080&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</div>
+    </div>
+    <div class="log" id="log">[INFO] Server listening on 0.0.0.0:8080<br>[INFO] Worker threads: 4<br></div>
+  </div>
+  <script>
+    const routes = {
+      'GET /': { status: 200, text: 'OK', body: `<!DOCTYPE html>\n<html>\n  <body>\n    <h1>C HTTP Server</h1>\n    <p>Running on port 8080</p>\n  </body>\n</html>`, type:'text/html' },
+      'GET /api/users': { status: 200, text: 'OK', body: JSON.stringify([{id:1,name:"Himal",role:"admin"},{id:2,name:"Jane",role:"user"},{id:3,name:"Bob",role:"dev"}],null,2), type:'application/json' },
+      'GET /api/users/1': { status: 200, text: 'OK', body: JSON.stringify({id:1,name:"Himal",email:"himal@example.com",role:"admin"},null,2), type:'application/json' },
+      'POST /api/users': { status: 201, text: 'Created', body: JSON.stringify({message:"User created",id:4,name:"New User"},null,2), type:'application/json' },
+      'DELETE /api/users/1': { status: 200, text: 'OK', body: JSON.stringify({message:"User deleted successfully"},null,2), type:'application/json' },
+      'GET /health': { status: 200, text: 'OK', body: JSON.stringify({status:"healthy",uptime:"3h 42m",requests_served:1024,memory_used:"24MB"},null,2), type:'application/json' },
+    };
+
+    function send() {
+      const method = document.getElementById('method').value;
+      const url = document.getElementById('url').value;
+      const path = url.replace(/^https?:\/\/[^\/]+/,'') || '/';
+      const key = `${method} ${path}`;
+      const ms = Math.floor(Math.random()*20)+5;
+      const r = routes[key] || { status:404, text:'Not Found', body: JSON.stringify({error:`Cannot ${method} ${path}`,code:404},null,2), type:'application/json' };
+      const sc = document.getElementById('statusCode');
+      sc.textContent = r.status;
+      sc.className = 'status-code s'+r.status;
+      document.getElementById('statusText').textContent = r.text;
+      document.getElementById('timing').textContent = ms+'ms';
+      document.getElementById('headers').innerHTML = `Content-Type: ${r.type}<br>Server: C-HttpServer/1.0<br>X-Response-Time: ${ms}ms<br>Connection: keep-alive`;
+      document.getElementById('body').textContent = r.body;
+      const log = document.getElementById('log');
+      log.innerHTML += `[${new Date().toLocaleTimeString()}] ${method} ${path} → ${r.status} (${ms}ms)<br>`;
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function selectRoute(method, path) {
+      document.getElementById('method').value = method;
+      document.getElementById('url').value = `http://localhost:8080${path}`;
+      send();
+    }
+  </script>
 </body>
 </html>

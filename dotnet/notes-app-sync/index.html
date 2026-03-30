@@ -3,23 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes App Sync - DOTNET Backend API</title>
+  <title>Notes App Sync - Interactive App Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    body { margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; font-family: 'Segoe UI', sans-serif; color: white; }
+    .card { background: rgba(255, 255, 255, 0.03); padding: 50px; border-radius: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); max-width: 900px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: center; }
+    h1 { margin-top: 0; font-size: 2.8rem; background: linear-gradient(90deg, #ff007f, #00d2ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p { color: #94a3b8; line-height: 1.6; font-size: 1.1rem; }
+    .tag { display: inline-block; padding: 8px 18px; background: rgba(0, 210, 255, 0.1); border-radius: 30px; font-size: 0.85rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; border: 1px solid rgba(0,210,255,0.3); text-transform: uppercase; letter-spacing: 1px;}
+    .nav-btn { position: absolute; top: 30px; left: 30px; display: inline-block; padding: 12px 25px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+    .nav-btn:hover { background: #00d2ff; color: #000; }
   </style>
 </head>
 <body>
+  <a href="../../index.html" class="nav-btn">← Return to Hub</a>
   <div class="card">
-    <div class="tag">DOTNET Backend API</div>
+    <div class="tag">Interactive UI Simulation</div>
     <h1>Notes App Sync</h1>
-    <p>This is a dedicated backend architecture stub for <strong>Notes App Sync</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+    <p style="margin-bottom:30px;">Notes App Sync — An interactive frontend showcase. Explore the simulated UI below.</p>
+    
+    <!-- Dynamic UI Injects Here -->
+    
+       <div style="margin-top:30px; background:#0f172a; border-radius:12px; border:1px solid #334; overflow:hidden; text-align:left;">
+          <div style="background:#1e293b; padding:15px 20px; border-bottom:1px solid #334; display:flex; justify-content:space-between; align-items:center;">
+             <strong style="color:#bbb; font-size:1.1rem;">API Console Dashboard</strong>
+             <span style="color:#22c55e; font-weight:bold; font-size:0.9rem;">● Server Active (Simulated)</span>
+          </div>
+          <div style="padding:30px; font-family:monospace; line-height:1.5;">
+             <div style="color:#00d2ff; margin-bottom:10px; font-weight:bold;">> GET /api/v1/status</div>
+             <div style="background:rgba(0,0,0,0.5); padding:15px; border-radius:8px; color:#aaa; border:1px solid #334;">{<br>&nbsp;&nbsp;"service": "${title}",<br>&nbsp;&nbsp;"status": "online",<br>&nbsp;&nbsp;"uptime": "99.9%"<br>}</div>
+             
+             <div style="color:#00d2ff; margin-bottom:10px; margin-top:30px; font-weight:bold;">> POST /api/v1/data</div>
+             <div style="display:flex; gap:10px;">
+                <input type="text" placeholder="Enter JSON payload" style="flex:1; padding:15px; background:#1e293b; border:1px solid #334; color:white; border-radius:8px; outline:none;">
+                <button style="padding:15px 30px; background:#334; border:none; color:white; font-weight:bold; border-radius:8px; cursor:pointer;" onclick="alert('Mock Payload Processed Successfully by 200 OK!')">Send Request</button>
+             </div>
+          </div>
+       </div>
+     
   </div>
 </body>
 </html>

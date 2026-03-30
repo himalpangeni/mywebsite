@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Web App - Flask Backend</title>
+    <style>
+        body { margin: 0; padding: 0; background: #0f172a; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+        header { background: #1e293b; padding: 20px; text-align: center; border-bottom: 2px solid #00d2ff; position: relative; }
+        h1 { margin: 0; font-size: 1.5rem; color: #00d2ff; }
+        .chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        .message { padding: 15px; border-radius: 12px; max-width: 80%; line-height: 1.5; }
+        .user-message { background: #00d2ff; color: #000; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .ai-message { background: #334155; color: #fff; align-self: flex-start; border-bottom-left-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .input-area { background: #1e293b; padding: 20px; display: flex; gap: 10px; justify-content: center; border-top: 1px solid #334155; }
+        .input-area div.inner { max-width: 800px; width: 100%; display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 15px; border-radius: 8px; border: none; background: #0f172a; color: white; font-size: 1rem; outline: none; }
+        input[type="text"]:focus { box-shadow: 0 0 0 2px #00d2ff; }
+        button { padding: 15px 30px; border-radius: 8px; border: none; background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #fff; }
+        .typing { color: #cbd5e1; font-style: italic; font-size: 0.9rem; align-self: flex-start; display: none; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Chat Interface</h1>
+        <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #94a3b8;">Python + Flask Backend Functional Demo</p>
+    </header>
+
+    <div class="chat-container" id="chat">
+        <div class="message ai-message">Hello! I am your AI Chat Web App, served natively from a Python backend. Send me a message!</div>
+        <div class="typing" id="typing">AI is processing...</div>
+    </div>
+
+    <div class="input-area">
+        <div class="inner">
+            <input type="text" id="msg" placeholder="Type your message to the Flask server..." autocomplete="off" onkeypress="if(event.key==='Enter') send()">
+            <button onclick="send()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chat = document.getElementById('chat');
+        const typing = document.getElementById('typing');
+        const input = document.getElementById('msg');
+
+        async function send() {
+            const text = input.value.trim();
+            if(!text) return;
+            
+            input.value = '';
+            
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'message user-message';
+            userDiv.innerText = text;
+            chat.insertBefore(userDiv, typing);
+            
+            // Show typing indicator
+            typing.style.display = 'block';
+            chat.scrollTop = chat.scrollHeight;
+
+            try {
+                const res = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+                
+                const data = await res.json();
+                
+                typing.style.display = 'none';
+                
+                // Add AI message
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'message ai-message';
+                aiDiv.innerText = data.reply || data.error;
+                chat.insertBefore(aiDiv, typing);
+                chat.scrollTop = chat.scrollHeight;
+                
+            } catch (err) {
+                typing.style.display = 'none';
+                console.error(err);
+                const errDiv = document.createElement('div');
+                errDiv.className = 'message ai-message';
+                errDiv.innerText = "Error: Cannot connect to the Flask server. Please ensure app.py is running.";
+                errDiv.style.color = "#ff4444";
+                chat.insertBefore(errDiv, typing);
+            }
+        }
+    </script>
+</body>
+</html>

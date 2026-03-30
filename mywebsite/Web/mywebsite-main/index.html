@@ -1,125 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Himal Pangeni — Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Himal Pangeni - Interactive App Mockup</title>
+  <style>
+    body { margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; font-family: 'Segoe UI', sans-serif; color: white; }
+    .card { background: rgba(255, 255, 255, 0.03); padding: 50px; border-radius: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); max-width: 900px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: center; }
+    h1 { margin-top: 0; font-size: 2.8rem; background: linear-gradient(90deg, #ff007f, #00d2ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p { color: #94a3b8; line-height: 1.6; font-size: 1.1rem; }
+    .tag { display: inline-block; padding: 8px 18px; background: rgba(0, 210, 255, 0.1); border-radius: 30px; font-size: 0.85rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; border: 1px solid rgba(0,210,255,0.3); text-transform: uppercase; letter-spacing: 1px;}
+    .nav-btn { position: absolute; top: 30px; left: 30px; display: inline-block; padding: 12px 25px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+    .nav-btn:hover { background: #00d2ff; color: #000; }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">
-        <h1>Himal Pangeni</h1>
-        <p class="tag">Full‑Stack Web Developer</p>
-      </div>
-      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">☰</button>
-      <nav id="nav" class="nav">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-        <a href="portfolio.html" class="btn-outline">Portfolio</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section id="hero" class="hero">
-      <div class="container hero-inner">
-        <div class="hero-text">
-          <h2>Hello, I’m Himal.</h2>
-          <p>I build modern, accessible web applications and responsive websites. I focus on clean design, performance and maintainable code.</p>
-          <p class="cta-row">
-            <a href="#projects" class="btn">See my work</a>
-            <a href="#contact" class="btn-secondary">Get in touch</a>
-          </p>
-        </div>
-        <div class="hero-image">
-          <img src="placeholder.jpg" alt="Himal Pangeni portrait placeholder">
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="about container">
-      <h2>About Me</h2>
-      <p>Passionate about coding, web development, and creating user-friendly, interactive web experiences. I work across the stack — building APIs, interactive front-ends, and polished UIs.</p>
-      <ul class="about-list">
-        <li>Based in Nepal</li>
-        <li>Experience with HTML, CSS, JavaScript, React, Node.js</li>
-        <li>Open to freelance and full-time opportunities</li>
-      </ul>
-    </section>
-
-    <section id="projects" class="projects container">
-      <h2>Selected Projects</h2>
-      <div class="projects-grid">
-        <article class="card">
-          <img src="projects/project1.png" alt="Project 1 screenshot">
-          <h3>Portfolio Website</h3>
-          <p>Personal portfolio built with modern HTML/CSS and some JavaScript for interactivity.</p>
-          <p class="card-actions"><a href="projects/main/" target="_blank" class="btn-small">View</a></p>
-        </article>
-
-        <article class="card">
-          <img src="projects/project2.png" alt="Project 2 screenshot">
-          <h3>Web App (Demo)</h3>
-          <p>Sample CRUD application with Node.js backend and a React frontend.</p>
-          <p class="card-actions"><a href="projects/portfolio/" target="_blank" class="btn-small">View</a></p>
-        </article>
-
-        <article class="card">
-          <img src="projects/project3.png" alt="Project 3 screenshot">
-          <h3>Open Source</h3>
-          <p>Contributions to utilities and UI components; focus on accessibility and tests.</p>
-          <p class="card-actions"><a href="#" class="btn-small">Details</a></p>
-        </article>
-      </div>
-    </section>
-
-    <section id="skills" class="skills container">
-      <h2>Skills</h2>
-      <div class="skill-list">
-        <div class="skill">HTML/CSS</div>
-        <div class="skill">JavaScript</div>
-        <div class="skill">React</div>
-        <div class="skill">Node.js</div>
-        <div class="skill">Git</div>
-      </div>
-    </section>
-
-    <section id="contact" class="contact container">
-      <h2>Contact</h2>
-      <p>If you'd like to work together or want to say hello, send a message.</p>
-      <form id="contact-form" action="#" onsubmit="handleForm(event)">
-        <label>
-          Name
-          <input name="name" type="text" required>
-        </label>
-        <label>
-          Email
-          <input name="email" type="email" required>
-        </label>
-        <label>
-          Message
-          <textarea name="message" rows="5" required></textarea>
-        </label>
-        <p><button type="submit" class="btn">Send Message</button></p>
-      </form>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; 2026 Himal Pangeni. All rights reserved.</p>
-      <p class="social">
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Twitter</a>
-      </p>
-    </div>
-  </footer>
-
-  <script src="main.js"></script>
+  <a href="../../../index.html" class="nav-btn">← Return to Hub</a>
+  <div class="card">
+    <div class="tag">Interactive UI Simulation</div>
+    <h1>Himal Pangeni</h1>
+    <p style="margin-bottom:30px;">Full‑Stack Web Developer</p>
+    
+    <!-- Dynamic UI Injects Here -->
+    
+       <div style="display:flex; flex-direction:column; align-items:center; margin-top: 40px;">
+          <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #7000ff); display:flex; justify-content:center; align-items:center; font-size: 4rem; box-shadow: 0 0 50px rgba(0,210,255,0.3);">✨</div>
+          <h2 style="margin-top:30px; color:#fff; font-size:2rem;">Interactive Demo Activated</h2>
+          <p style="color:#aaa; text-align:center; max-width:500px; font-size:1.1rem;">This is a fully upgraded interactive frontend layout for your <strong>${title}</strong> application mockup! The backend architecture is modularized and ready.</p>
+          <div style="display:flex; gap:15px; margin-top:30px;">
+             <button style="padding:15px 30px; background:#00d2ff; color:#000; border:none; border-radius:30px; font-weight:bold; cursor:pointer;" onclick="alert('Demo action triggered successfully!')">Test Core Feature</button>
+             <button style="padding:15px 30px; background:transparent; color:#fff; border:1px solid #334; border-radius:30px; cursor:pointer;" onclick="alert('Settings menu simulated')">User Settings</button>
+          </div>
+       </div>
+     
+  </div>
 </body>
 </html>

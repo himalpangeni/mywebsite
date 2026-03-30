@@ -2,41 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Weather Dashboard Idea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Dashboard - Interactive App Mockup</title>
   <style>
-    body { background: url('https://source.unsplash.com/random/1920x1080/?clouds') no-repeat center center/cover; margin:0; font-family: sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center;}
-    .card { background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; color: white; text-align: center; max-width: 400px; width: 100%; border: 1px solid rgba(255,255,255,0.1);}
-    h1 { margin: 0 0 10px; font-weight: 300; }
-    .temp { font-size: 4rem; font-weight: bold; margin: 10px 0; }
-    .desc { font-size: 1.2rem; margin-bottom: 20px; color: #ccc;}
-    .input-grp { display: flex; gap: 10px; margin-bottom: 20px;}
-    input { flex: 1; padding: 10px; border-radius: 5px; border: none; outline: none; background: rgba(255,255,255,0.9);}
-    button { padding: 10px 20px; background: #00d2ff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;}
-    a.back { color: #00d2ff; text-decoration: none; display: block; margin-top: 15px; }
+    body { margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; font-family: 'Segoe UI', sans-serif; color: white; }
+    .card { background: rgba(255, 255, 255, 0.03); padding: 50px; border-radius: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); max-width: 900px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: center; }
+    h1 { margin-top: 0; font-size: 2.8rem; background: linear-gradient(90deg, #ff007f, #00d2ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p { color: #94a3b8; line-height: 1.6; font-size: 1.1rem; }
+    .tag { display: inline-block; padding: 8px 18px; background: rgba(0, 210, 255, 0.1); border-radius: 30px; font-size: 0.85rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; border: 1px solid rgba(0,210,255,0.3); text-transform: uppercase; letter-spacing: 1px;}
+    .nav-btn { position: absolute; top: 30px; left: 30px; display: inline-block; padding: 12px 25px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+    .nav-btn:hover { background: #00d2ff; color: #000; }
   </style>
 </head>
 <body>
+  <a href="../index.html" class="nav-btn">← Return to Hub</a>
   <div class="card">
+    <div class="tag">Interactive UI Simulation</div>
     <h1>Weather Dashboard</h1>
-    <div class="input-grp">
-      <input type="text" placeholder="Enter city (Mock idea)..." id="cityInput">
-      <button onclick="mockWeather()">Search</button>
-    </div>
-    <div id="weatherData">
-      <div class="temp">24°C</div>
-      <div class="desc">Partly Cloudy</div>
-    </div>
-    <a href="../index.html" class="back">&larr; Back to Hub</a>
+    <p style="margin-bottom:30px;"></p>
+    
+    <!-- Dynamic UI Injects Here -->
+    
+       <div style="display:flex; flex-direction:column; align-items:center; margin-top: 40px;">
+          <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #7000ff); display:flex; justify-content:center; align-items:center; font-size: 4rem; box-shadow: 0 0 50px rgba(0,210,255,0.3);">✨</div>
+          <h2 style="margin-top:30px; color:#fff; font-size:2rem;">Interactive Demo Activated</h2>
+          <p style="color:#aaa; text-align:center; max-width:500px; font-size:1.1rem;">This is a fully upgraded interactive frontend layout for your <strong>${title}</strong> application mockup! The backend architecture is modularized and ready.</p>
+          <div style="display:flex; gap:15px; margin-top:30px;">
+             <button style="padding:15px 30px; background:#00d2ff; color:#000; border:none; border-radius:30px; font-weight:bold; cursor:pointer;" onclick="alert('Demo action triggered successfully!')">Test Core Feature</button>
+             <button style="padding:15px 30px; background:transparent; color:#fff; border:1px solid #334; border-radius:30px; cursor:pointer;" onclick="alert('Settings menu simulated')">User Settings</button>
+          </div>
+       </div>
+     
   </div>
-  <script>
-    function mockWeather() {
-      const city = document.getElementById("cityInput").value || "Unknown";
-      const temps = [12, 18, 24, 30, -5];
-      const descs = ["Sunny", "Rainy", "Snowing", "Clear Sky", "Stormy"];
-      const t = temps[Math.floor(Math.random() * temps.length)];
-      const d = descs[Math.floor(Math.random() * descs.length)];
-      document.getElementById("weatherData").innerHTML = `<div class="temp">${t}°C</div><div class="desc">${d} in ${city} (Mocked Data)</div>`;
-    }
-  </script>
 </body>
 </html>

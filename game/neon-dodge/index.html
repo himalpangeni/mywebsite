@@ -1,25 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Neon Dodge</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #001122, #000000); font-family: sans-serif; color: white; text-align: center; }
-    .card { background: rgba(0, 210, 255, 0.05); padding: 50px; border-radius: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(0, 210, 255, 0.2); max-width: 600px; box-shadow: 0 0 50px rgba(0,210,255,0.1); }
-    h1 { margin-top: 0; font-size: 3rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p.desc { font-size: 1.2rem; line-height: 1.5; color: #ddd; margin-bottom: 10px; }
-    p.visual { font-size: 1rem; color: #00d2ff; font-style: italic; margin-bottom: 30px; }
-    .btn { display: inline-block; padding: 15px 30px; background: rgba(0, 210, 255, 0.1); border: 2px solid #00d2ff; color: #00d2ff; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; }
-    .btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 20px #00d2ff; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #ui {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #00d2ff;
+      text-shadow: 0 0 15px rgba(0, 210, 255, 0.8);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    #score {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 5px;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    #gameover {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 20;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+
+    #gameover h2 {
+      font-size: 56px;
+      color: #ff007f;
+      text-shadow: 0 0 30px #ff007f;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 35px;
+      margin: 10px;
+      background: rgba(0, 210, 255, 0.1);
+      border: 2px solid #00d2ff;
+      color: #00d2ff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn:hover {
+      background: #00d2ff;
+      color: #000;
+      box-shadow: 0 0 25px #00d2ff;
+      transform: translateY(-3px);
+    }
   </style>
 </head>
+
 <body>
-  <div class="card">
+  <div id="ui">
     <h1>Neon Dodge</h1>
-    <p class="desc">You control a glowing cube. Avoid incoming obstacles. Speed increases over time.</p>
-    <p class="visual">✨ Visual style: Neon lights, cyberpunk glow, smooth trails</p>
-    <a href="../../index.html" class="btn">Back to Hub</a>
+    <div id="score">Score: 0</div>
   </div>
+
+  <div id="gameover">
+    <h2>SYSTEM CRASHED</h2>
+    <div style="font-size: 28px; margin-bottom: 40px; color: #ccc;">Final Score: <span id="finalScore"
+        style="color: #fff; font-weight: bold;"></span></div>
+    <div>
+      <a href="../../index.html" class="btn">Return to Hub</a>
+      <button class="btn" onclick="restartGame()">Restart Game?</button>
+    </div>
+  </div>
+
+  <canvas id="gameCanvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let w, h;
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Game state
+    let isGameOver = false;
+    let score = 0;
+    let frames = 0;
+    let speedMultiplier = 1;
+
+    // Player
+    const player = {
+      x: w / 2,
+      y: h - 120,
+      size: 40,
+      speed: 10,
+      dx: 0,
+      color: '#00d2ff',
+    };
+
+    // Input
+    const keys = { ArrowLeft: false, ArrowRight: false, a: false, d: false, A: false, D: false };
+    window.addEventListener('keydown', e => {
+      if (keys.hasOwnProperty(e.key) || keys.hasOwnProperty(e.code)) {
+        if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
+        if (keys.hasOwnProperty(e.code)) keys[e.code] = true;
+      }
+    });
+    window.addEventListener('keyup', e => {
+      if (keys.hasOwnProperty(e.key) || keys.hasOwnProperty(e.code)) {
+        if (keys.hasOwnProperty(e.key)) keys[e.key] = false;
+        if (keys.hasOwnProperty(e.code)) keys[e.code] = false;
+      }
+    });
+
+    // Touch controls for mobile
+    window.addEventListener('touchstart', e => {
+      const touchX = e.touches[0].clientX;
+      if (touchX < w / 2) { keys.ArrowLeft = true; } else { keys.ArrowRight = true; }
+    });
+    window.addEventListener('touchend', e => {
+      keys.ArrowLeft = false; keys.ArrowRight = false;
+    });
+
+    // Obstacles
+    let obstacles = [];
+    function spawnObstacle() {
+      const size = Math.random() * 50 + 40; // 40 to 90
+      const x = Math.random() * (w - size);
+      const speed = (Math.random() * 4 + 4) * speedMultiplier;
+
+      // Random neon colors for enemies
+      const colors = ['#ff007f', '#7000ff', '#ff0055'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      obstacles.push({ x, y: -size, size, speed, color });
+    }
+
+    // Effect Particles
+    let particles = [];
+    function spawnPlayerTrail() {
+      particles.push({
+        x: player.x,
+        y: player.y,
+        size: player.size * 0.8,
+        life: 1.0,
+        decay: 0.08,
+        color: player.color
+      });
+    }
+
+    function spawnExplosion(x, y, color) {
+      for (let i = 0; i < 30; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          size: Math.random() * 15 + 5,
+          life: 1.0,
+          decay: Math.random() * 0.05 + 0.02,
+          color: color,
+          dx: (Math.random() - 0.5) * 20,
+          dy: (Math.random() - 0.5) * 20
+        });
+      }
+    }
+
+    function restartGame() {
+      isGameOver = false;
+      score = 0;
+      frames = 0;
+      speedMultiplier = 1;
+      player.x = w / 2;
+      obstacles = [];
+      particles = [];
+      document.getElementById('gameover').style.display = 'none';
+      loop();
+    }
+
+    function checkCollision(rect1, rect2) {
+      // Add slight leniency to hitbox (make bounds smaller)
+      const shrink = 5;
+      return (
+        rect1.x + shrink < rect2.x + rect2.size - shrink &&
+        rect1.x + rect1.size - shrink > rect2.x + shrink &&
+        rect1.y + shrink < rect2.y + rect2.size - shrink &&
+        rect1.y + rect1.size - shrink > rect2.y + shrink
+      );
+    }
+
+    function update() {
+      if (isGameOver) return;
+      frames++;
+      score += 1;
+      document.getElementById('score').innerText = 'Score: ' + Math.floor(score / 10);
+
+      // Speed progression
+      if (frames % 400 === 0) speedMultiplier += 0.15;
+
+      // Player Movement
+      if (keys.ArrowLeft || keys.a || keys.A) player.x -= player.speed;
+      if (keys.ArrowRight || keys.d || keys.D) player.x += player.speed;
+
+      // Bounds
+      if (player.x < 0) player.x = 0;
+      if (player.x + player.size > w) player.x = w - player.size;
+
+      // Spawn trail
+      if (frames % 2 === 0) spawnPlayerTrail();
+
+      // Spawn Obstacles
+      const spawnRate = Math.max(20, 80 - speedMultiplier * 15);
+      if (frames % Math.floor(spawnRate) === 0) {
+        spawnObstacle();
+      }
+
+      // Update Obstacles
+      for (let i = 0; i < obstacles.length; i++) {
+        let obs = obstacles[i];
+        obs.y += obs.speed;
+        if (checkCollision(player, obs)) {
+          isGameOver = true;
+          spawnExplosion(player.x + player.size / 2, player.y + player.size / 2, player.color);
+        }
+      }
+      obstacles = obstacles.filter(obs => obs.y < h);
+
+      // Update Particles
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].life -= particles[i].decay;
+        particles[i].size -= 0.3;
+        if (particles[i].dx !== undefined) {
+          particles[i].x += particles[i].dx;
+          particles[i].y += particles[i].dy;
+        }
+      }
+      particles = particles.filter(p => p.life > 0 && p.size > 0);
+
+      if (isGameOver) {
+        document.getElementById('finalScore').innerText = Math.floor(score / 10);
+        setTimeout(() => {
+          document.getElementById('gameover').style.display = 'flex';
+        }, 800);
+      }
+    }
+
+    function draw() {
+      // Motion blur trail effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      ctx.fillRect(0, 0, w, h);
+
+      // Add grid background for Cyberpunk feel
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+      ctx.lineWidth = 1;
+      const gridSize = 100;
+      for (let i = 0; i < w; i += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, h);
+        ctx.stroke();
+      }
+      const offsetY = (frames * 2) % gridSize;
+      for (let i = offsetY; i < h; i += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(w, i);
+        ctx.stroke();
+      }
+
+      // Draw Particles
+      ctx.globalCompositeOperation = "lighter";
+      particles.forEach(p => {
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.shadowBlur = p.dx ? 20 : 10;
+        ctx.shadowColor = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      });
+
+      ctx.globalAlpha = 1.0;
+      ctx.shadowBlur = 0;
+      ctx.globalCompositeOperation = "source-over";
+
+      // Draw Player Highlighted Center
+      if (!isGameOver) {
+        ctx.fillStyle = '#fff';
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = player.color;
+        ctx.fillRect(player.x + 10, player.y + 10, player.size - 20, player.size - 20);
+
+        // Draw Player Main Body
+        ctx.strokeStyle = player.color;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(player.x, player.y, player.size, player.size);
+      }
+
+      // Draw Obstacles
+      obstacles.forEach(obs => {
+        ctx.fillStyle = 'rgba(0,0,0,0.8)';
+        ctx.fillRect(obs.x, obs.y, obs.size, obs.size);
+
+        ctx.strokeStyle = obs.color;
+        ctx.lineWidth = 3;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = obs.color;
+        ctx.strokeRect(obs.x, obs.y, obs.size, obs.size);
+      });
+      ctx.shadowBlur = 0;
+    }
+
+    function loop() {
+      update();
+      draw();
+      // Keep running the loop to animate the explosion even when game is over
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  </script>
 </body>
+
 </html>

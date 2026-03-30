@@ -3,23 +3,135 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Process Scheduler - C Backend API</title>
+  <title>Process Scheduler - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    body { margin: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; min-height: 100vh; padding: 40px 20px; }
+    .nav-btn { position: fixed; top: 20px; left: 20px; padding: 10px 18px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; transition: 0.2s; }
+    .nav-btn:hover { background: #6366f1; color: #fff; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { text-align: center; font-size: 2.5rem; background: linear-gradient(90deg, #6366f1, #a855f7); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sub { text-align: center; color: #94a3b8; margin-bottom: 30px; }
+    .controls { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 30px; }
+    label { color: #94a3b8; font-size: 0.85rem; }
+    input, select { background: #0f172a; border: 1px solid #334155; color: #e2e8f0; padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; outline: none; }
+    button { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .btn-add { background: #6366f1; color: #fff; }
+    .btn-run { background: #22c55e; color: #000; }
+    .btn-clr { background: #334155; color: #e2e8f0; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+    th { background: #334155; padding: 12px 16px; text-align: left; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; }
+    td { padding: 12px 16px; border-bottom: 1px solid #1e293b; }
+    .gantt { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; }
+    .gantt h3 { margin-top: 0; color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; }
+    .gantt-row { display: flex; gap: 2px; margin-bottom: 10px; align-items: center; }
+    .gantt-label { width: 80px; color: #94a3b8; font-size: 0.85rem; text-align: right; padding-right: 12px; }
+    .gantt-bar { height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; color: #000; min-width: 8px; }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 20px; }
+    .metric { background: #1e293b; padding: 18px; border-radius: 10px; text-align: center; border: 1px solid #334155; }
+    .metric .val { font-size: 2rem; font-weight: bold; color: #6366f1; }
+    .metric .lbl { color: #94a3b8; font-size: 0.8rem; }
+    .colors { background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); border-radius: 8px; padding: 12px 16px; color: #6366f1; font-size:0.85rem; margin-bottom: 15px; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>Process Scheduler</h1>
-    <p>This is a dedicated backend architecture stub for <strong>Process Scheduler</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <div class="container">
+    <h1>⚙️ Process Scheduler</h1>
+    <p class="sub">Simulate CPU scheduling algorithms: FCFS, SJF, Round Robin</p>
+    <div class="colors">ℹ️ Each process gets a unique color on the Gantt chart.</div>
+    <div class="controls">
+      <div><label>Process Name</label><br><input id="pname" value="P1" style="width:80px"></div>
+      <div><label>Arrival</label><br><input type="number" id="arr" value="0" min="0" style="width:70px"></div>
+      <div><label>Burst Time</label><br><input type="number" id="burst" value="4" min="1" style="width:70px"></div>
+      <div><label>Priority</label><br><input type="number" id="pri" value="1" min="1" style="width:70px"></div>
+      <div style="align-self:flex-end"><button class="btn-add" onclick="addProcess()">+ Add Process</button></div>
+      <div style="align-self:flex-end"><label>Algorithm</label><br><select id="algo"><option>FCFS</option><option>SJF</option><option>Round Robin</option></select></div>
+      <div style="align-self:flex-end"><input type="number" id="quantum" value="2" min="1" style="width:60px" placeholder="Quantum"><br><label>Quantum (RR)</label></div>
+      <div style="align-self:flex-end"><button class="btn-run" onclick="schedule()">▶ Schedule</button></div>
+      <div style="align-self:flex-end"><button class="btn-clr" onclick="clearAll()">Clear</button></div>
+    </div>
+    <table id="ptable">
+      <thead><tr><th>Process</th><th>Arrival</th><th>Burst</th><th>Priority</th></tr></thead>
+      <tbody id="ptbody"></tbody>
+    </table>
+    <div class="gantt">
+      <h3>Gantt Chart</h3>
+      <div id="gantt"></div>
+    </div>
+    <div class="metrics" id="metrics"></div>
   </div>
+  <script>
+    let processes = [{name:'P1',arr:0,burst:4,pri:1},{name:'P2',arr:1,burst:3,pri:2},{name:'P3',arr:2,burst:5,pri:3}];
+    const palette = ['#6366f1','#ec4899','#f59e0b','#22c55e','#00d2ff','#a855f7','#ef4444','#14b8a6'];
+    let pColors = {};
+
+    function renderTable() {
+      const tb = document.getElementById('ptbody');
+      tb.innerHTML = processes.map(p => `<tr><td>${p.name}</td><td>${p.arr}</td><td>${p.burst}</td><td>${p.pri}</td></tr>`).join('');
+    }
+
+    function addProcess() {
+      const n = document.getElementById('pname').value;
+      processes.push({name:n, arr:parseInt(document.getElementById('arr').value)||0, burst:parseInt(document.getElementById('burst').value)||1, pri:parseInt(document.getElementById('pri').value)||1});
+      document.getElementById('pname').value = `P${processes.length+1}`;
+      renderTable();
+    }
+
+    function clearAll() { processes=[]; pColors={}; renderTable(); document.getElementById('gantt').innerHTML=''; document.getElementById('metrics').innerHTML=''; }
+
+    function schedule() {
+      if (!processes.length) return;
+      processes.forEach((p,i) => { if (!pColors[p.name]) pColors[p.name] = palette[i % palette.length]; });
+      const algo = document.getElementById('algo').value;
+      let timeline = [];
+      const ps = processes.map(p => ({...p, rem: p.burst, finish:0, wait:0, turn:0}));
+
+      if (algo === 'FCFS') {
+        let t=0;
+        ps.sort((a,b)=>a.arr-b.arr).forEach(p => { t=Math.max(t,p.arr); for(let i=0;i<p.burst;i++) timeline.push(p.name); t+=p.burst; p.finish=t; });
+      } else if (algo === 'SJF') {
+        let t=0; const done = new Set();
+        while (done.size < ps.length) {
+          const avail = ps.filter(p=>p.arr<=t && !done.has(p.name)).sort((a,b)=>a.burst-b.burst);
+          if (!avail.length) { timeline.push('idle'); t++; continue; }
+          const p = avail[0]; for(let i=0;i<p.burst;i++) timeline.push(p.name); t+=p.burst; p.finish=t; done.add(p.name);
+        }
+      } else {
+        const q = parseInt(document.getElementById('quantum').value)||2;
+        let t=0; const queue=[]; const rem=ps.map(p=>({...p,rem:p.burst})); let idx=0;
+        const sorted=[...rem].sort((a,b)=>a.arr-b.arr);
+        while (true) {
+          while (idx<sorted.length && sorted[idx].arr<=t) { queue.push(sorted[idx]); idx++; }
+          if (!queue.length) { if(idx>=sorted.length) break; t=sorted[idx].arr; continue; }
+          const p=queue.shift(); const run=Math.min(q,p.rem);
+          for(let i=0;i<run;i++) timeline.push(p.name); t+=run; p.rem-=run;
+          while (idx<sorted.length && sorted[idx].arr<=t) { queue.push(sorted[idx]); idx++; }
+          if (p.rem>0) queue.push(p); else { const orig=ps.find(o=>o.name===p.name); orig.finish=t; }
+        }
+      }
+
+      // Render Gantt
+      const gantt = document.getElementById('gantt');
+      const maxT = timeline.length;
+      const byProc = {};
+      timeline.forEach((name,i) => { if (!byProc[name]) byProc[name]=[]; byProc[name].push(i); });
+      gantt.innerHTML = Object.entries(byProc).map(([name,ticks]) => {
+        const pct = (ticks.length/maxT*100).toFixed(1);
+        return `<div class="gantt-row"><span class="gantt-label">${name}</span><div style="flex:1; display:flex; gap:2px;">${timeline.map((n,i)=>`<div class="gantt-bar" style="flex:1; background:${n===name?pColors[name]:'#1e293b'};" title="${n===name?name:''}">&nbsp;</div>`).join('')}</div><span style="color:#94a3b8;font-size:0.8rem;margin-left:8px;">${pct}% CPU</span></div>`;
+      }).join('');
+
+      // Metrics
+      const avg_turn = ps.reduce((s,p)=>{const t=p.finish-p.arr;p.turn=t;return s+t;},0)/ps.length;
+      const avg_wait = ps.reduce((s,p)=>{const w=p.turn-p.burst;p.wait=w<0?0:w;return s+p.wait;},0)/ps.length;
+      document.getElementById('metrics').innerHTML = `
+        <div class="metric"><div class="val">${avg_turn.toFixed(2)}</div><div class="lbl">Avg Turnaround</div></div>
+        <div class="metric"><div class="val">${avg_wait.toFixed(2)}</div><div class="lbl">Avg Wait Time</div></div>
+        <div class="metric"><div class="val">${(ps.length/maxT*100).toFixed(1)}%</div><div class="lbl">CPU Utilization</div></div>
+      `;
+    }
+
+    renderTable();
+    schedule();
+  </script>
 </body>
 </html>

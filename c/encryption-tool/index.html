@@ -3,23 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Encryption Tool - C Backend API</title>
+  <title>Encryption Tool - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    body { margin: 0; padding: 40px 20px; min-height: 100vh; background: #0f172a; font-family: 'Segoe UI', sans-serif; color: white; }
+    .nav-btn { position: fixed; top: 20px; left: 20px; padding: 10px 20px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+    .nav-btn:hover { background: #00d2ff; color: #000; }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { text-align: center; font-size: 2.5rem; background: linear-gradient(90deg, #a855f7, #ec4899); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+    .sub { text-align: center; color: #94a3b8; margin-bottom: 40px; }
+    .panel { background: #1e293b; border-radius: 14px; padding: 25px; border: 1px solid #334155; margin-bottom: 20px; }
+    label { display: block; color: #94a3b8; font-size: 0.85rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    textarea, input[type=text], input[type=password] { width: 100%; padding: 14px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9rem; resize: vertical; outline: none; box-sizing: border-box; }
+    textarea { min-height: 100px; }
+    input:focus, textarea:focus { border-color: #a855f7; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+    .tab { padding: 10px 28px; border-radius: 8px; cursor: pointer; border: 1px solid #334155; background: transparent; color: #94a3b8; font-weight: bold; transition: 0.2s; }
+    .tab.active { background: #a855f7; color: #fff; border-color: #a855f7; }
+    .methods { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .method { padding: 8px 16px; border-radius: 6px; cursor: pointer; border: 1px solid #334155; background: transparent; color: #94a3b8; font-size: 0.85rem; transition: 0.2s; }
+    .method.active { background: #334155; color: #fff; }
+    button.go { width: 100%; padding: 15px; background: linear-gradient(90deg, #a855f7, #ec4899); border: none; border-radius: 10px; color: white; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 15px; }
+    button.go:hover { opacity: 0.9; }
+    .output { background: #0f172a; border: 1px dashed #a855f7; border-radius: 8px; padding: 14px; font-family: 'Courier New', monospace; font-size: 0.9rem; color: #a855f7; word-break: break-all; min-height: 60px; margin-top: 15px; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; background: rgba(168,85,247,0.2); color: #a855f7; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>Encryption Tool</h1>
-    <p>This is a dedicated backend architecture stub for <strong>Encryption Tool</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <div class="container">
+    <h1>🔐 Encryption Tool</h1>
+    <p class="sub">Caesar, Vigenère, Base64, ROT13 — client-side only, no data leaves your browser</p>
+
+    <div class="tabs">
+      <button class="tab active" onclick="setMode('encrypt',this)">🔒 Encrypt</button>
+      <button class="tab" onclick="setMode('decrypt',this)">🔓 Decrypt</button>
+    </div>
+
+    <div class="panel">
+      <label>Cipher Method</label>
+      <div class="methods">
+        <button class="method active" onclick="setCipher('caesar',this)">Caesar</button>
+        <button class="method" onclick="setCipher('vigenere',this)">Vigenère</button>
+        <button class="method" onclick="setCipher('base64',this)">Base64</button>
+        <button class="method" onclick="setCipher('rot13',this)">ROT13</button>
+      </div>
+
+      <label>Input Text</label>
+      <textarea id="inputText" placeholder="Type your message here..."></textarea>
+
+      <div id="keyGroup">
+        <label id="keyLabel">Key / Shift (Caesar: number, Vigenère: word)</label>
+        <input type="text" id="keyInput" placeholder="e.g. 3 or SECRET">
+      </div>
+
+      <button class="go" onclick="process()">⚡ Run Cipher</button>
+
+      <label style="margin-top:20px;">Output <span class="badge" id="cipherBadge">Caesar</span></label>
+      <div class="output" id="output">Result will appear here...</div>
+    </div>
   </div>
+  <script>
+    let mode = 'encrypt', cipher = 'caesar';
+    function setMode(m, el) { mode=m; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); }
+    function setCipher(c, el) { cipher=c; document.querySelectorAll('.method').forEach(t=>t.classList.remove('active')); el.classList.add('active'); document.getElementById('cipherBadge').textContent=el.textContent; document.getElementById('keyGroup').style.display=c==='base64'||c==='rot13'?'none':'block'; }
+
+    function caesar(text, shift, dec) {
+      shift = (dec ? -shift : shift);
+      return text.replace(/[a-zA-Z]/g, c => {
+        const b = c <= 'Z' ? 65 : 97;
+        return String.fromCharCode(((c.charCodeAt(0)-b+shift+26)%26)+b);
+      });
+    }
+    function vigenere(text, key, dec) {
+      key = (key||'KEY').toUpperCase().replace(/[^A-Z]/g,'');
+      let ki=0;
+      return text.replace(/[a-zA-Z]/g, c => {
+        const b = c <= 'Z' ? 65 : 97;
+        const shift = key.charCodeAt(ki%key.length)-65;
+        ki++;
+        return String.fromCharCode(((c.charCodeAt(0)-b+(dec?26-shift:shift))%26)+b);
+      });
+    }
+    function rot13(text) { return text.replace(/[a-zA-Z]/g, c => { const b=c<='Z'?65:97; return String.fromCharCode(((c.charCodeAt(0)-b+13)%26)+b); }); }
+
+    function process() {
+      const text = document.getElementById('inputText').value;
+      const key = document.getElementById('keyInput').value;
+      const dec = mode === 'decrypt';
+      let result = '';
+      if (cipher==='caesar') result = caesar(text, parseInt(key)||3, dec);
+      else if (cipher==='vigenere') result = vigenere(text, key, dec);
+      else if (cipher==='base64') result = dec ? atob(text.trim()) : btoa(text);
+      else if (cipher==='rot13') result = rot13(text);
+      document.getElementById('output').textContent = result || '(empty)';
+    }
+  </script>
 </body>
 </html>

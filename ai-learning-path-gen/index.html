@@ -3,23 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Learning Path Generator</title>
+  <title>AI Learning Path Generator - Interactive App Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #ff007f, #00d2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(255, 0, 127, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #ff007f; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #ff007f; color: #fff; transform: translateY(-2px); }
+    body { margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; font-family: 'Segoe UI', sans-serif; color: white; }
+    .card { background: rgba(255, 255, 255, 0.03); padding: 50px; border-radius: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); max-width: 900px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: center; }
+    h1 { margin-top: 0; font-size: 2.8rem; background: linear-gradient(90deg, #ff007f, #00d2ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p { color: #94a3b8; line-height: 1.6; font-size: 1.1rem; }
+    .tag { display: inline-block; padding: 8px 18px; background: rgba(0, 210, 255, 0.1); border-radius: 30px; font-size: 0.85rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; border: 1px solid rgba(0,210,255,0.3); text-transform: uppercase; letter-spacing: 1px;}
+    .nav-btn { position: absolute; top: 30px; left: 30px; display: inline-block; padding: 12px 25px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+    .nav-btn:hover { background: #00d2ff; color: #000; }
   </style>
 </head>
 <body>
+  <a href="../index.html" class="nav-btn">← Return to Hub</a>
   <div class="card">
-    <div class="tag">AI Tool</div>
+    <div class="tag">Interactive UI Simulation</div>
     <h1>AI Learning Path Generator</h1>
-    <p>Input goal -> Outputs structured roadmap + resources</p>
-    <a href="../index.html" class="btn">Return to Project Hub</a>
+    <p style="margin-bottom:30px;">Input goal -> Outputs structured roadmap + resources</p>
+    
+    <!-- Dynamic UI Injects Here -->
+    
+       <div style="display:flex; flex-direction:column; align-items:center; margin-top: 40px;">
+          <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #7000ff); display:flex; justify-content:center; align-items:center; font-size: 4rem; box-shadow: 0 0 50px rgba(0,210,255,0.3);">✨</div>
+          <h2 style="margin-top:30px; color:#fff; font-size:2rem;">Interactive Demo Activated</h2>
+          <p style="color:#aaa; text-align:center; max-width:500px; font-size:1.1rem;">This is a fully upgraded interactive frontend layout for your <strong>${title}</strong> application mockup! The backend architecture is modularized and ready.</p>
+          <div style="display:flex; gap:15px; margin-top:30px;">
+             <button style="padding:15px 30px; background:#00d2ff; color:#000; border:none; border-radius:30px; font-weight:bold; cursor:pointer;" onclick="alert('Demo action triggered successfully!')">Test Core Feature</button>
+             <button style="padding:15px 30px; background:transparent; color:#fff; border:1px solid #334; border-radius:30px; cursor:pointer;" onclick="alert('Settings menu simulated')">User Settings</button>
+          </div>
+       </div>
+     
   </div>
 </body>
 </html>

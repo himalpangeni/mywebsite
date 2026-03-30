@@ -1,39 +1,70 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ludo — Play</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
-    <header class="header">
+    <div id="startup-screen">
       <h1>Ludo Game</h1>
-      <div>
-        <label>Room: <input id="room" value="room1"></label>
-        <button id="join">Join Room</button>
+      <p>Select number of human players (Bots will fill the remaining slots)</p>
+      <div class="btn-group">
+        <button class="btn" onclick="startGame(1)">1 Player</button>
+        <button class="btn" onclick="startGame(2)">2 Players</button>
+        <button class="btn" onclick="startGame(3)">3 Players</button>
+        <button class="btn" onclick="startGame(4)">4 Players</button>
       </div>
-    </header>
-
-    <div class="game-area">
-      <canvas id="board" width="600" height="600"></canvas>
-      <aside class="panel">
-        <div>
-          <button id="roll">Roll Dice</button>
-          <h2 id="dice">-</h2>
-        </div>
-        <div id="players" class="players small"></div>
-        <div class="controls">
-          <label><input type="checkbox" id="addBots"> Add 3 bots to fill</label>
-        </div>
-      </aside>
+      <a href="../../index.html" class="nav-link">Return to Hub</a>
     </div>
 
-    <p class="small">Notes: This client supports local play and online play via the included Node server (socket.io). To enable online play run ludo-game/server/server.js with Node.</p>
+    <div id="game-screen" style="display: none;">
+      <div id="turn-announcer">TURN</div>
+      <header class="header">
+        <h1>Ludo Game</h1>
+        <div id="turn-indicator">Waiting to start...</div>
+      </header>
+
+      <div class="game-area">
+        <div class="board-container">
+          <canvas id="board" width="600" height="600"></canvas>
+        </div>
+        <aside class="panel">
+          <div class="dice-container" id="dice-container">
+            <div id="dice" class="dice">⚀</div>
+            <button id="roll" class="btn roll-btn">Roll Dice</button>
+          </div>
+          <div id="players" class="players"></div>
+          <div class="controls" style="margin-top: 20px;">
+            <a href="../../index.html" class="nav-link">Return to Hub</a>
+            <button class="btn roll-btn" style="margin-top: 10px;" onclick="location.reload()">Restart Game</button>
+            <button class="btn roll-btn" style="margin-top: 10px;" onclick="document.getElementById('rules-modal').style.display='flex'">Game Rules</button>
+          </div>
+        </aside>
+      </div>
+    </div>
   </div>
 
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <div id="rules-modal" class="modal">
+    <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+      <h2>Ludo Game Rules – Formal Explanation</h2>
+      <p>Ludo is a strategy board game played by two to four players. Each player is assigned a distinct color and begins the game with four tokens placed in their respective starting area, known as the base.</p>
+      <p>The objective of the game is to move all four tokens from the base, around the board, and into the central home area before any other player.</p>
+      <p>The game begins with players taking turns rolling a single six-sided die. In order to move a token out of the base and onto the starting square, a player must roll a <strong>six or a one</strong>. Upon rolling a six or one, the player may either introduce a new token onto the board or move an existing token. Additionally, rolling a six grants the player an extra turn.</p>
+      <p>Once a token is on the board, it moves forward along a fixed path according to the number rolled on the die. The path follows a clockwise direction around the board.</p>
+      <p>If a player’s token lands on a square occupied by an opponent’s token, the opponent’s token is captured and returned to its base. However, certain squares designated as safe zones protect tokens from being captured.</p>
+      <p>After completing one full circuit of the board, a token enters its corresponding home column and proceeds toward the center. A token can only reach the final home position with an <strong>exact roll</strong> of the die.</p>
+      <p>The game continues with players alternating turns until one player successfully moves all four of their tokens into the home area. That player is declared the winner.</p>
+      <button class="btn" style="margin-top:20px;width:100%" onclick="document.getElementById('rules-modal').style.display='none'">Close</button>
+    </div>
+  </div>
+
   <script src="game.js"></script>
 </body>
+
 </html>

@@ -5,21 +5,173 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wind Archer</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #001122, #000000); font-family: sans-serif; color: white; text-align: center; }
-    .card { background: rgba(0, 210, 255, 0.05); padding: 50px; border-radius: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(0, 210, 255, 0.2); max-width: 600px; box-shadow: 0 0 50px rgba(0,210,255,0.1); }
-    h1 { margin-top: 0; font-size: 3rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p.desc { font-size: 1.2rem; line-height: 1.5; color: #ddd; margin-bottom: 10px; }
-    p.visual { font-size: 1rem; color: #00d2ff; font-style: italic; margin-bottom: 30px; }
-    .btn { display: inline-block; padding: 15px 30px; background: rgba(0, 210, 255, 0.1); border: 2px solid #00d2ff; color: #00d2ff; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; }
-    .btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 20px #00d2ff; }
+    body { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+    #ui { position: absolute; top: 20px; text-align: center; z-index: 10; pointer-events: none; }
+    h1 { margin: 0; font-size: 24px; color: #00d2ff; text-shadow: 0 0 10px #00d2ff; }
+    #score { font-size: 18px; margin-top: 5px; color: #fff; }
+    #message { position: absolute; font-size: 32px; font-weight: bold; color: #ff0055; text-shadow: 0 0 15px #ff0055; text-align: center; pointer-events: none; display: none; z-index: 20; }
+    canvas { background: #111; box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); border-radius: 10px; }
+    .nav { position: absolute; bottom: 20px; display: flex; gap: 20px; z-index: 30; }
+    .btn { padding: 10px 20px; background: rgba(0, 210, 255, 0.1); border: 2px solid #00d2ff; color: #00d2ff; text-decoration: none; border-radius: 30px; cursor: pointer; font-weight: bold; }
+    .btn:hover { background: #00d2ff; color: #000; }
   </style>
 </head>
 <body>
-  <div class="card">
+  <div id="ui">
     <h1>Wind Archer</h1>
-    <p class="desc">Shoot arrows affected by wind physics.</p>
-    <p class="visual">✨ Visual style: Nature scenes, moving grass, particle wind trails</p>
-    <a href="../../index.html" class="btn">Back to Hub</a>
+    <div id="score">Score: 0</div>
+    <div style="font-size:12px; color:#aaa; margin-top:5px; pointer-events:none;">Use SPACE to interact. ARROWS to move.</div>
   </div>
+  <div id="message">GAME OVER</div>
+  
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+  
+  <div class="nav">
+    <a href="../../index.html" class="btn">Return to Hub</a>
+    <button class="btn" onclick="initGame()">Restart</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const msgDef = document.getElementById('message');
+    const scoreDef = document.getElementById('score');
+    
+    let isGameOver = false;
+    let score = 0;
+    let frames = 0;
+    
+    let player = { x: 200, y: 500, size: 20, color: '#00d2ff' };
+    let objects = [];
+    
+    function initGame() {
+      isGameOver = false;
+      score = 0;
+      frames = 0;
+      msgDef.style.display = 'none';
+      player = { x: 200, y: 500, size: 20, color: '#00d2ff' };
+      objects = [];
+      
+      // Setup based on game ID
+      if ('wind-archer' === 'gravity-flip-runner') player.y = 550;
+      if ('wind-archer' === 'ice-slide-puzzle') { player.x = 50; player.y = 50; objects.push({x:300, y:500, size:40, color:'#0f0'}); } // Goal
+      if ('wind-archer' === 'perfect-shot') { objects.push({x:200, y:300, size:50, color:'#ff0055'}); player.y = 550; player.size = 10; }
+      
+      loop();
+    }
+    
+    window.addEventListener('keydown', e => {
+      if (isGameOver && e.code === 'Space') { initGame(); return; }
+      if (isGameOver) return;
+      
+      if ('wind-archer' === 'gravity-flip-runner' && e.code === 'Space') {
+         player.y = player.y > 300 ? 50 : 550;
+      }
+      if ('wind-archer' === 'perfect-shot' && e.code === 'Space') {
+         let d = Math.abs(player.x - 200);
+         if (d < 30) { score++; objects[0].size = Math.max(10, objects[0].size - 5); } else { isGameOver = true; }
+      }
+      if ('wind-archer' === 'ice-slide-puzzle') {
+         if (e.code === 'ArrowRight') player.x += 50;
+         if (e.code === 'ArrowDown') player.y += 50;
+         if (player.x > 300 && player.y > 500) { score++; isGameOver=true; msgDef.innerText="YOU WIN!"; msgDef.style.color="#0f0"; msgDef.style.display = 'block'; }
+      }
+      if ('wind-archer' === 'one-tap-sword-duel' && e.code === 'Space') {
+         if (objects.length > 0 && objects[0].y > 400 && objects[0].y < 500) { score++; objects=[]; }
+         else { isGameOver = true; }
+      }
+      if ('wind-archer' === 'shape-shift-escape' && e.code === 'Space') {
+         player.color = player.color === '#00d2ff' ? '#ff0055' : '#00d2ff';
+      }
+      if ('wind-archer' === 'wind-archer' && e.code === 'Space') {
+         score++; 
+      }
+
+      if (e.code === 'ArrowLeft') player.x -= 20;
+      if (e.code === 'ArrowRight') player.x += 20;
+    });
+
+    window.addEventListener('touchstart', e => {
+       window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' }));
+    });
+
+    function update() {
+      if (isGameOver) return;
+      frames++;
+      scoreDef.innerText = 'Score: ' + score;
+      
+      if ('wind-archer' === 'color-match-breaker' || 'wind-archer' === 'spiral-fall' || 'wind-archer' === 'memory-flash-grid') {
+         score++;
+         if (frames % 60 === 0) objects.push({x: Math.random()*380, y: 0, size: 20, color: '#ff0055'});
+         objects.forEach(o => o.y += 5);
+      }
+      
+      if ('wind-archer' === 'one-tap-sword-duel') {
+         if (frames % 100 === 0) objects.push({x: 180, y: 100, size: 40, color: '#ff0055'});
+         objects.forEach(o => o.y += 4);
+      }
+
+      if ('wind-archer' === 'shape-shift-escape') {
+         score++;
+         if (frames % 80 === 0) objects.push({x: 0, y: 0, w: 400, h: 20, color: Math.random()>0.5?'#00d2ff':'#ff0055'});
+         objects.forEach(o => o.y += 6);
+      }
+      
+      if ('wind-archer' === 'perfect-shot') {
+         player.x = 200 + Math.sin(frames * 0.1) * 150;
+      }
+      
+      if ('wind-archer' === 'gravity-flip-runner') {
+         score++;
+         if (frames % 50 === 0) objects.push({x: 400, y: Math.random()>0.5?50:550, size: 30, color: '#ff0055'});
+         objects.forEach(o => o.x -= 6);
+      }
+
+      // Collisions
+      objects.forEach(o => {
+         let wT = o.w ? o.w : o.size;
+         let hT = o.h ? o.h : o.size;
+         let oX = o.w ? o.x : o.x - o.size/2;
+         let oY = o.h ? o.y : o.y - o.size/2;
+
+         if (
+            player.x - player.size/2 < oX + wT &&
+            player.x + player.size/2 > oX &&
+            player.y - player.size/2 < oY + hT &&
+            player.y + player.size/2 > oY
+         ) {
+            if ('wind-archer' === 'shape-shift-escape' && player.color === o.color) return; 
+            if ('wind-archer' !== 'ice-slide-puzzle') isGameOver = true;
+         }
+      });
+      
+      if (isGameOver && msgDef.innerText !== "YOU WIN!") {
+         msgDef.style.display = 'block';
+         msgDef.innerText = 'GAME OVER';
+         msgDef.style.color = '#ff0055';
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, 400, 600);
+      
+      ctx.fillStyle = player.color;
+      ctx.fillRect(player.x - player.size/2, player.y - player.size/2, player.size, player.size);
+      
+      objects.forEach(o => {
+         ctx.fillStyle = o.color;
+         if (o.w) ctx.fillRect(o.x, o.y, o.w, o.h);
+         else ctx.fillRect(o.x - o.size/2, o.y - o.size/2, o.size, o.size);
+      });
+    }
+
+    function loop() {
+      update();
+      draw();
+      if (!isGameOver) requestAnimationFrame(loop);
+    }
+    
+    initGame();
+  </script>
 </body>
 </html>

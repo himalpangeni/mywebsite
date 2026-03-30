@@ -3,23 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini OS Shell - C Backend API</title>
+  <title>Mini OS Shell - Interactive Mockup</title>
   <style>
-    body { margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460); font-family: sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin-top: 0; font-size: 2.2rem; background: linear-gradient(90deg, #00d2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #ccc; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 5px 12px; background: rgba(0, 210, 255, 0.2); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; }
-    a.btn { display: inline-block; margin-top: 30px; padding: 12px 25px; background: #00d2ff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-    a.btn:hover { background: #7000ff; color: #fff; transform: translateY(-2px); }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #000; color: #00ff41; font-family: 'Courier New', monospace; min-height: 100vh; display: flex; flex-direction: column; }
+    .nav-btn { position: fixed; top: 15px; right: 15px; padding: 8px 16px; background: rgba(0,255,65,0.1); color: #00ff41; text-decoration: none; border-radius: 6px; border: 1px solid #00ff41; font-size: 0.8rem; z-index: 100; transition: 0.2s; }
+    .nav-btn:hover { background: #00ff41; color: #000; }
+    .titlebar { background: #001a00; padding: 8px 16px; font-size: 0.8rem; color: #00ff41; border-bottom: 1px solid #003300; display: flex; gap: 20px; }
+    .terminal { flex: 1; padding: 20px; overflow-y: auto; max-height: calc(100vh - 90px); }
+    .line { line-height: 1.7; white-space: pre-wrap; word-break: break-all; }
+    .prompt { color: #00ff41; }
+    .error { color: #ff4444; }
+    .info { color: #00d2ff; }
+    .dir { color: #f59e0b; }
+    .input-row { display: flex; align-items: center; padding: 10px 20px; border-top: 1px solid #003300; background: #000b00; }
+    .ps1 { color: #00ff41; white-space: nowrap; }
+    #cmd { flex: 1; background: transparent; border: none; outline: none; color: #00ff41; font-family: 'Courier New', monospace; font-size: 1rem; margin-left: 8px; caret-color: #00ff41; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">C Backend API</div>
-    <h1>Mini OS Shell</h1>
-    <p>This is a dedicated backend architecture stub for <strong>Mini OS Shell</strong> seamlessly separated for proper modular routing.</p>
-    <a href="../../index.html" class="btn">Return to Project Hub</a>
+  <a href="../../index.html" class="nav-btn">← Hub</a>
+  <div class="titlebar">
+    <span>Mini OS Shell v1.0 (C Simulation)</span>
+    <span>PID: 1337</span>
+    <span>User: guest@webshell</span>
   </div>
+  <div class="terminal" id="terminal"></div>
+  <div class="input-row">
+    <span class="ps1" id="ps1">guest@webshell:~$</span>
+    <input id="cmd" autofocus autocomplete="off" placeholder="type a command..." onkeydown="handleKey(event)">
+  </div>
+  <script>
+    const term = document.getElementById('terminal');
+    let cwd = '/home/guest';
+    const fs = {
+      '/': { type:'dir', children:['home','etc','usr','tmp'] },
+      '/home': { type:'dir', children:['guest'] },
+      '/home/guest': { type:'dir', children:['readme.txt','projects'] },
+      '/home/guest/readme.txt': { type:'file', content:'Welcome to Mini OS Shell!\nThis is a simulated Unix-like shell.\nTry: ls, cd, cat, echo, pwd, clear, help' },
+      '/home/guest/projects': { type:'dir', children:['snake.c','encrypt.c'] },
+      '/home/guest/projects/snake.c': { type:'file', content:'#include <stdio.h>\nint main() {\n  // Snake game in C\n  return 0;\n}' },
+      '/home/guest/projects/encrypt.c': { type:'file', content:'#include <stdio.h>\n#include <string.h>\nvoid caesar(char* s, int shift) {\n  for(int i=0;s[i];i++) if(s[i]>=\'a\'&&s[i]<=\'z\') s[i]=\'a\'+(s[i]-\'a\'+shift)%26;\n}' },
+      '/etc': { type:'dir', children:['passwd','hostname'] },
+      '/etc/passwd': { type:'file', content:'root:x:0:0:root:/root:/bin/bash\nguest:x:1000:1000::/home/guest:/bin/sh' },
+      '/etc/hostname': { type:'file', content:'webshell' },
+      '/usr': { type:'dir', children:['bin','local'] },
+      '/usr/bin': { type:'dir', children:['ls','cat','echo','pwd'] },
+      '/usr/local': { type:'dir', children:[] },
+      '/tmp': { type:'dir', children:[] },
+    };
+    const history = [];
+    let histIdx = -1;
+
+    function print(text, cls='') {
+      const d = document.createElement('div');
+      d.className = 'line' + (cls ? ' '+cls : '');
+      d.textContent = text;
+      term.appendChild(d);
+      term.scrollTop = term.scrollHeight;
+    }
+
+    function resolvePath(p) {
+      if (p.startsWith('/')) return p.replace(/\/+$/,'') || '/';
+      const parts = cwd.split('/').filter(Boolean);
+      for (const seg of p.split('/')) {
+        if (seg === '..') parts.pop();
+        else if (seg !== '.') parts.push(seg);
+      }
+      return '/' + parts.join('/');
+    }
+
+    const cmds = {
+      help: () => print('Commands: ls, cd <dir>, cat <file>, echo <text>, pwd, whoami, uname, date, clear, mkdir <dir>, touch <file>, rm <file>, history'),
+      pwd: () => print(cwd),
+      whoami: () => print('guest'),
+      uname: () => print('WebOS 1.0 (C-Simulated Kernel)'),
+      date: () => print(new Date().toString()),
+      clear: () => { term.innerHTML = ''; },
+      history: () => history.forEach((h,i) => print(`  ${i+1}  ${h}`)),
+      ls: (args) => {
+        const path = resolvePath(args[0] || '.');
+        const node = fs[path];
+        if (!node || node.type !== 'dir') { print(`ls: cannot access '${args[0]||'.'}': No such file or directory`, 'error'); return; }
+        print(node.children.map(c => { const full = path==='/'?'/'+c:path+'/'+c; return fs[full]?.type==='dir' ? c+'/' : c; }).join('  ') || '(empty)', 'dir');
+      },
+      cd: (args) => {
+        const target = args[0] ? resolvePath(args[0]) : '/home/guest';
+        if (!fs[target] || fs[target].type !== 'dir') { print(`cd: ${args[0]}: No such file or directory`, 'error'); return; }
+        cwd = target;
+        document.getElementById('ps1').textContent = `guest@webshell:${cwd=='/home/guest'?'~':cwd}$`;
+      },
+      cat: (args) => {
+        if (!args[0]) { print('cat: missing operand', 'error'); return; }
+        const path = resolvePath(args[0]);
+        const node = fs[path];
+        if (!node) { print(`cat: ${args[0]}: No such file or directory`, 'error'); return; }
+        if (node.type === 'dir') { print(`cat: ${args[0]}: Is a directory`, 'error'); return; }
+        print(node.content);
+      },
+      echo: (args) => print(args.join(' ')),
+      mkdir: (args) => {
+        if (!args[0]) { print('mkdir: missing operand', 'error'); return; }
+        const path = resolvePath(args[0]);
+        const parent = path.substring(0, path.lastIndexOf('/')) || '/';
+        if (fs[path]) { print(`mkdir: cannot create directory '${args[0]}': File exists`, 'error'); return; }
+        fs[path] = { type: 'dir', children: [] };
+        if (fs[parent]) fs[parent].children.push(args[0].split('/').pop());
+        print('');
+      },
+      touch: (args) => {
+        if (!args[0]) { print('touch: missing operand', 'error'); return; }
+        const path = resolvePath(args[0]);
+        if (!fs[path]) { fs[path]={ type:'file', content:'' }; const p=path.substring(0,path.lastIndexOf('/'))||'/'; if(fs[p]) fs[p].children.push(args[0].split('/').pop()); }
+        print('');
+      },
+      rm: (args) => {
+        if (!args[0]) { print('rm: missing operand', 'error'); return; }
+        const path = resolvePath(args[0]);
+        if (!fs[path]) { print(`rm: cannot remove '${args[0]}': No such file or directory`, 'error'); return; }
+        delete fs[path];
+        print('');
+      },
+    };
+
+    function handleKey(e) {
+      if (e.key === 'ArrowUp') { if (histIdx < history.length-1) { histIdx++; e.target.value = history[history.length-1-histIdx]; } e.preventDefault(); return; }
+      if (e.key === 'ArrowDown') { if (histIdx > 0) { histIdx--; e.target.value = history[history.length-1-histIdx]; } else { histIdx=-1; e.target.value=''; } e.preventDefault(); return; }
+      if (e.key !== 'Enter') return;
+      const input = e.target.value.trim();
+      e.target.value = '';
+      histIdx = -1;
+      if (!input) return;
+      history.push(input);
+      print(`guest@webshell:${cwd=='/home/guest'?'~':cwd}$ ${input}`, 'prompt');
+      const parts = input.split(/\s+/);
+      const cmd = parts[0];
+      const args = parts.slice(1);
+      if (cmds[cmd]) cmds[cmd](args);
+      else print(`${cmd}: command not found. Type 'help' for available commands.`, 'error');
+    }
+
+    print('Mini OS Shell v1.0 — Simulated C Shell', 'info');
+    print('Type "help" to see available commands.', 'info');
+    print('');
+  </script>
 </body>
 </html>
