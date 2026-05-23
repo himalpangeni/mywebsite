@@ -1,0 +1,209 @@
+Analyzing dart...                                               
+
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/angry_weapon/game.dart:89:50 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/angry_weapon/game.dart:105:69 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/angry_weapon/game.dart:109:50 • deprecated_member_use
+   info • The member 'angle' overrides an inherited member but isn't annotated with '@override' • lib/games/angry_weapon/game.dart:110:10 • annotate_overrides
+   info • Use 'const' with the constructor to improve performance • lib/games/angry_weapon/game.dart:145:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/games/angry_weapon/game.dart:146:21 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/angry_weapon/game.dart:151:45 • deprecated_member_use
+   info • The member 'angle' overrides an inherited member but isn't annotated with '@override' • lib/games/angry_weapon/game.dart:152:16 • annotate_overrides
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/angry_weapon/game.dart:170:50 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/angry_weapon/game.dart:189:23 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/games/angry_weapon/game.dart:190:23 • prefer_const_constructors
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/angry_weapon/game.dart:193:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/brain_swap/game.dart:110:48 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/brain_swap/game.dart:126:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/brain_swap/game.dart:153:43 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/brain_swap/game.dart:157:25 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/brain_swap/game.dart:170:48 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/brain_swap/game.dart:209:38 • avoid_renaming_method_parameters
+   info • Statements in a for should be enclosed in a block • lib/games/cat_detective/game.dart:88:37 • curly_braces_in_flow_control_structures
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/cat_detective/game.dart:99:52 • deprecated_member_use
+   info • Statements in an if should be enclosed in a block • lib/games/cat_detective/game.dart:123:20 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/cat_detective/game.dart:124:25 • curly_braces_in_flow_control_structures
+   info • Use 'const' with the constructor to improve performance • lib/games/cat_detective/game.dart:124:43 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/cyber_runner/game.dart:85:48 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/cyber_runner/game.dart:114:47 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/cyber_runner/game.dart:143:38 • avoid_renaming_method_parameters
+warning • The value of the local variable 'random' isn't used • lib/games/dice_hero/game.dart:57:13 • unused_local_variable
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/dice_hero/game.dart:111:47 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/dice_hero/game.dart:150:53 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/dice_hero/game.dart:182:70 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/dream_fishing/game.dart:124:43 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/dream_fishing/game.dart:164:45 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/dream_fishing/game.dart:170:50 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/dream_fishing/game.dart:199:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/dream_fishing/game.dart:208:51 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/dream_fishing/game.dart:228:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/fish_rpg/game.dart:118:49 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/fish_rpg/game.dart:160:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/fish_rpg/game.dart:169:50 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/fish_rpg/game.dart:177:65 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/fish_rpg/game.dart:178:82 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/fish_rpg/game.dart:182:51 • deprecated_member_use
+   info • Statements in an if should be enclosed in a block • lib/games/frog_mafia/game.dart:93:34 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/frog_mafia/game.dart:94:39 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/frog_mafia/game.dart:95:39 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/frog_mafia/game.dart:96:39 • curly_braces_in_flow_control_structures
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/frog_mafia/game.dart:127:43 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/frog_mafia/game.dart:163:21 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/frog_mafia/game.dart:167:45 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/frog_mafia/game.dart:179:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/frog_mafia/game.dart:189:48 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/frog_mafia/game.dart:209:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/games/frog_mafia/game.dart:210:21 • prefer_const_constructors
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/frog_mafia/game.dart:213:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/gravity_ball/game.dart:126:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/gravity_ball/game.dart:163:70 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/gravity_ball/game.dart:167:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/gravity_ball/game.dart:179:43 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/gravity_ball/game.dart:192:44 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/gravity_ball/game.dart:205:43 • deprecated_member_use
+warning • Unused import: 'dart:math' • lib/games/growing_world/game.dart:1:8 • unused_import
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/growing_world/game.dart:100:45 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/growing_world/game.dart:114:48 • deprecated_member_use
+   info • Statements in an if should be enclosed in a block • lib/games/growing_world/game.dart:142:36 • curly_braces_in_flow_control_structures
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/growing_world/game.dart:142:63 • deprecated_member_use
+   info • Statements in an if should be enclosed in a block • lib/games/growing_world/game.dart:143:41 • curly_braces_in_flow_control_structures
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/growing_world/game.dart:143:67 • deprecated_member_use
+   info • Statements in an if should be enclosed in a block • lib/games/growing_world/game.dart:144:10 • curly_braces_in_flow_control_structures
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/growing_world/game.dart:153:46 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/growing_world/game.dart:165:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/ludo/game.dart:181:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/ludo/game.dart:222:66 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/ludo/game.dart:223:70 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/ludo/game.dart:224:67 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/ludo/game.dart:225:69 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/ludo/game.dart:287:27 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/ludo/game.dart:296:48 • deprecated_member_use
+   info • Statements in an if should be enclosed in a block • lib/games/ludo/game.dart:345:39 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/ludo/game.dart:346:45 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/ludo/game.dart:347:43 • curly_braces_in_flow_control_structures
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/magnet_knight/game.dart:102:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/magnet_knight/game.dart:150:47 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/magnet_knight/game.dart:155:55 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/magnet_knight/game.dart:172:40 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/magnet_knight/game.dart:179:53 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/magnet_knight/game.dart:197:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/mask_hero/game.dart:118:49 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/mask_hero/game.dart:164:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/games/mask_hero/game.dart:165:21 • prefer_const_constructors
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/mask_hero/game.dart:177:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/mask_hero/game.dart:196:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/mask_hero/game.dart:205:65 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/mask_hero/game.dart:211:43 • deprecated_member_use
+warning • The value of the local variable 'random' isn't used • lib/games/melting_dungeon/game.dart:55:13 • unused_local_variable
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/melting_dungeon/game.dart:115:49 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/melting_dungeon/game.dart:146:21 • prefer_const_constructors
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/melting_dungeon/game.dart:150:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/melting_dungeon/game.dart:162:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/memory_dungeon/game.dart:140:36 • deprecated_member_use
+   info • Statements in an if should be enclosed in a block • lib/games/neon_snake/game.dart:152:41 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/neon_snake/game.dart:153:46 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/neon_snake/game.dart:156:41 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • lib/games/neon_snake/game.dart:157:46 • curly_braces_in_flow_control_structures
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/neon_snake/game.dart:175:44 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/neon_snake/game.dart:209:68 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/neon_snake/game.dart:222:111 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/neon_tank/game.dart:98:43 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/neon_tank/game.dart:149:21 • prefer_const_constructors
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/neon_tank/game.dart:155:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/neon_tank/game.dart:169:49 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/one_button_war/game.dart:99:45 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/one_button_war/game.dart:128:21 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/one_button_war/game.dart:130:71 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/one_button_war/game.dart:134:48 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/one_button_war/game.dart:158:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/one_button_war/game.dart:168:51 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/paddle_clash/game.dart:110:46 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/paddle_clash/game.dart:125:41 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/pixel_chef/game.dart:119:49 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/pixel_chef/game.dart:160:51 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/pixel_chef/game.dart:182:64 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/puzzle_blacksmith/game.dart:160:87 • deprecated_member_use
+   info • Statements in a for should be enclosed in a block • lib/games/puzzle_blacksmith/game.dart:233:33 • curly_braces_in_flow_control_structures
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/retro_racer/game.dart:118:46 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/retro_racer/game.dart:129:21 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/retro_racer/game.dart:129:83 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/retro_racer/game.dart:130:21 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/retro_racer/game.dart:134:49 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/retro_racer/game.dart:155:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/retro_racer/game.dart:161:46 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/retro_racer/game.dart:182:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/reverse_platformer/game.dart:106:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/reverse_platformer/game.dart:160:61 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/reverse_platformer/game.dart:166:43 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/slow_mo_boxing/game.dart:109:44 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/slow_mo_boxing/game.dart:122:70 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/slow_mo_boxing/game.dart:129:47 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/slow_mo_boxing/game.dart:186:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/slow_mo_boxing/game.dart:210:72 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/slow_mo_racing/game.dart:91:48 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/slow_mo_racing/game.dart:98:48 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/slow_mo_racing/game.dart:108:21 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/slow_mo_racing/game.dart:112:43 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/slow_mo_racing/game.dart:149:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/sound_platformer/game.dart:112:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/sound_platformer/game.dart:144:69 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/sound_platformer/game.dart:148:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/sound_platformer/game.dart:159:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/sound_platformer/game.dart:180:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/sound_platformer/game.dart:182:105 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/sound_platformer/game.dart:201:74 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/sound_platformer/game.dart:205:48 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/sound_platformer/game.dart:213:77 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/space_strike/components/bullet.component.dart:6:43 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/space_strike/components/enemy.component.dart:6:42 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/space_strike/components/player.component.dart:7:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/space_strike/widgets/game_over_menu.dart:15:31 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/subway_runner/game.dart:119:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/subway_runner/game.dart:144:81 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/subway_runner/game.dart:148:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/subway_runner/game.dart:174:82 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/subway_runner/game.dart:178:40 • avoid_renaming_method_parameters
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/tic_tac_toe/config.dart:74:91 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/tic_tac_toe/config.dart:87:37 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/tic_tac_toe/config.dart:99:86 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/tic_tac_toe/config.dart:99:118 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/tic_tac_toe/game.dart:186:42 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/tic_tac_toe/game.dart:206:29 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/time_glitch_courier/game.dart:116:44 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/time_glitch_courier/game.dart:136:47 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/time_glitch_courier/game.dart:159:48 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/vampire_job/game.dart:120:46 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/vampire_job/game.dart:174:43 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/vampire_job/game.dart:186:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/vampire_job/game.dart:197:46 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/vampire_job/game.dart:217:31 • deprecated_member_use
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/vampire_job/game.dart:229:45 • deprecated_member_use
+   info • The parameter name 'points' doesn't match the name 'intersectionPoints' in the overridden method • lib/games/vampire_job/game.dart:241:38 • avoid_renaming_method_parameters
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/zombie_babysitter/game.dart:114:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/zombie_babysitter/game.dart:144:64 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/zombie_babysitter/game.dart:146:70 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/games/zombie_babysitter/game.dart:148:21 • prefer_const_constructors
+   info • 'HasGameRef' is deprecated and shouldn't be used. Use HasGameReference instead. This mixin will be removed in a future version of Flame • lib/games/zombie_babysitter/game.dart:153:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/games/zombie_babysitter/game.dart:186:72 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:17:37 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:25:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:28:36 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:39:39 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:95:24 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:97:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:104:30 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:126:36 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/difficulty_selection.dart:133:56 • deprecated_member_use
+warning • Unused import: '../games/zombie_babysitter/game.dart' • lib/widgets/game_hub.dart:11:8 • unused_import
+warning • Unused import: '../games/puzzle_blacksmith/game.dart' • lib/widgets/game_hub.dart:12:8 • unused_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/game_hub.dart:695:31 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/game_hub.dart:697:43 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/game_hub.dart:700:28 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/widgets/game_hub.dart:713:22 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/game_hub.dart:725:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/universal_game_over.dart:28:44 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/universal_game_over.dart:33:36 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/universal_game_over.dart:110:28 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/universal_game_over.dart:112:47 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • test/widget_test.dart:15:29 • prefer_const_constructors
+
+205 issues found. (ran in 3.2s)

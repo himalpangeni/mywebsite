@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "680252579759",
+    "project_id": "retro-fun-crate",
+    "storage_bucket": "retro-fun-crate.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680252579759:android:ebb749320fffaa7175595a",
+        "android_client_info": {
+          "package_name": "com.wuser8849.retrofuncrate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpFtYsB5RrJQI6LfwnNRFDSal4C_oErtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
