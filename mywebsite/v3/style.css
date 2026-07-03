@@ -1,0 +1,317 @@
+/* ==============================================
+   PORTFOLIO V3 — MINIMAL ELEGANT
+   Himal Pangeni | Developer + Cyber Researcher
+   ============================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..950&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+/* === ROOT THEME (LIGHT BY DEFAULT) === */
+:root {
+  --bg-color: #F8F7F4;
+  --text-primary: #1C1B1A;
+  --text-secondary: #5C5B5A;
+  --accent: #3A322C;
+  --border: rgba(28,27,26,0.1);
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --container-width: 900px;
+}
+
+/* === DARK MODE PREFERENCE === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-primary: #ECEAE6;
+    --text-secondary: #A6A4A0;
+    --accent: #E5E0DA;
+    --border: rgba(236,234,230,0.15);
+  }
+}
+
+/* === RESET === */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === PORTFOLIO SWITCHER === */
+.portfolio-switcher {
+  position: sticky; top: 0; left: 0; right: 0; z-index: 100;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 12px 20px; font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.switcher-label { color: var(--text-secondary); text-transform: uppercase; margin-right: 6px; }
+
+.switcher-btn {
+  padding: 4px 12px; border-radius: 4px; text-decoration: none;
+  border: 1px solid var(--border); color: var(--text-secondary);
+  background: transparent; transition: all 0.2s;
+}
+
+.switcher-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
+.switcher-btn.active { background: var(--text-primary); color: var(--bg-color); border-color: var(--text-primary); }
+
+/* === CONTAINERS === */
+header, main, footer {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* === HEADER / NAVIGATION === */
+header {
+  padding-top: 60px;
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: color 0.15s;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+/* === UTILITY TYPES === */
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* === HERO SECTION === */
+.hero {
+  padding-top: 80px;
+  padding-bottom: 100px;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+}
+
+.hero p {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 40px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  padding-top: 30px;
+}
+
+.meta-block span {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.meta-block p {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  margin-bottom: 0;
+}
+
+/* === SECTIONS GENERAL === */
+.section {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+}
+
+/* === ABOUT SECTION === */
+.about-content p {
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+  color: var(--text-secondary);
+}
+
+.about-content strong {
+  color: var(--text-primary);
+}
+
+/* === SKILLS SECTION === */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 10px;
+}
+
+.skill-row span:first-child {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.skill-row span:last-child {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* === PROJECTS SECTION === */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.project-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+
+.project-item:hover {
+  opacity: 0.75;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.project-meta h3 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.project-meta span {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.project-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+/* === CONTACT SECTION === */
+.contact-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-link {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-style: italic;
+  display: inline-block;
+  align-self: flex-start;
+  border-bottom: 1px solid var(--text-primary);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+
+.contact-link:hover {
+  opacity: 0.7;
+}
+
+/* === FOOTER === */
+footer {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .section-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  header {
+    padding-top: 40px;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .hero-meta {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+}

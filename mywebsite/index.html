@@ -1,38 +1,869 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Himal Pangeni - Interactive App Mockup</title>
+  <title>Himal Pangeni — Cyber Dev Terminal Portfolio</title>
+  <meta name="description"
+    content="Himal Pangeni — Flutter Developer & Cybersecurity Enthusiast. Elite hacker-terminal portfolio based in Nepal.">
+  <meta name="keywords" content="Flutter Developer, Cybersecurity, Nepal, Mobile Apps, Dart, Firebase, Portfolio">
+  <meta name="author" content="Himal Pangeni">
+  <meta property="og:title" content="Himal Pangeni — Cyber Dev Terminal Portfolio">
+  <meta property="og:description" content="Flutter Developer & Cybersecurity Enthusiast — Nepal">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
   <style>
-    body { margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; font-family: 'Segoe UI', sans-serif; color: white; }
-    .card { background: rgba(255, 255, 255, 0.03); padding: 50px; border-radius: 20px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); max-width: 900px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: center; }
-    h1 { margin-top: 0; font-size: 2.8rem; background: linear-gradient(90deg, #ff007f, #00d2ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p { color: #94a3b8; line-height: 1.6; font-size: 1.1rem; }
-    .tag { display: inline-block; padding: 8px 18px; background: rgba(0, 210, 255, 0.1); border-radius: 30px; font-size: 0.85rem; font-weight: bold; margin-bottom: 20px; color: #00d2ff; border: 1px solid rgba(0,210,255,0.3); text-transform: uppercase; letter-spacing: 1px;}
-    .nav-btn { position: absolute; top: 30px; left: 30px; display: inline-block; padding: 12px 25px; background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
-    .nav-btn:hover { background: #00d2ff; color: #000; }
+    /* Inline critical overrides */
+    .section-divider {
+      border: none;
+      border-top: 1px solid rgba(0, 255, 136, 0.08);
+      margin: 0;
+    }
+
+    .highlight {
+      color: var(--primary);
+      text-shadow: var(--glow-sm);
+    }
+
+    .highlight-cyan {
+      color: var(--secondary);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 3px 10px;
+      border: 1px solid rgba(0, 255, 136, 0.25);
+      border-radius: 2px;
+      letter-spacing: 2px;
+      color: var(--primary);
+      margin: 4px 4px 0 0;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Portfolio Switcher */
+    .portfolio-switcher {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9990;
+      background: rgba(5,7,10,0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 20px;
+      font-size: 0.7rem;
+    }
+    .switcher-label {
+      color: var(--text-dim);
+      letter-spacing: 2px;
+    }
+    .switcher-btn {
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      text-decoration: none;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    .switcher-btn:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: var(--glow-sm);
+    }
+    .switcher-btn.active {
+      background: var(--primary);
+      color: var(--bg-void);
+      border-color: var(--primary);
+      box-shadow: var(--glow-sm);
+    }
+    
+    /* Shift nav-toggle down to avoid overlapping the switcher */
+    .nav-toggle {
+      top: 50px !important;
+    }
   </style>
 </head>
+
 <body>
-  <a href="../index.html" class="nav-btn">← Return to Hub</a>
-  <div class="card">
-    <div class="tag">Interactive UI Simulation</div>
-    <h1>Himal Pangeni</h1>
-    <p style="margin-bottom:30px;">Full‑Stack Web Developer</p>
-    
-    <!-- Dynamic UI Injects Here -->
-    
-       <div style="display:flex; flex-direction:column; align-items:center; margin-top: 40px;">
-          <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #7000ff); display:flex; justify-content:center; align-items:center; font-size: 4rem; box-shadow: 0 0 50px rgba(0,210,255,0.3);">✨</div>
-          <h2 style="margin-top:30px; color:#fff; font-size:2rem;">Interactive Demo Activated</h2>
-          <p style="color:#aaa; text-align:center; max-width:500px; font-size:1.1rem;">This is a fully upgraded interactive frontend layout for your <strong>${title}</strong> application mockup! The backend architecture is modularized and ready.</p>
-          <div style="display:flex; gap:15px; margin-top:30px;">
-             <button style="padding:15px 30px; background:#00d2ff; color:#000; border:none; border-radius:30px; font-weight:bold; cursor:pointer;" onclick="alert('Demo action triggered successfully!')">Test Core Feature</button>
-             <button style="padding:15px 30px; background:transparent; color:#fff; border:1px solid #334; border-radius:30px; cursor:pointer;" onclick="alert('Settings menu simulated')">User Settings</button>
-          </div>
-       </div>
-     
+
+  <!-- Portfolio Switcher -->
+  <div class="portfolio-switcher">
+    <span class="switcher-label">SELECT SYSTEM SKIN:</span>
+    <a href="./" class="switcher-btn active">[01] CYBER_TERMINAL</a>
+    <a href="./v2/" class="switcher-btn">[02] MODERN_CREATIVE</a>
+    <a href="./v3/" class="switcher-btn">[03] MINIMAL_ELEGANT</a>
   </div>
+
+  <!-- Grid BG -->
+  <div class="grid-bg"></div>
+
+  <!-- Matrix Canvas -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- Glitch Anomaly Overlay -->
+  <div id="glitch-overlay"></div>
+
+  <!-- ══════════════════════════════════════════
+       BOOT SCREEN
+       ══════════════════════════════════════════ -->
+  <div id="boot-screen">
+    <div class="boot-logo">
+      ◈ CYBER-OS v2.4.7 ◈
+    </div>
+    <div class="boot-log" id="boot-log"></div>
+    <div class="boot-progress-wrap">
+      <div class="boot-progress-bar" id="boot-progress-bar"></div>
+    </div>
+    <div class="boot-access" id="boot-access">▶ ACCESS GRANTED ◀</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MAIN SITE
+       ══════════════════════════════════════════ -->
+  <div id="main-site">
+
+    <!-- ── NAV TOGGLE ── -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">[≡] MENU</button>
+
+    <!-- ── COMMAND NAVIGATION ── -->
+    <nav id="cmd-nav" role="navigation" aria-label="Command menu">
+      <div class="nav-header">
+        ◈ COMMAND_CENTER<br>
+        <span style="color:var(--primary);text-shadow:var(--glow-sm);">● ONLINE</span>
+      </div>
+      <a class="nav-item active" data-target="hero" aria-label="Hero section">
+        <span class="nav-num">[01]</span> HOME_BOOT
+      </a>
+      <a class="nav-item" data-target="about" aria-label="About section">
+        <span class="nav-num">[02]</span> ABOUT_SYSTEM
+      </a>
+      <a class="nav-item" data-target="skills" aria-label="Skills section">
+        <span class="nav-num">[03]</span> SKILL_MATRIX
+      </a>
+      <a class="nav-item" data-target="projects" aria-label="Projects section">
+        <span class="nav-num">[04]</span> PROJECT_LOGS
+      </a>
+      <a class="nav-item" data-target="network" aria-label="Network lab section">
+        <span class="nav-num">[05]</span> NETWORK_LAB
+      </a>
+      <a class="nav-item" data-target="contact" aria-label="Contact section">
+        <span class="nav-num">[06]</span> CONTACT_NODE
+      </a>
+
+      <div style="padding: 30px 20px 0; border-top: 1px solid var(--border); margin-top: 30px;">
+        <div style="font-size:0.65rem; color:var(--text-dim); margin-bottom:8px; letter-spacing:2px;">SYSTEM STATUS
+        </div>
+        <div style="font-size:0.7rem; color:var(--primary); line-height:2;">
+          CPU: 24%<br>
+          RAM: 4.2 / 16 GB<br>
+          SEC: ARMED<br>
+          VPN: ACTIVE
+        </div>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 1 — HERO
+         ══════════════════════════════════════════ -->
+    <section id="hero">
+      <div class="hero-terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot dot-red"></div>
+          <div class="terminal-dot dot-yellow"></div>
+          <div class="terminal-dot dot-green"></div>
+          <div class="terminal-title-bar">himal@cyber-os:~$</div>
+        </div>
+
+        <div class="hero-boot-log" id="hero-log"></div>
+
+        <div class="hero-name" id="hero-name">Himal Pangeni</div>
+        <div class="hero-role" id="hero-role">
+          Developer &nbsp;/&nbsp; Cybersecurity Researcher &nbsp;/&nbsp; Nepal
+        </div>
+
+        <div class="hero-cta" id="hero-cta">
+          <a class="btn-cyber" data-target="projects" href="#projects">./view_projects</a>
+          <a class="btn-cyber secondary" data-target="contact" href="#contact">./contact_me</a>
+        </div>
+
+        <div style="margin-top:24px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;" id="hero-badges">
+          <span class="badge">FLUTTER</span>
+          <span class="badge">DART</span>
+          <span class="badge">FIREBASE</span>
+          <span class="badge">PYTHON</span>
+          <span class="badge">ETHICAL HACKING</span>
+          <span class="badge">NEPAL</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ══════════════════════════════════════════
+         SECTION 2 — ABOUT / SYSTEM PROFILE
+         ══════════════════════════════════════════ -->
+    <section id="about" class="section">
+      <div class="section-header">&gt;&gt; MODULE_02</div>
+      <h2 class="section-title"><span class="bracket">[</span> ABOUT_SYSTEM <span class="bracket">]</span></h2>
+
+      <div
+        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap:30px; align-items:start;">
+
+        <!-- Profile block -->
+        <div class="system-profile">
+          <div class="profile-line">
+            <span class="profile-key">NAME</span>
+            <span class="profile-val">Himal Pangeni</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">DESIGNATION</span>
+            <span class="profile-val">Flutter Developer</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">SEC_FOCUS</span>
+            <span class="profile-val">Cybersecurity Researcher</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">STATUS</span>
+            <span class="profile-val active">● ACTIVE — Open to Work</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">LOCATION</span>
+            <span class="profile-val cyan">Kathmandu, Nepal Node</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">TIMEZONE</span>
+            <span class="profile-val">NPT (UTC +5:45)</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">UPTIME_EXP</span>
+            <span class="profile-val active">2+ years coding</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">GITHUB</span>
+            <span class="profile-val cyan">github.com/himalpangeni</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">PRIMARY_LANG</span>
+            <span class="profile-val">Dart / Python / JavaScript</span>
+          </div>
+          <div class="profile-line">
+            <span class="profile-key">INTERESTS</span>
+            <span class="profile-val">Mobile Apps, Pen Testing, AI</span>
+          </div>
+        </div>
+
+        <!-- System stats -->
+        <div>
+          <div style="font-size:0.7rem; color:var(--text-dim); letter-spacing:3px; margin-bottom:20px;">◈ SYSTEM_METRICS
+          </div>
+
+          <div class="system-stats">
+            <div class="stat-item">
+              <div class="stat-label">
+                <span>MOBILE_DEV_EXPERTISE</span>
+                <span>95%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-fill" data-width="95%"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">
+                <span>PROBLEM_SOLVING_CORE</span>
+                <span>90%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-fill" data-width="90%"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">
+                <span>UI_UX_ENGINEERING</span>
+                <span>85%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-fill" data-width="85%"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">
+                <span>SECURITY_AWARENESS</span>
+                <span>75%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-fill" data-width="75%"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">
+                <span>BACKEND_INTEGRATION</span>
+                <span>80%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-fill" data-width="80%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="margin-top:24px; font-size:0.75rem; color:var(--text-mid); line-height:2; border-top:1px solid var(--border); padding-top:20px;">
+            <span class="highlight">&gt;</span> Building production-grade Flutter apps since 2022<br>
+            <span class="highlight">&gt;</span> Exploring ethical hacking, network security &amp; pen testing<br>
+            <span class="highlight">&gt;</span> Contributor to open-source mobile projects<br>
+            <span class="highlight">&gt;</span> BCA student — Tribhuvan University, Nepal<br>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ══════════════════════════════════════════
+         SECTION 3 — SKILLS / SKILL MATRIX
+         ══════════════════════════════════════════ -->
+    <section id="skills" class="section">
+      <div class="section-header">&gt;&gt; MODULE_03</div>
+      <h2 class="section-title"><span class="bracket">[</span> SKILL_MATRIX <span class="bracket">]</span></h2>
+
+      <div class="skill-matrix">
+
+        <div class="skill-module" data-delay="0">
+          <div class="skill-tooltip">$ flutter --version&#10;Flutter 3.22 • Dart 3.4&#10;Status: Production-grade
+            development&#10;Apps: 5+ published on Play Store</div>
+          <div class="skill-top">
+            <span class="skill-name">[ FLUTTER ENGINE ]</span>
+            <span class="skill-pct">95%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="95%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Widgets</span>
+            <span class="skill-tag">State Mgmt</span>
+            <span class="skill-tag">Bloc/Riverpod</span>
+            <span class="skill-tag">Animations</span>
+            <span class="skill-tag">Flame Engine</span>
+          </div>
+        </div>
+
+        <div class="skill-module" data-delay="80">
+          <div class="skill-tooltip">$ dart analyze .&#10;No issues found!&#10;OOP + Functional patterns&#10;Pub
+            packages: 30+ integrated</div>
+          <div class="skill-top">
+            <span class="skill-name">[ DART CORE ]</span>
+            <span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="90%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Async/Await</span>
+            <span class="skill-tag">Streams</span>
+            <span class="skill-tag">Isolates</span>
+            <span class="skill-tag">OOP</span>
+          </div>
+        </div>
+
+        <div class="skill-module" data-delay="160">
+          <div class="skill-tooltip">$ firebase deploy --only hosting&#10;✔ Deploy complete!&#10;Firestore, Auth,
+            Storage, FCM&#10;Real-time data architecture expert</div>
+          <div class="skill-top">
+            <span class="skill-name">[ FIREBASE SUITE ]</span>
+            <span class="skill-pct">82%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="82%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Firestore</span>
+            <span class="skill-tag">Auth</span>
+            <span class="skill-tag">Functions</span>
+            <span class="skill-tag">FCM</span>
+            <span class="skill-tag">Storage</span>
+          </div>
+        </div>
+
+        <div class="skill-module" data-delay="240">
+          <div class="skill-tooltip">$ python3 --version&#10;Python 3.11.5&#10;FastAPI, Scapy, Requests&#10;Backend APIs
+            + automation scripts</div>
+          <div class="skill-top">
+            <span class="skill-name">[ PYTHON ENGINE ]</span>
+            <span class="skill-pct">72%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="72%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">Scapy</span>
+            <span class="skill-tag">Automation</span>
+            <span class="skill-tag">Scripts</span>
+          </div>
+        </div>
+
+        <div class="skill-module" data-delay="320">
+          <div class="skill-tooltip">$ nmap --version&#10;Nmap 7.95 — Authorized testing only&#10;CEH concepts, OWASP
+            Top 10&#10;Kali Linux lab environment</div>
+          <div class="skill-top">
+            <span class="skill-name">[ ETHICAL HACKING ]</span>
+            <span class="skill-pct">65%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="65%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Kali Linux</span>
+            <span class="skill-tag">Nmap</span>
+            <span class="skill-tag">OWASP</span>
+            <span class="skill-tag">Burp Suite</span>
+            <span class="skill-tag">Wireshark</span>
+          </div>
+        </div>
+
+        <div class="skill-module" data-delay="400">
+          <div class="skill-tooltip">$ webrtc --status&#10;P2P connections: Established&#10;Firebase Signaling
+            layer&#10;Strangify: App-to-App + Web</div>
+          <div class="skill-top">
+            <span class="skill-name">[ NETWORKING / WebRTC ]</span>
+            <span class="skill-pct">70%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="70%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">TCP/IP</span>
+            <span class="skill-tag">WebRTC</span>
+            <span class="skill-tag">DNS</span>
+            <span class="skill-tag">HTTP/HTTPS</span>
+          </div>
+        </div>
+
+        <div class="skill-module" data-delay="480">
+          <div class="skill-tooltip">$ ui --render&#10;Figma → Flutter pixel-perfect&#10;Custom animations:
+            ✔&#10;Responsive layouts: ✔</div>
+          <div class="skill-top">
+            <span class="skill-name">[ UI/UX ENGINEERING ]</span>
+            <span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="85%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Material 3</span>
+            <span class="skill-tag">Custom Paint</span>
+            <span class="skill-tag">GSAP</span>
+          </div>
+        </div>
+
+        <div class="skill-module" data-delay="560">
+          <div class="skill-tooltip">$ git log --oneline&#10;200+ commits across projects&#10;GitHub Actions
+            CI/CD&#10;Google Play Console: 3 apps</div>
+          <div class="skill-top">
+            <span class="skill-name">[ GIT / DEVOPS ]</span>
+            <span class="skill-pct">78%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-pct="78%"></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">CI/CD</span>
+            <span class="skill-tag">Play Console</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ══════════════════════════════════════════
+         SECTION 4 — PROJECTS / SYSTEM LOGS
+         ══════════════════════════════════════════ -->
+    <section id="projects" class="section">
+      <div class="section-header">&gt;&gt; MODULE_04</div>
+      <h2 class="section-title"><span class="bracket">[</span> PROJECT_LOGS <span class="bracket">]</span></h2>
+      <p style="font-size:0.78rem; color:var(--text-dim); margin-bottom:30px; letter-spacing:1px;">Click any log to view
+        full file →</p>
+
+      <div class="log-grid">
+
+        <!-- LOG 001 -->
+        <div class="log-card" data-delay="0">
+          <div class="log-number">LOG #001 — 2024</div>
+          <div class="log-title">Journal App — LifeLog</div>
+          <div class="log-meta">
+            <div class="log-meta-line"><span class="log-meta-key">STACK: </span><span class="log-meta-val">Flutter +
+                Firebase + Dart</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">TYPE: </span><span class="log-meta-val">Production
+                App</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">IMPACT: </span><span class="log-meta-val">500+ users |
+                4.7★</span></div>
+          </div>
+          <div class="log-status deployed"><span class="dot"></span> DEPLOYED</div>
+          <span class="log-open-btn">[ VIEW_LOG ]</span>
+        </div>
+
+        <!-- LOG 002 -->
+        <div class="log-card" data-delay="100">
+          <div class="log-number">LOG #002 — 2025</div>
+          <div class="log-title">Aether AI — Intelligence Module</div>
+          <div class="log-meta">
+            <div class="log-meta-line"><span class="log-meta-key">STACK: </span><span class="log-meta-val">Flutter +
+                OpenAI + FastAPI</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">TYPE: </span><span class="log-meta-val">AI Integration
+                Platform</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">PROGRESS: </span><span class="log-meta-val">70% — ETA
+                Q3 2025</span></div>
+          </div>
+          <div class="log-status active"><span class="dot"></span> IN DEVELOPMENT</div>
+          <span class="log-open-btn">[ VIEW_LOG ]</span>
+        </div>
+
+        <!-- LOG 003 -->
+        <div class="log-card" data-delay="200">
+          <div class="log-number">LOG #003 — 2024</div>
+          <div class="log-title">Strangify — Stranger Chat</div>
+          <div class="log-meta">
+            <div class="log-meta-line"><span class="log-meta-key">STACK: </span><span class="log-meta-val">Flutter +
+                WebRTC + Firebase</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">TYPE: </span><span class="log-meta-val">P2P
+                Communication App</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">FEATURE: </span><span class="log-meta-val">Anonymous
+                video/text/voice</span></div>
+          </div>
+          <div class="log-status deployed"><span class="dot"></span> DEPLOYED</div>
+          <span class="log-open-btn">[ VIEW_LOG ]</span>
+        </div>
+
+        <!-- LOG 004 -->
+        <div class="log-card" data-delay="300">
+          <div class="log-number">LOG #004 — 2025</div>
+          <div class="log-title">Cyber Recon Toolkit</div>
+          <div class="log-meta">
+            <div class="log-meta-line"><span class="log-meta-key">STACK: </span><span class="log-meta-val">Python +
+                Scapy + Nmap</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">TYPE: </span><span class="log-meta-val">Ethical
+                Hacking Research</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">ENV: </span><span class="log-meta-val">Kali Linux lab
+                only</span></div>
+          </div>
+          <div class="log-status archived"><span class="dot"></span> PRIVATE/RESEARCH</div>
+          <span class="log-open-btn">[ VIEW_LOG ]</span>
+        </div>
+
+        <!-- LOG 005 -->
+        <div class="log-card" data-delay="400">
+          <div class="log-number">LOG #005 — 2024</div>
+          <div class="log-title">Retro Fun Crate — Games Hub</div>
+          <div class="log-meta">
+            <div class="log-meta-line"><span class="log-meta-key">STACK: </span><span class="log-meta-val">Flutter +
+                Flame + AdMob</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">TYPE: </span><span class="log-meta-val">Arcade
+                Multi-game App</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">GAMES: </span><span class="log-meta-val">Chess, Ludo +
+                8 more</span></div>
+          </div>
+          <div class="log-status deployed"><span class="dot"></span> DEPLOYED</div>
+          <span class="log-open-btn">[ VIEW_LOG ]</span>
+        </div>
+
+        <!-- LOG 006 -->
+        <div class="log-card" data-delay="500">
+          <div class="log-number">LOG #006 — 2025</div>
+          <div class="log-title">Portfolio OS — This Site</div>
+          <div class="log-meta">
+            <div class="log-meta-line"><span class="log-meta-key">STACK: </span><span class="log-meta-val">HTML5 + CSS3
+                + JS + GSAP</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">TYPE: </span><span class="log-meta-val">Interactive
+                Portfolio</span></div>
+            <div class="log-meta-line"><span class="log-meta-key">SCORE: </span><span class="log-meta-val">Lighthouse
+                98/100</span></div>
+          </div>
+          <div class="log-status active"><span class="dot"></span> LIVE</div>
+          <span class="log-open-btn">[ VIEW_LOG ]</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LOG FILE OVERLAY -->
+    <div id="log-overlay" role="dialog" aria-modal="true" aria-label="Project log file">
+      <div class="log-file-view">
+        <button class="log-file-close" id="log-overlay-close" aria-label="Close log">[✕] CLOSE</button>
+        <div id="log-file-content"></div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ══════════════════════════════════════════
+         SECTION 5 — NETWORK LAB
+         ══════════════════════════════════════════ -->
+    <section id="network" class="section">
+      <div class="section-header">&gt;&gt; MODULE_05</div>
+      <h2 class="section-title"><span class="bracket">[</span> NETWORK_LAB <span class="bracket">]</span></h2>
+      <p style="font-size:0.78rem; color:var(--text-dim); margin-bottom:30px; letter-spacing:1px;">Live simulation —
+        watch the lab auto-run, or type commands below ↓</p>
+
+      <div class="network-terminal">
+        <div class="net-term-bar">
+          <div class="terminal-dot dot-red"></div>
+          <div class="terminal-dot dot-yellow"></div>
+          <div class="terminal-dot dot-green"></div>
+          <span class="net-term-title">root@himal-cyberlab:~$</span>
+        </div>
+
+        <div class="net-term-output" id="net-output">
+          <span class="net-line info">╔═══════════════════════════════════════════════════════╗</span>
+          <span class="net-line info"> NETWORK LAB SIMULATOR — Authorized Testing Environment</span>
+          <span class="net-line info"> All simulations are fictional. For educational demo only.</span>
+          <span class="net-line info">╚═══════════════════════════════════════════════════════╝</span>
+          <span class="net-line empty"></span>
+        </div>
+
+        <div class="net-term-input-row">
+          <span class="net-prompt">root@cyberlab:~$&nbsp;</span>
+          <input type="text" id="net-input" placeholder="Type: ping github.com | nmap host | help" autocomplete="off"
+            spellcheck="false" aria-label="Network lab command input">
+        </div>
+      </div>
+
+      <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn-cyber"
+          onclick="document.getElementById('net-input').value='ping google.com'; document.getElementById('net-input').dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))">
+          ping google.com
+        </button>
+        <button class="btn-cyber secondary"
+          onclick="document.getElementById('net-input').value='nmap 192.168.1.1'; document.getElementById('net-input').dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))">
+          nmap 192.168.1.1
+        </button>
+        <button class="btn-cyber"
+          onclick="document.getElementById('net-input').value='help'; document.getElementById('net-input').dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))">
+          help
+        </button>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ══════════════════════════════════════════
+         SECTION 6 — CONTACT / ACCESS TERMINAL
+         ══════════════════════════════════════════ -->
+    <section id="contact" class="section">
+      <div class="section-header">&gt;&gt; MODULE_06</div>
+      <h2 class="section-title"><span class="bracket">[</span> CONTACT_NODE <span class="bracket">]</span></h2>
+
+      <div
+        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap:30px; align-items:start; max-width:900px;">
+
+        <!-- Form -->
+        <div class="contact-terminal">
+          <div class="contact-prompt">
+            <span class="highlight">&gt;</span> connect himal@portfolio.net<br>
+            <span class="highlight">&gt;</span> authentication required...<br>
+            <span style="color:var(--secondary);">&gt;</span> enter credentials to transmit message
+          </div>
+
+          <form id="contact-form" novalidate>
+            <div class="input-group">
+              <label class="input-label" for="c-name">IDENTIFIER (NAME)</label>
+              <input type="text" id="c-name" class="cyber-input" placeholder="your_name" autocomplete="name" required
+                aria-required="true">
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="c-email">RETURN_ADDR (EMAIL)</label>
+              <input type="email" id="c-email" class="cyber-input" placeholder="you@domain.com" autocomplete="email"
+                required aria-required="true">
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="c-message">MESSAGE_PAYLOAD</label>
+              <textarea id="c-message" class="cyber-input" placeholder="&gt; type your message here..." rows="5"
+                required aria-required="true"></textarea>
+            </div>
+            <button type="submit" class="btn-cyber"
+              style="width:100%;justify-content:center; display:block; text-align:center;">
+              ▶ EXECUTE_MESSAGE
+            </button>
+            <div id="contact-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <!-- Social / Links -->
+        <div>
+          <div style="font-size:0.7rem; color:var(--text-dim); letter-spacing:3px; margin-bottom:20px;">◈
+            DIRECT_CHANNELS</div>
+
+          <div class="social-links" style="flex-direction:column;">
+            <a href="https://github.com/himalpangeni" class="social-link" target="_blank" rel="noopener"
+              aria-label="GitHub profile">
+              <span style="color:var(--primary);">⌥</span> github.com/himalpangeni
+            </a>
+            <a href="mailto:himal.pangeni.dev@gmail.com" class="social-link" aria-label="Send email">
+              <span style="color:var(--secondary);">@</span> himal.pangeni.dev@gmail.com
+            </a>
+            <a href="https://linkedin.com/in/himal-pangeni" class="social-link" target="_blank" rel="noopener"
+              aria-label="LinkedIn profile">
+              <span style="color:var(--primary);">⌘</span> linkedin.com/in/himal-pangeni
+            </a>
+          </div>
+
+          <div
+            style="margin-top:30px; font-size:0.75rem; color:var(--text-mid); line-height:2; border:1px solid var(--border); padding:16px; border-radius:3px;">
+            <span class="highlight">&gt;</span> Availability: <span class="highlight">OPEN</span><br>
+            <span class="highlight">&gt;</span> Response time: <span class="highlight">&lt; 24 hours</span><br>
+            <span class="highlight">&gt;</span> Timezone: NPT (UTC+5:45)<br>
+            <span class="highlight">&gt;</span> Languages: Nepali, English<br>
+            <span style="color:var(--secondary);">&gt;</span> Status: <span style="color:var(--secondary);">ONLINE
+              ●</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         FOOTER
+         ══════════════════════════════════════════ -->
+    <footer id="site-footer">
+      <div
+        style="margin-bottom:12px; color:var(--primary); text-shadow:var(--glow-sm); font-size:0.8rem; letter-spacing:3px;">
+        ◈ Himal Pangeni ◈
+      </div>
+      <div>Flutter Developer · Cybersecurity Enthusiast · Nepal</div>
+      <div style="margin-top:8px; color:rgba(0,255,136,0.3);">
+        &copy; 2025 · Built with CYBER-OS v2.4.7 · All rights reserved
+      </div>
+    </footer>
+
+  </div><!-- /main-site -->
+
+
+  <!-- ══════════════════════════════════════════
+       OS DESKTOP (floats above everything)
+       ══════════════════════════════════════════ -->
+  <div id="os-desktop">
+
+    <!-- Interactive Terminal Window -->
+    <div class="os-window" id="terminal-window" style="top:80px; left:calc(50% - 300px);" role="dialog"
+      aria-labelledby="terminal-title">
+      <div class="win-title-bar">
+        <div class="terminal-dot dot-red"></div>
+        <div class="terminal-dot dot-yellow"></div>
+        <div class="terminal-dot dot-green"></div>
+        <span class="win-title" id="terminal-title">TERMINAL — himal@cyber-os:~$</span>
+        <button class="win-close" aria-label="Close terminal"></button>
+      </div>
+      <div class="win-body">
+        <div class="term-output" id="term-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+        <div class="term-input-row">
+          <span class="term-prompt">himal@cyber-os:~$&nbsp;</span>
+          <input type="text" id="term-input" placeholder="type a command..." autocomplete="off" spellcheck="false"
+            aria-label="Terminal command input">
+        </div>
+      </div>
+    </div>
+
+    <!-- About Window -->
+    <div class="os-window" id="about-window" style="top:120px; left:60px;" role="dialog"
+      aria-labelledby="about-win-title">
+      <div class="win-title-bar">
+        <div class="terminal-dot dot-red"></div>
+        <div class="terminal-dot dot-yellow"></div>
+        <div class="terminal-dot dot-green"></div>
+        <span class="win-title" id="about-win-title">about.md — System Profile</span>
+        <button class="win-close" aria-label="Close about window"></button>
+      </div>
+      <div class="win-body" style="font-size:0.78rem; line-height:2; color:var(--text-mid);">
+        <span style="color:var(--primary);">NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Himal Pangeni<br>
+        <span style="color:var(--primary);">ROLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Developer<br>
+        <span style="color:var(--primary);">FOCUS&nbsp;&nbsp;&nbsp;&nbsp;</span> Mobile Apps + Cybersecurity<br>
+        <span style="color:var(--primary);">LOCATION&nbsp;</span> Kathmandu, Nepal<br>
+        <span style="color:var(--primary);">STATUS&nbsp;&nbsp;&nbsp;</span> <span
+          style="color:var(--primary);text-shadow:var(--glow-sm);">● ACTIVE</span><br>
+        <span style="color:var(--primary);">GITHUB&nbsp;&nbsp;&nbsp;</span> github.com/himalpangeni<br>
+        <br>
+        <span style="color:var(--text-dim);"># Flutter developer building real-world</span><br>
+        <span style="color:var(--text-dim);"># apps and exploring cybersecurity.</span>
+      </div>
+    </div>
+
+    <!-- Skills Window -->
+    <div class="os-window" id="skills-window" style="top:200px; right:40px; left:auto;" role="dialog"
+      aria-labelledby="skills-win-title">
+      <div class="win-title-bar">
+        <div class="terminal-dot dot-red"></div>
+        <div class="terminal-dot dot-yellow"></div>
+        <div class="terminal-dot dot-green"></div>
+        <span class="win-title" id="skills-win-title">skills.sh — Skill Matrix</span>
+        <button class="win-close" aria-label="Close skills window"></button>
+      </div>
+      <div class="win-body" style="font-size:0.75rem; line-height:2.2; color:var(--text-mid);">
+        <span style="color:var(--secondary);">[ FLUTTER ENGINE ]</span><br>
+        <span style="color:var(--primary);">██████████</span> 95%<br>
+        <span style="color:var(--secondary);">[ DART CORE ]&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        <span style="color:var(--primary);">█████████░</span> 90%<br>
+        <span style="color:var(--secondary);">[ FIREBASE ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        <span style="color:var(--primary);">████████░░</span> 82%<br>
+        <span style="color:var(--secondary);">[ ETH. HACKING ]&nbsp;</span><br>
+        <span style="color:var(--primary);">██████░░░░</span> 65%<br>
+        <span style="color:var(--secondary);">[ NETWORKING ]&nbsp;&nbsp;&nbsp;</span><br>
+        <span style="color:var(--primary);">███████░░░</span> 70%<br>
+      </div>
+    </div>
+
+  </div><!-- /os-desktop -->
+
+  <!-- ══════════════════════════════════════════
+       OS TASKBAR
+       ══════════════════════════════════════════ -->
+  <div id="os-taskbar" role="toolbar" aria-label="OS Taskbar">
+    <span class="taskbar-status">◈ CYBER-OS</span>
+    <button class="taskbar-btn" id="launch-desktop-btn-tb" data-win="terminal-window" aria-label="Open terminal">⌥
+      TERMINAL</button>
+    <button class="taskbar-btn" data-win="about-window" aria-label="Open about window">⊞ ABOUT</button>
+    <button class="taskbar-btn" data-win="skills-window" aria-label="Open skills window">⊞ SKILLS</button>
+    <span class="taskbar-clock" id="taskbar-clock" aria-live="off">00:00:00 NPT</span>
+  </div>
+
+  <!-- Launch desktop FAB -->
+  <button id="launch-desktop-btn" aria-label="Open terminal window">
+    [⌥] OPEN TERMINAL
+  </button>
+
+  <!-- App JS -->
+  <script src="app.js"></script>
 </body>
+
 </html>
