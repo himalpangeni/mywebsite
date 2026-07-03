@@ -102,6 +102,11 @@ header {
   color: var(--text-primary);
 }
 
+.nav-links a.active-link {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 /* === UTILITY TYPES === */
 .serif-italic {
   font-family: var(--font-serif);
@@ -314,4 +319,21 @@ footer {
     gap: 20px;
     align-items: flex-start;
   }
+}
+
+/* === REVEAL ANIMATIONS === */
+@keyframes blink-cursor {
+  0%, 100% { border-color: currentColor; }
+  50%       { border-color: transparent; }
+}
+
+.will-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.will-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
