@@ -71,15 +71,16 @@
       left: 0;
       right: 0;
       z-index: 9990;
-      background: rgba(5,7,10,0.9);
+      background: rgba(5,7,10,0.92);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       padding: 10px 20px;
       font-size: 0.7rem;
+      flex-wrap: wrap;
     }
     .switcher-label {
       color: var(--text-dim);
@@ -109,6 +110,25 @@
     /* Shift nav-toggle down to avoid overlapping the switcher */
     .nav-toggle {
       top: 50px !important;
+      transition: all 0.2s;
+    }
+
+    @media (max-width: 768px) {
+      .switcher-label { display: none; }
+      .portfolio-switcher {
+        padding: 8px 10px;
+        gap: 6px;
+      }
+      .switcher-btn {
+        font-size: 0.62rem;
+        padding: 3px 8px;
+      }
+      .nav-toggle {
+        top: 44px !important;
+        left: 10px !important;
+        padding: 6px 12px !important;
+        font-size: 0.75rem !important;
+      }
     }
   </style>
 </head>

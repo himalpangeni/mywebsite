@@ -47,6 +47,7 @@ body {
   display: flex; align-items: center; justify-content: center; gap: 12px;
   padding: 12px 20px; font-size: 0.72rem; font-weight: 500;
   letter-spacing: 0.5px;
+  flex-wrap: wrap;
 }
 
 .switcher-label { color: var(--text-secondary); text-transform: uppercase; margin-right: 6px; }
@@ -300,6 +301,10 @@ footer {
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
+  .portfolio-switcher { padding: 6px 12px; gap: 6px; }
+  .switcher-label { display: none; }
+  .switcher-btn { font-size: 0.65rem; padding: 3px 8px; }
+  
   .section-grid {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -318,6 +323,55 @@ footer {
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 580px) {
+  header {
+    align-items: center;
+    text-align: center;
+  }
+  .brand {
+    font-size: 1.1rem;
+  }
+  .nav-links {
+    justify-content: center;
+    width: 100%;
+    gap: 16px;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .hero-meta {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    width: 100%;
+  }
+  .meta-item {
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .meta-item:last-child {
+    border-bottom: none;
+  }
+  .section-title {
+    font-size: 1.4rem;
+  }
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .project-meta {
+    font-size: 0.72rem;
   }
 }
 

@@ -67,11 +67,36 @@ body {
 /* === PORTFOLIO SWITCHER === */
 .portfolio-switcher {
   position: fixed; top:0; left:0; right:0; z-index:2000;
-  background: rgba(7,8,21,0.85); backdrop-filter:blur(16px);
+  background: rgba(7,8,21,0.95); backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
   display:flex; align-items:center; justify-content:center; gap:8px;
   padding:10px 20px; font-family:var(--font2); font-size:0.72rem;
+  flex-wrap: wrap;
 }
+
+/* Mobile nav toggle drawer button */
+.nav-toggle-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2010;
+}
+.nav-toggle-btn span {
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-bright);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-toggle-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle-btn.active span:nth-child(2) { opacity: 0; }
+.nav-toggle-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .switcher-label { color:var(--text-dim); letter-spacing:1px; margin-right:8px; }
 
@@ -471,6 +496,48 @@ footer span { color:var(--primary); }
   .floater     { display:none; }
 }
 
-@media(max-width:600px){
-  .about-counters { grid-template-columns:1fr; }
+@media(max-width:768px){
+  .portfolio-switcher { padding: 6px 12px; gap: 4px; }
+  .switcher-label { display: none; }
+  .switcher-btn { font-size: 0.65rem; padding: 3px 10px; }
+  #app { padding-top: 36px; }
+  nav { top: 35px; padding: 12px 20px; }
+  
+  /* Mobile menu overlay */
+  .nav-toggle-btn { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%; bottom: 0;
+    width: 260px;
+    background: rgba(7,8,21,0.98);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid var(--border);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 1005;
+    transition: right 0.4s cubic-bezier(0.23,1,0.32,1);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links.active { right: 0; }
+  .nav-links a { font-size: 1.1rem; }
+  
+  /* Hero typography */
+  .hero-name { font-size: 2.2rem !important; line-height: 1.2; text-shadow: var(--glow-p); }
+  .hero-role { font-size: 0.85rem; line-height: 1.6; margin-top: 15px; }
+  .hero-btns { flex-direction: column; width: 100%; max-width: 320px; margin: 20px auto 0; gap: 12px; }
+  .hero-btns .btn-primary, .hero-btns .btn-outline { display: block; text-align: center; }
+  
+  /* About card sizing */
+  .about-visual { max-width: 340px; margin: 0 auto 30px; }
 }
+
+@media(max-width:520px){
+  .about-counters { grid-template-columns:1fr; gap: 20px; }
+  .stat-box { padding: 16px; }
+  .hero-stats { grid-template-columns: 1fr; width: 80%; margin: 30px auto 0; gap: 16px; }
+}
+

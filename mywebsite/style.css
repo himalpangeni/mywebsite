@@ -1200,16 +1200,38 @@ textarea.cyber-input { resize: none; min-height: 120px; }
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
-  #cmd-nav { width: 200px; }
-  .section { padding: 60px 20px; }
+  #cmd-nav { width: 200px; z-index: 10005; }
+  .section { padding: 70px 16px 60px 16px; }
   .log-grid { grid-template-columns: 1fr; }
-  #launch-desktop-btn { bottom: 60px; }
+  #launch-desktop-btn {
+    bottom: 56px;
+    right: 12px;
+    padding: 8px 14px;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+  .system-profile { padding: 20px 16px; }
+  .hero-terminal { padding: 24px 14px; }
+  .win-body { padding: 12px; }
+  .os-window { width: 94vw; }
+  
+  /* Mobile taskbar layout */
+  #os-taskbar { height: 42px; padding: 0 8px; justify-content: space-around; gap: 4px; }
+  .taskbar-btn { padding: 4px 8px; font-size: 0.65rem; }
+  .taskbar-clock { display: none; }
 }
 
-@media (max-width: 480px) {
-  .hero-terminal { padding: 24px 16px; }
-  .os-window { width: 95vw; }
+@media (max-width: 520px) {
+  .profile-line { flex-direction: column; gap: 4px; padding: 6px 0; }
+  .profile-key { min-width: auto; font-size: 0.7rem; }
+  .profile-val { font-size: 0.8rem; }
+  .skill-module { padding: 12px 14px; }
+  .skill-name, .skill-pct { font-size: 0.75rem; }
+  .hero-cta { flex-direction: column; width: 100%; gap: 10px; }
+  .btn-cyber { width: 100%; text-align: center; }
+  .contact-terminal { padding: 20px 14px; }
 }
+
 
 /* Utility */
 .glow-text  { text-shadow: var(--glow-sm); }
